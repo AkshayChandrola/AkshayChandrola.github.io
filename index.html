@@ -1,0 +1,658 @@
+<!DOCTYPE HTML>
+<!--
+	Massively by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Akshay Chandrola Portfolio</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+		<style>
+			/* ── Certificates Page ── */
+			#cert-page { display: none; }
+			#cert-page.active { display: block; }
+			#main.hidden { display: none; }
+
+			.certificates-grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+				gap: 2rem;
+				margin-top: 2rem;
+			}
+
+			.cert-card {
+				background: #fff;
+				border-radius: 8px;
+				overflow: hidden;
+				box-shadow: 0 4px 20px rgba(0,0,0,0.10);
+				transition: transform 0.25s ease, box-shadow 0.25s ease;
+				display: flex;
+				flex-direction: column;
+			}
+
+			.cert-card:hover {
+				transform: translateY(-5px);
+				box-shadow: 0 8px 30px rgba(0,0,0,0.16);
+			}
+
+			.cert-card img {
+				width: 100%;
+				height: 200px;
+				object-fit: cover;
+				object-position: top;
+				border-bottom: 1px solid #eee;
+			}
+
+			.cert-card-body {
+				padding: 1.2rem 1.4rem 1.4rem;
+				flex: 1;
+				display: flex;
+				flex-direction: column;
+				gap: 0.5rem;
+			}
+
+			.cert-card-body h3 {
+				margin: 0;
+				font-size: 1rem;
+				line-height: 1.4;
+			}
+
+			.cert-card-body h3 a {
+				color: #1e1e1e;
+				text-decoration: none;
+				border-bottom: 2px solid transparent;
+				transition: border-color 0.2s;
+			}
+
+			.cert-card-body h3 a:hover {
+				border-color: #f56a6a;
+				color: #f56a6a;
+			}
+
+			.cert-meta {
+				font-size: 0.82rem;
+				color: #888;
+				margin: 0;
+			}
+
+			.cert-verify-btn {
+				margin-top: auto;
+				display: inline-block;
+				padding: 0.45rem 1rem;
+				background: #f56a6a;
+				color: #fff !important;
+				border-radius: 4px;
+				font-size: 0.82rem;
+				font-weight: 600;
+				text-decoration: none;
+				text-align: center;
+				transition: background 0.2s;
+				align-self: flex-start;
+			}
+
+			.cert-verify-btn:hover {
+				background: #d9534f;
+				color: #fff !important;
+			}
+
+			.cert-placeholder {
+				width: 100%;
+				height: 200px;
+				background: linear-gradient(135deg, #f0f0f0 0%, #e0e0e0 100%);
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-size: 3rem;
+				color: #bbb;
+				border-bottom: 1px solid #eee;
+			}
+
+			#cert-page > .inner {
+				max-width: 1200px;
+				margin: 0 auto;
+				padding: 3rem 2rem;
+			}
+
+			#cert-page h1 {
+				font-size: 2rem;
+				margin-bottom: 0.3rem;
+			}
+
+			#cert-page .subtitle {
+				color: #888;
+				margin-bottom: 2rem;
+				font-size: 0.95rem;
+			}
+
+			.posts article p, .post.featured p {
+    			text-align: justify;
+			}
+		</style>
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper" class="fade-in">
+
+				<!-- Intro -->
+					<div id="intro">
+						<h1>Akshay Chandrola Portfolio<br />
+						</h1>
+						<p>A Simulation Engineer focused on material flow and production system optimization, with a background in Systems Engineering for Manufacturing. Experienced with Tecnomatix Plant Simulation and Python-based discrete-event simulation, supported by skills in C#, Power BI, Tableau, MySQL, and Git. Strong interest in improving intralogistics systems through data-driven analysis and modeling.
+						</p>
+						<ul class="actions">
+							<li><a href="#header" class="button icon solid solo fa-arrow-down scrolly">Continue</a></li>
+						</ul>
+					</div>
+
+				<!-- Header -->
+					<header id="header">
+						<a href="index.html" class="logo">Akshay Chandrola</a>
+					</header>
+
+				<!-- Nav -->
+					<nav id="nav">
+						<ul class="links">
+							<li id="nav-projects" class="active"><a href="#" onclick="showPage('projects'); return false;">Projects</a></li>
+							<li id="nav-certs"><a href="#" onclick="showPage('certs'); return false;">Certificates</a></li>
+						</ul>
+						<ul class="icons">
+							<li><a href="https://www.linkedin.com/in/akshay-chandrola/" class="icon brands alt fa-linkedin"><span class="label">LinkedIn</span></a></li>
+							<li><a href="https://github.com/AkshayChandrola" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
+						</ul>
+					</nav>
+
+				<!-- Main - Projects Page -->
+					<div id="main">
+						<!-- Featured Post - Master Thesis -->
+						<section class="post featured">
+							<article>
+							<header class="major">
+								<h2><a href="https://github.com/AkshayChandrola" target="_blank">Master Thesis: A Comparative Study of Python Libraries for Discrete Event Simulation</a></h2>
+								<p>This master's thesis investigates and compares five open-source Python libraries for Discrete Event Simulation (DES) - SimPy, Salabim, PyDSOL-core, Akatosh, and the HADES-Framework - as alternatives to commercial tools such as Siemens Plant Simulation. A structured case study was designed and implemented involving complex real-world scenarios, including the modelling of free-moving objects such as Automated Guided Vehicles (AGVs) and human operators. Each library was systematically evaluated against a set of pre-defined criteria covering real-time simulation capability, resource management, ease of implementation, and visualization support. The work provides a thorough comparative analysis of each library's strengths and limitations, concluding with practical recommendations for library selection based on use case requirements and an outlook on future research directions in open-source DES tooling.</p>
+							</header>
+							<a href="https://github.com/AkshayChandrola" target="_blank" class="image main"><img src="images/pic00.png" alt="" /></a>
+							<ul class="actions special">
+								<li><a href="https://github.com/AkshayChandrola" target="_blank" class="button large">View Project</a></li>
+							</ul>
+							</article>
+						</section class="post featured">
+						
+
+						<!-- Posts Grid - 12 articles (even number = perfect pairs) -->
+						<section class="posts">
+
+							<article>
+								<header>
+									<h2><a href="https://github.com/AkshayChandrola" target="_blank">Example Project: Material Flow Simulation Training</a></h2>
+								</header>
+								<a href="https://github.com/AkshayChandrola" target="_blank" class="image fit"><img src="images/pic01.png" alt="" /></a>
+								<p>As the foundational phase of a compulsory internship at Bosch Manufacturing Solutions GmbH, this training project built a solid understanding of material flow simulation using Siemens Tecnomatix Plant Simulation. The project covered core simulation objects and workflows - including conveyor systems, supermarkets (buffer zones), turntables, angular converters, manual stations, and event-driven scripting methods. Through a series of structured, step-by-step simulation tasks, practical competency was developed in building and running simulation models, setting global variables, tracking KPIs, and interpreting results - forming the essential groundwork before transitioning to live customer projects.</p>
+								<ul class="actions special">
+									<li><a href="https://github.com/AkshayChandrola" target="_blank" class="button">View Project</a></li>
+								</ul>
+							</article>
+
+							<article>
+								<header>
+									<h2><a href="https://github.com/AkshayChandrola" target="_blank">Customer Project A: Production Line Optimization</a></h2>
+								</header>
+								<a href="https://github.com/AkshayChandrola" target="_blank" class="image fit"><img src="images/pic02.png" alt="" /></a>
+								<p>Completed as part of the internship at Bosch Manufacturing Solutions GmbH, this confidential project addressed a critical bottleneck in a customer's existing production line. Using Siemens Plant Simulation, a digital model of the production line was built and multiple scenarios were developed to evaluate the strategic introduction of a supermarket (buffer zone) at various points in the line. An interactive user interface with scenario-control buttons was implemented to allow dynamic testing. Key performance indicators - including throughput, cycle time, and resource utilization - were analyzed across scenarios to deliver a data-driven recommendation for the most efficient supermarket placement and configuration.</p>
+								<ul class="actions special">
+									<li><a href="https://github.com/AkshayChandrola" target="_blank" class="button">View Project</a></li>
+								</ul>
+							</article>
+
+							<article>
+								<header>
+									<h2><a href="https://github.com/AkshayChandrola" target="_blank">Customer Project B: Dual-Product Production Line</a></h2>
+								</header>
+								<a href="https://github.com/AkshayChandrola" target="_blank" class="image fit"><img src="images/pic03.png" alt="" /></a>
+								<p>Also completed during the Bosch Manufacturing Solutions GmbH internship, this confidential project involved designing and simulating a concept production line capable of manufacturing two distinct products - each with unique assembly and testing process requirements. The work encompassed flexible production line layout design, workstation configuration, resource allocation strategy, and changeover planning. Siemens Plant Simulation was used to model the dual-product line, run production scenarios for both products, and assess cycle times, throughput, and equipment utilization - ultimately delivering a simulation-validated concept for an adaptable, high-efficiency production system.</p>
+								<ul class="actions special">
+									<li><a href="https://github.com/AkshayChandrola" target="_blank" class="button">View Project</a></li>
+								</ul>
+							</article>
+
+							<article>
+								<header>
+									<h2><a href="https://github.com/AkshayChandrola" target="_blank">Production Planning with Discrete-Event Simulation (DES) and Optimization in Tecnomatix</a></h2>
+								</header>
+								<a href="https://github.com/AkshayChandrola" target="_blank" class="image fit"><img src="images/pic04.png" alt="" /></a>
+								<p>This project involved the end-to-end implementation of a production planning and optimization workflow using Siemens Tecnomatix Plant Simulation. Starting from real production data, an initial material flow simulation model was constructed to replicate the existing manufacturing system. A Genetic Algorithm (GA) assistant was then applied to minimize two competing objectives - makespan and total tardiness. The project further explored the sensitivity of the optimization by experimentally tuning parameters and adjusting the weighting of the objective function, providing deeper insight into the trade-offs between production speed and schedule adherence.</p>
+								<ul class="actions special">
+									<li><a href="https://github.com/AkshayChandrola" target="_blank" class="button">View Project</a></li>
+								</ul>
+							</article>
+
+							<article>
+								<header>
+									<h2><a href="https://github.com/AkshayChandrola" target="_blank">Automatic Material Handling System (MHS) Design and Reliability</a></h2>
+								</header>
+								<a href="https://github.com/AkshayChandrola" target="_blank" class="image fit"><img src="images/pic05.png" alt="" /></a>
+								<p>In this project, a fully automated Material Handling System (MHS) was designed from the ground up for a complex industrial facility. The system architecture integrated multiple conveyor belts, diverters, accumulators, and angular converters, all coordinated through a network of sensors and actuators to ensure precise, uninterrupted material flow. Component selection was driven by throughput requirements, system reliability targets, and layout constraints. The project also incorporated a reliability analysis of the overall system, evaluating failure modes and assessing the impact of component downtime on overall system performance.</p>
+								<ul class="actions special">
+									<li><a href="https://github.com/AkshayChandrola" target="_blank" class="button">View Project</a></li>
+								</ul>
+							</article>
+
+							<article>
+								<header>
+									<h2><a href="https://github.com/AkshayChandrola" target="_blank">The Fresh Connection Juice Company Business Simulation</a></h2>
+								</header>
+								<a href="https://github.com/AkshayChandrola" target="_blank" class="image fit"><img src="images/pic06.png" alt="" /></a>
+								<p>In this cross-functional business simulation, the role of Supply Chain Manager was taken on for The Fresh Connection - a juice manufacturing company facing declining profitability. Responsibilities included monitoring and interpreting supply chain KPIs, managing inventory levels across both inbound and outbound warehouses, and aligning procurement and logistics decisions with sales and operations planning. Through close interdepartmental coordination and iterative decision-making across multiple simulation rounds, the team successfully reversed a negative return on investment, improving ROI from -4.0% to +4.95%.</p>
+								<ul class="actions special">
+									<li><a href="https://github.com/AkshayChandrola" target="_blank" class="button">View Project</a></li>
+								</ul>
+							</article>
+
+							<article>
+								<header>
+									<h2><a href="https://github.com/AkshayChandrola" target="_blank">E-Commerce Shipping Prediction</a></h2>
+								</header>
+								<a href="https://github.com/AkshayChandrola" target="_blank" class="image fit"><img src="images/pic07.png" alt="" /></a>
+								<p>This project focused on improving delivery performance for an international electronics e-commerce company. A Python-based algorithm was developed to calculate on-time delivery rates across different shipment modes, providing operational insight into logistics performance. Building on this analysis, an Artificial Neural Network (ANN) was implemented using PyTorch to predict whether an individual order would be delivered on time or not. The model was trained, validated, and evaluated on historical shipment data, demonstrating the potential of machine learning to proactively flag at-risk deliveries and support smarter logistics decision-making.</p>
+								<ul class="actions special">
+									<li><a href="https://github.com/AkshayChandrola" target="_blank" class="button">View Project</a></li>
+								</ul>
+							</article>
+
+							<article>
+								<header>
+									<h2><a href="https://github.com/AkshayChandrola" target="_blank">A Structured Literature Review on Supply Chain Mapping</a></h2>
+								</header>
+								<a href="https://github.com/AkshayChandrola" target="_blank" class="image fit"><img src="images/pic08.avif" alt="" /></a>
+								<p>This structured literature review examined the growing importance of supply chain mapping in an era of increasing global disruption - accelerated by the vulnerabilities exposed during the COVID-19 pandemic. The review systematically identified and evaluated methods for uncovering supply chain risks, catalogued existing visualization techniques used to represent complex supplier networks, and assessed available software tools that support supply chain mapping efforts. The project concluded with a critical analysis of current gaps in the literature and practical recommendations for organizations seeking to build more transparent and resilient supply chains.</p>
+								<ul class="actions special">
+									<li><a href="https://github.com/AkshayChandrola" target="_blank" class="button">View Project</a></li>
+								</ul>
+							</article>
+
+							<article>
+								<header>
+									<h2><a href="https://github.com/AkshayChandrola" target="_blank">Data Professional Survey - Power BI Dashboard</a></h2>
+								</header>
+								<a href="https://github.com/AkshayChandrola" target="_blank" class="image fit"><img src="images/pic09.png" alt="" /></a>
+								<p>This project involved cleaning, transforming, and visualizing a real-world survey dataset collected from data professionals across various industries and roles. The raw survey data was first processed in Power BI's Power Query Editor - handling inconsistencies, restructuring salary range responses, and standardizing categorical fields such as job title and country. The cleaned dataset was then used to build an interactive dashboard that surfaced key insights including favourite programming languages by role, average salary across job titles, self-reported work-life balance and job satisfaction scores, and the perceived difficulty of breaking into the data field. The final dashboard provides a comprehensive snapshot of the current data profession landscape.</p>
+								<ul class="actions special">
+									<li><a href="https://github.com/AkshayChandrola" target="_blank" class="button">View Project</a></li>
+								</ul>
+							</article>
+
+							<article>
+								<header>
+									<h2><a href="https://github.com/AkshayChandrola" target="_blank">Data Cleaning in SQL</a></h2>
+								</header>
+								<a href="https://github.com/AkshayChandrola" target="_blank" class="image fit"><img src="images/pic10.jpg" alt="" /></a>
+								<p>This project demonstrates a structured approach to data cleaning and preparation using SQL Server. Working with a raw real estate housing dataset, a series of SQL transformation techniques were applied to improve data quality and usability - including standardizing date formats, populating missing property address values, splitting combined address fields into individual columns, replacing abbreviated categorical values with descriptive labels, removing duplicate records, and dropping redundant columns. The result is a clean, well-structured dataset ready for downstream analysis or reporting.</p>
+								<ul class="actions special">
+									<li><a href="https://github.com/AkshayChandrola" target="_blank" class="button">View Project</a></li>
+								</ul>
+							</article>
+
+							<article>
+								<header>
+									<h2><a href="https://github.com/AkshayChandrola" target="_blank">COVID-19 Data Exploration in SQL</a></h2>
+								</header>
+								<a href="https://github.com/AkshayChandrola" target="_blank" class="image fit"><img src="images/pic11.png" alt="" /></a>
+								<p>This project uses SQL Server to conduct an exploratory analysis of a global COVID-19 dataset covering cases, deaths, and vaccination records across countries and continents. Key analytical techniques included joins, CTEs, temporary tables, window functions, and aggregate functions to surface meaningful insights - such as infection rates relative to population, death percentages by country, continental mortality comparisons, and the rolling progress of global vaccination campaigns. The queries are structured to support further visualization and dashboard development.</p>
+								<ul class="actions special">
+									<li><a href="https://github.com/AkshayChandrola" target="_blank" class="button">View Project</a></li>
+								</ul>
+							</article>
+
+							<article>
+								<header>
+									<h2><a href="https://github.com/AkshayChandrola" target="_blank">Tableau Dashboard - AirBnB Market Analysis</a></h2>
+								</header>
+								<a href="https://github.com/AkshayChandrola" target="_blank" class="image fit"><img src="images/pic12.png" alt="" /></a>
+								<p>This project involved designing and building an interactive Tableau dashboard to analyze AirBnB listing data and help users make informed decisions - whether as hosts setting competitive prices or as guests evaluating value across neighborhoods. The dashboard visualizes key metrics including average price by location and property type, revenue trends over time, occupancy patterns, and the relationship between the number of bedrooms and listing price. Filters and interactive elements allow users to explore the data dynamically and extract insights relevant to their specific needs.</p>
+								<ul class="actions special">
+									<li><a href="https://github.com/AkshayChandrola" target="_blank" class="button">View Project</a></li>
+								</ul>
+							</article>
+
+						</section>
+					</div><!-- end #main -->
+
+				<!-- Certificates Page -->
+				<div id="cert-page">
+				<div class="inner">
+					<h1>Certificates</h1>
+					<p class="subtitle">Click on a certificate name or the verify button to view the official credential.</p>
+
+					<div class="certificates-grid">
+
+						<!-- 1. Foundational C# with Microsoft - Apr 13, 2026 -->
+						<div class="cert-card">
+							<img src="images/certificate1.png" alt="Foundational C# with Microsoft"
+								onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+							<div class="cert-placeholder" style="display:none;">🎓</div>
+							<div class="cert-card-body">
+								<h3><a href="https://freecodecamp.org/certification/akshaychandrola/foundational-c-sharp-with-microsoft" target="_blank">Foundational C# with Microsoft</a></h3>
+								<p class="cert-meta">Microsoft &nbsp;·&nbsp; freeCodeCamp &nbsp;·&nbsp; April 2026</p>
+								<a href="https://freecodecamp.org/certification/akshaychandrola/foundational-c-sharp-with-microsoft" target="_blank" class="cert-verify-btn">Verify Certificate ↗</a>
+							</div>
+						</div>
+
+						<!-- 2. Learning C# - Feb 22, 2026 -->
+						<div class="cert-card">
+							<img src="images/certificate2.png" alt="Learning C#"
+								onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+							<div class="cert-placeholder" style="display:none;">🎓</div>
+							<div class="cert-card-body">
+								<h3><a href="https://www.linkedin.com/learning/certificates/9e39b57d2d6c37048767a28efe7a776ceb87c10af59e354726d00fd56aba056c" target="_blank">Learning C#</a></h3>
+								<p class="cert-meta">LinkedIn Learning &nbsp;·&nbsp; February 2026</p>
+								<a href="https://www.linkedin.com/learning/certificates/9e39b57d2d6c37048767a28efe7a776ceb87c10af59e354726d00fd56aba056c" target="_blank" class="cert-verify-btn">Verify Certificate ↗</a>
+							</div>
+						</div>
+
+						<!-- 3. Visual Studio Essential Training - Feb 20, 2026 -->
+						<div class="cert-card">
+							<img src="images/certificate3.png" alt="Visual Studio Essential Training"
+								onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+							<div class="cert-placeholder" style="display:none;">🎓</div>
+							<div class="cert-card-body">
+								<h3><a href="https://www.linkedin.com/learning/certificates/332a44bb183dab6a136e0670a7744f3a95be476ac8e6f5ceaa2e0ea9d747eedb" target="_blank">Visual Studio Essential Training</a></h3>
+								<p class="cert-meta">LinkedIn Learning &nbsp;·&nbsp; February 2026</p>
+								<a href="https://www.linkedin.com/learning/certificates/332a44bb183dab6a136e0670a7744f3a95be476ac8e6f5ceaa2e0ea9d747eedb" target="_blank" class="cert-verify-btn">Verify Certificate ↗</a>
+							</div>
+						</div>
+
+						<!-- 4. Six Sigma: Green Belt - Jan 14, 2026 -->
+						<div class="cert-card">
+							<img src="images/certificate4.png" alt="Six Sigma: Green Belt"
+								onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+							<div class="cert-placeholder" style="display:none;">🎓</div>
+							<div class="cert-card-body">
+								<h3><a href="https://www.linkedin.com/learning/certificates/7012f44281d26980439b9da04e3c192404a9a3f6c84b182f17679bc32130270b" target="_blank">Six Sigma: Green Belt</a></h3>
+								<p class="cert-meta">LinkedIn Learning &nbsp;·&nbsp; January 2026</p>
+								<a href="https://www.linkedin.com/learning/certificates/7012f44281d26980439b9da04e3c192404a9a3f6c84b182f17679bc32130270b" target="_blank" class="cert-verify-btn">Verify Certificate ↗</a>
+							</div>
+						</div>
+
+						<!-- 5. Learning Minitab - Jan 13, 2026 -->
+						<div class="cert-card">
+							<img src="images/certificate5.png" alt="Learning Minitab"
+								onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+							<div class="cert-placeholder" style="display:none;">🎓</div>
+							<div class="cert-card-body">
+								<h3><a href="https://www.linkedin.com/learning/certificates/c32de35fd9ff093405c4fe321785dbec5cf95a5568be0461150aa7bcfc020534?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_certifications_details%3BcZxuamHyQ4CZQ02yBEMxJA%3D%3D" target="_blank">Learning Minitab</a></h3>
+								<p class="cert-meta">LinkedIn Learning &nbsp;·&nbsp; January 2026</p>
+								<a href="https://www.linkedin.com/learning/certificates/c32de35fd9ff093405c4fe321785dbec5cf95a5568be0461150aa7bcfc020534?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_certifications_details%3BcZxuamHyQ4CZQ02yBEMxJA%3D%3D" target="_blank" class="cert-verify-btn">Verify Certificate ↗</a>
+							</div>
+						</div>
+
+						<!-- 6. Statistics Foundations 4: Advanced Topics - Jan 10, 2026 -->
+						<div class="cert-card">
+							<img src="images/certificate6.png" alt="Statistics Foundations 4: Advanced Topics"
+								onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+							<div class="cert-placeholder" style="display:none;">🎓</div>
+							<div class="cert-card-body">
+								<h3><a href="https://www.linkedin.com/learning/certificates/48608fd5e350be49ebaf2937c2270c74aa3c28c1828555f511254411cc075184?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_certifications_details%3BcZxuamHyQ4CZQ02yBEMxJA%3D%3D" target="_blank">Statistics Foundations 4: Advanced Topics</a></h3>
+								<p class="cert-meta">LinkedIn Learning &nbsp;·&nbsp; January 2026</p>
+								<a href="https://www.linkedin.com/learning/certificates/48608fd5e350be49ebaf2937c2270c74aa3c28c1828555f511254411cc075184?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_certifications_details%3BcZxuamHyQ4CZQ02yBEMxJA%3D%3D" target="_blank" class="cert-verify-btn">Verify Certificate ↗</a>
+							</div>
+						</div>
+
+						<!-- 7. Statistics Foundations 3: Using Data Sets - Jan 03, 2026 -->
+						<div class="cert-card">
+							<img src="images/certificate7.png" alt="Statistics Foundations 3: Using Data Sets"
+								onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+							<div class="cert-placeholder" style="display:none;">🎓</div>
+							<div class="cert-card-body">
+								<h3><a href="https://www.linkedin.com/learning/certificates/0fda391e569c062bd4c3956ae4429d371f9e28e7ea814bf0cee4e4bb75dcba7b?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_certifications_details%3BcZxuamHyQ4CZQ02yBEMxJA%3D%3D" target="_blank">Statistics Foundations 3: Using Data Sets</a></h3>
+								<p class="cert-meta">LinkedIn Learning &nbsp;·&nbsp; January 2026</p>
+								<a href="https://www.linkedin.com/learning/certificates/0fda391e569c062bd4c3956ae4429d371f9e28e7ea814bf0cee4e4bb75dcba7b?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_certifications_details%3BcZxuamHyQ4CZQ02yBEMxJA%3D%3D" target="_blank" class="cert-verify-btn">Verify Certificate ↗</a>
+							</div>
+						</div>
+
+						<!-- 8. Operational Excellence Work-Out and Kaizen Facilitator - Jan 01, 2026 -->
+						<div class="cert-card">
+							<img src="images/certificate8.png" alt="Operational Excellence Work-Out and Kaizen Facilitator"
+								onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+							<div class="cert-placeholder" style="display:none;">🎓</div>
+							<div class="cert-card-body">
+								<h3><a href="https://www.linkedin.com/learning/certificates/c4426050795bec44eff421b87cf0fc02e536dbe8cc64cfd45e2c71a4ebb96c17?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_certifications_details%3BVIJWFR%2BBTWSUYn8Citt9Hw%3D%3D" target="_blank">Operational Excellence Work-Out and Kaizen Facilitator</a></h3>
+								<p class="cert-meta">LinkedIn Learning &nbsp;·&nbsp; January 2026</p>
+								<a href="https://www.linkedin.com/learning/certificates/c4426050795bec44eff421b87cf0fc02e536dbe8cc64cfd45e2c71a4ebb96c17?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_certifications_details%3BVIJWFR%2BBTWSUYn8Citt9Hw%3D%3D" target="_blank" class="cert-verify-btn">Verify Certificate ↗</a>
+							</div>
+						</div>
+
+						<!-- 9. Lean Six Sigma: Analyze, Improve, and Control Tools - Dec 07, 2025 -->
+						<div class="cert-card">
+							<img src="images/certificate9.png" alt="Lean Six Sigma: Analyze, Improve, and Control Tools"
+								onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+							<div class="cert-placeholder" style="display:none;">🎓</div>
+							<div class="cert-card-body">
+								<h3><a href="https://www.linkedin.com/learning/certificates/06cbda929efe681e6afa956fc6b39bf8e0b2f6c2a073114c3025437b0f8d1c88?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_certifications_details%3BVIJWFR%2BBTWSUYn8Citt9Hw%3D%3D" target="_blank">Lean Six Sigma: Analyze, Improve, and Control Tools</a></h3>
+								<p class="cert-meta">LinkedIn Learning &nbsp;·&nbsp; December 2025</p>
+								<a href="https://www.linkedin.com/learning/certificates/06cbda929efe681e6afa956fc6b39bf8e0b2f6c2a073114c3025437b0f8d1c88?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_certifications_details%3BVIJWFR%2BBTWSUYn8Citt9Hw%3D%3D" target="_blank" class="cert-verify-btn">Verify Certificate ↗</a>
+							</div>
+						</div>
+
+						<!-- 10. Lean Six Sigma: Define and Measure Tools - Nov 06, 2025 -->
+						<div class="cert-card">
+							<img src="images/certificate10.png" alt="Lean Six Sigma: Define and Measure Tools"
+								onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+							<div class="cert-placeholder" style="display:none;">🎓</div>
+							<div class="cert-card-body">
+								<h3><a href="https://www.linkedin.com/learning/certificates/5a2ab41b4f0dbbdac6e513e3ffb3d151e1855da514620e690b2f5598a2df2377?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_certifications_details%3B1ASZmT9RSRCd4SXv9GAQtA%3D%3D" target="_blank">Lean Six Sigma: Define and Measure Tools</a></h3>
+								<p class="cert-meta">LinkedIn Learning &nbsp;·&nbsp; November 2025</p>
+								<a href="https://www.linkedin.com/learning/certificates/5a2ab41b4f0dbbdac6e513e3ffb3d151e1855da514620e690b2f5598a2df2377?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_certifications_details%3B1ASZmT9RSRCd4SXv9GAQtA%3D%3D" target="_blank" class="cert-verify-btn">Verify Certificate ↗</a>
+							</div>
+						</div>
+
+						<!-- 11. Statistics Foundations 1: The Basics - Apr 22, 2025 -->
+						<div class="cert-card">
+							<img src="images/certificate11.png" alt="Statistics Foundations 1: The Basics"
+								onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+							<div class="cert-placeholder" style="display:none;">🎓</div>
+							<div class="cert-card-body">
+								<h3><a href="https://www.linkedin.com/learning/certificates/c09b883e7d9a1dd25781467125098aa048a7c6b731024f4e0bb2ec9c011e48a3?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_certifications_details%3B1ASZmT9RSRCd4SXv9GAQtA%3D%3D" target="_blank">Statistics Foundations 1: The Basics</a></h3>
+								<p class="cert-meta">LinkedIn Learning &nbsp;·&nbsp; April 2025</p>
+								<a href="https://www.linkedin.com/learning/certificates/c09b883e7d9a1dd25781467125098aa048a7c6b731024f4e0bb2ec9c011e48a3?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_certifications_details%3B1ASZmT9RSRCd4SXv9GAQtA%3D%3D" target="_blank" class="cert-verify-btn">Verify Certificate ↗</a>
+							</div>
+						</div>
+						<!-- 14. Six Sigma Foundations - March 2025 -->
+						<div class="cert-card">
+							<img src="images/certificate14.png" alt="Six Sigma Foundations"
+								onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+							<div class="cert-placeholder" style="display:none;">🎓</div>
+							<div class="cert-card-body">
+								<h3><a href="https://www.linkedin.com/learning/certificates/c1574b38842c5d9cdc56e6b426880d813309819ae0b4a04d46484b8e669f6a3e?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_certifications_details%3BreHCiMA1Soa8SrLmg29ydA%3D%3D" target="_blank">Six Sigma Foundations</a></h3>
+								<p class="cert-meta">LinkedIn Learning &nbsp;·&nbsp; March 2025</p>
+								<a href="https://www.linkedin.com/learning/certificates/c1574b38842c5d9cdc56e6b426880d813309819ae0b4a04d46484b8e669f6a3e?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_certifications_details%3BreHCiMA1Soa8SrLmg29ydA%3D%3D" target="_blank" class="cert-verify-btn">Verify Certificate ↗</a>
+							</div>
+						</div>
+						
+						<!-- 20. Agile Foundations - March 2025 -->
+						<div class="cert-card">
+							<img src="images/certificate20.png" alt="Agile Foundations"
+								onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+							<div class="cert-placeholder" style="display:none;">🎓</div>
+							<div class="cert-card-body">
+								<h3><a href="https://www.linkedin.com/learning/certificates/15bf4edc0f0fb931e496fdce54208f1701dc6ae88ad2a432696665c3870ca7e3?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_certifications_details%3BreHCiMA1Soa8SrLmg29ydA%3D%3D" target="_blank">Agile Foundations</a></h3>
+								<p class="cert-meta">LinkedIn Learning &nbsp;·&nbsp; March 2025</p>
+								<a href="https://www.linkedin.com/learning/certificates/15bf4edc0f0fb931e496fdce54208f1701dc6ae88ad2a432696665c3870ca7e3?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_certifications_details%3BreHCiMA1Soa8SrLmg29ydA%3D%3D" target="_blank" class="cert-verify-btn">Verify Certificate ↗</a>
+							</div>
+						</div>
+						
+						<!-- 19. Scrum: The Basics - March 2025 -->
+						<div class="cert-card">
+							<img src="images/certificate19.png" alt="Scrum: The Basics"
+								onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+							<div class="cert-placeholder" style="display:none;">🎓</div>
+							<div class="cert-card-body">
+								<h3><a href="https://www.linkedin.com/learning/certificates/1b82cd468522272d8d692ff2d55c8865e0be7562b5d01827e3a54bf2204ce0ea?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_certifications_details%3BreHCiMA1Soa8SrLmg29ydA%3D%3D" target="_blank">Scrum: The Basics</a></h3>
+								<p class="cert-meta">LinkedIn Learning &nbsp;·&nbsp; March 2025</p>
+								<a href="https://www.linkedin.com/learning/certificates/1b82cd468522272d8d692ff2d55c8865e0be7562b5d01827e3a54bf2204ce0ea?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_certifications_details%3BreHCiMA1Soa8SrLmg29ydA%3D%3D" target="_blank" class="cert-verify-btn">Verify Certificate ↗</a>
+							</div>
+						</div>
+						
+						<!-- 12. Introduction to Data Science - Mar 21, 2025 -->
+						<div class="cert-card">
+							<img src="images/certificate12.png" alt="Introduction to Data Science"
+								onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+							<div class="cert-placeholder" style="display:none;">🎓</div>
+							<div class="cert-card-body">
+								<h3><a href="https://www.linkedin.com/learning/certificates/9ea7683199a2b019cc6fa8170d64c503d236b69baa5348d7d6168c96a9d17805?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_certifications_details%3B1ASZmT9RSRCd4SXv9GAQtA%3D%3D" target="_blank">Introduction to Data Science</a></h3>
+								<p class="cert-meta">LinkedIn Learning &nbsp;·&nbsp; March 2025</p>
+								<a href="https://www.linkedin.com/learning/certificates/9ea7683199a2b019cc6fa8170d64c503d236b69baa5348d7d6168c96a9d17805?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_certifications_details%3B1ASZmT9RSRCd4SXv9GAQtA%3D%3D" target="_blank" class="cert-verify-btn">Verify Certificate ↗</a>
+							</div>
+						</div>
+
+						<!-- 13. Operational Excellence Foundations - Feb 03, 2025 -->
+						<div class="cert-card">
+							<img src="images/certificate13.png" alt="Operational Excellence Foundations"
+								onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+							<div class="cert-placeholder" style="display:none;">🎓</div>
+							<div class="cert-card-body">
+								<h3><a href="https://www.linkedin.com/learning/certificates/67de9724c71da0551542d05a308ba7a392dc05bbaabc3e3d0d79eb774f6740e3?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_certifications_details%3B1ASZmT9RSRCd4SXv9GAQtA%3D%3D" target="_blank">Operational Excellence Foundations</a></h3>
+								<p class="cert-meta">LinkedIn Learning &nbsp;·&nbsp; February 2025</p>
+								<a href="https://www.linkedin.com/learning/certificates/67de9724c71da0551542d05a308ba7a392dc05bbaabc3e3d0d79eb774f6740e3?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_certifications_details%3B1ASZmT9RSRCd4SXv9GAQtA%3D%3D" target="_blank" class="cert-verify-btn">Verify Certificate ↗</a>
+							</div>
+						</div>
+
+						
+
+						<!-- 15. Learning AutoCAD 2024 - Aug 11, 2024 -->
+						<div class="cert-card">
+							<img src="images/certificate15.png" alt="Learning AutoCAD 2024"
+								onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+							<div class="cert-placeholder" style="display:none;">🎓</div>
+							<div class="cert-card-body">
+								<h3><a href="https://www.linkedin.com/learning/certificates/80b135f07391ab6ea5c87c5cea34bbedf68ad108660b1112dce5cdcf1255ffe4" target="_blank">Learning AutoCAD 2024</a></h3>
+								<p class="cert-meta">LinkedIn Learning &nbsp;·&nbsp; August 2024</p>
+								<a href="https://www.linkedin.com/learning/certificates/80b135f07391ab6ea5c87c5cea34bbedf68ad108660b1112dce5cdcf1255ffe4" target="_blank" class="cert-verify-btn">Verify Certificate ↗</a>
+							</div>
+						</div>
+
+						<!-- 16. Crash Course on Python - Jan 08, 2024 -->
+						<div class="cert-card">
+							<img src="images/certificate16.png" alt="Crash Course on Python"
+								onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+							<div class="cert-placeholder" style="display:none;">🎓</div>
+							<div class="cert-card-body">
+								<h3><a href="https://coursera.org/verify/NPAFH953CVR3" target="_blank">Crash Course on Python</a></h3>
+								<p class="cert-meta">Google &nbsp;·&nbsp; Coursera &nbsp;·&nbsp; January 2024</p>
+								<a href="https://coursera.org/verify/NPAFH953CVR3" target="_blank" class="cert-verify-btn">Verify Certificate ↗</a>
+							</div>
+						</div>
+
+						<!-- 17. Introduction to Model-Based Systems Engineering - Sep 26, 2023 -->
+						<div class="cert-card">
+							<img src="images/certificate17.png" alt="Introduction to Model-Based Systems Engineering"
+								onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+							<div class="cert-placeholder" style="display:none;">🎓</div>
+							<div class="cert-card-body">
+								<h3><a href="https://coursera.org/verify/L7BNZQGDLMHW" target="_blank">Introduction to Model-Based Systems Engineering</a></h3>
+								<p class="cert-meta">Siemens &nbsp;·&nbsp; Coursera &nbsp;·&nbsp; September 2023</p>
+								<a href="https://coursera.org/verify/L7BNZQGDLMHW" target="_blank" class="cert-verify-btn">Verify Certificate ↗</a>
+							</div>
+						</div>
+
+						<!-- 18. SAP Professional Fundamentals - Sep 17, 2023 -->
+						<div class="cert-card">
+							<img src="images/certificate18.png" alt="SAP Professional Fundamentals"
+								onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+							<div class="cert-placeholder" style="display:none;">🎓</div>
+							<div class="cert-card-body">
+								<h3><a href="https://coursera.org/verify/9ZXM5UJL78H7" target="_blank">SAP Professional Fundamentals</a></h3>
+								<p class="cert-meta">SAP &nbsp;·&nbsp; Coursera &nbsp;·&nbsp; September 2023</p>
+								<a href="https://coursera.org/verify/9ZXM5UJL78H7" target="_blank" class="cert-verify-btn">Verify Certificate ↗</a>
+							</div>
+						</div>
+
+					</div><!-- end .certificates-grid -->
+				
+							<!-- Placeholder cards - replace with real certificates as you collect them -->
+							<!-- Example structure for future certificates:
+							<div class="cert-card">
+								<img src="images/cert_XXXX.jpg" alt="Certificate Name" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+								<div class="cert-placeholder" style="display:none;">🎓</div>
+								<div class="cert-card-body">
+									<h3><a href="VERIFY_LINK_HERE" target="_blank">Certificate Name</a></h3>
+									<p class="cert-meta">Issuer &nbsp;·&nbsp; Platform &nbsp;·&nbsp; Month Year</p>
+									<a href="VERIFY_LINK_HERE" target="_blank" class="cert-verify-btn">Verify Certificate ↗</a>
+								</div>
+							</div>
+							-->
+
+						</div>
+					</div>
+				</div><!-- end #cert-page -->
+
+				<!-- Footer -->
+					<footer id="footer">
+						<section class="split contact">
+							<section class="alt">
+								<h3>Address</h3>
+								<p>Magdeburg, Germany<br />
+								</p>
+							</section>
+							<section>
+								<h3>Phone</h3>
+								<p><a href="#">(+49) 176 470 69444</a></p>
+							</section>
+							<section>
+								<h3>Email</h3>
+								<p><a href="#">akshay.chandrola@gmail.com</a></p>
+							</section>
+							<section>
+								<h3>Social</h3>
+								<ul class="icons alt">
+									<li><a href="https://www.linkedin.com/in/akshay-chandrola/" class="icon brands alt fa-linkedin"><span class="label">LinkedIn</span></a></li>
+									<li><a href="https://github.com/AkshayChandrola" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
+								</ul>
+							</section>
+						</section>
+					</footer>
+
+				<!-- Copyright -->
+					<div id="copyright">
+						<ul><li>&copy; Akshay Chandrola</li><li>Design: <a href="https://html5up.net">HTML5 UP</a></li></ul>
+					</div>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+			<script>
+				function showPage(page) {
+					const main      = document.getElementById('main');
+					const certPage  = document.getElementById('cert-page');
+					const navProj   = document.getElementById('nav-projects');
+					const navCerts  = document.getElementById('nav-certs');
+
+					if (page === 'projects') {
+						main.classList.remove('hidden');
+						certPage.classList.remove('active');
+						navProj.classList.add('active');
+						navCerts.classList.remove('active');
+					} else {
+						main.classList.add('hidden');
+						certPage.classList.add('active');
+						navProj.classList.remove('active');
+						navCerts.classList.add('active');
+						// Scroll to top of cert section
+						window.scrollTo({ top: 0, behavior: 'smooth' });
+					}
+				}
+			</script>
+
+	</body>
+</html>
