@@ -1,662 +1,2091 @@
 <!DOCTYPE HTML>
-<!--
-	Massively by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
-<html>
-	<head>
-		<title>Akshay Chandrola Portfolio</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="./assets/css/main.css">
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-		.icon:before {
-			font-family: "Font Awesome 5 Brands" !important;
-		}
-		<style>
-			/* ── Certificates Page ── */
-			#cert-page { display: none; }
-			#cert-page.active { display: block; }
-			#main.hidden { display: none; }
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <title>Akshay Chandrola — Simulation Engineer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;600;700;800&family=IBM+Plex+Mono:wght@300;400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* ─────────────────────────────────────────────
+       CSS VARIABLES — INTRALOGISTICS DARK THEME
+    ───────────────────────────────────────────── */
+    :root {
+      --bg:          #0a0c0f;
+      --bg2:         #0f1217;
+      --bg3:         #151a22;
+      --panel:       #1a2030;
+      --border:      #2a3445;
+      --border2:     #3a4a60;
+      --amber:       #f59e0b;
+      --amber2:      #fbbf24;
+      --amber-dim:   #92600a;
+      --cyan:        #22d3ee;
+      --cyan-dim:    #0e5c6b;
+      --text:        #e2e8f0;
+      --text2:       #94a3b8;
+      --text3:       #64748b;
+      --green:       #10b981;
+      --red:         #ef4444;
+      --heading-font:'Exo 2', sans-serif;
+      --mono:        'IBM Plex Mono', monospace;
+      --body-font:   'IBM Plex Sans', sans-serif;
+      --radius:      6px;
+      --glow-amber:  0 0 20px rgba(245,158,11,0.3);
+      --glow-cyan:   0 0 20px rgba(34,211,238,0.3);
+    }
 
-			.certificates-grid {
-				display: grid;
-				grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-				gap: 2rem;
-				margin-top: 2rem;
-			}
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
-			.cert-card {
-				background: #fff;
-				border-radius: 8px;
-				overflow: hidden;
-				box-shadow: 0 4px 20px rgba(0,0,0,0.10);
-				transition: transform 0.25s ease, box-shadow 0.25s ease;
-				display: flex;
-				flex-direction: column;
-			}
+    html { scroll-behavior: smooth; }
 
-			.cert-card:hover {
-				transform: translateY(-5px);
-				box-shadow: 0 8px 30px rgba(0,0,0,0.16);
-			}
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--body-font);
+      font-size: 15px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
 
-			.cert-card img {
-				width: 100%;
-				height: 200px;
-				object-fit: cover;
-				object-position: top;
-				border-bottom: 1px solid #eee;
-			}
+    /* ─── SCROLLBAR ─── */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--bg2); }
+    ::-webkit-scrollbar-thumb { background: var(--amber-dim); border-radius: 3px; }
 
-			.cert-card-body {
-				padding: 1.2rem 1.4rem 1.4rem;
-				flex: 1;
-				display: flex;
-				flex-direction: column;
-				gap: 0.5rem;
-			}
+    /* ─────────────────────────────────────────────
+       FACTORY GRID BACKGROUND
+    ───────────────────────────────────────────── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(245,158,11,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(245,158,11,0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
+    }
 
-			.cert-card-body h3 {
-				margin: 0;
-				font-size: 1rem;
-				line-height: 1.4;
-			}
+    /* ─────────────────────────────────────────────
+       CONVEYOR BELT HEADER ANIMATION
+    ───────────────────────────────────────────── */
+    .conveyor-bar {
+      width: 100%;
+      height: 3px;
+      background: repeating-linear-gradient(
+        90deg,
+        var(--amber) 0px, var(--amber) 20px,
+        transparent 20px, transparent 30px
+      );
+      background-size: 300% 100%;
+      animation: conveyorMove 60s linear infinite;
+      position: relative;
+      z-index: 10;
+    }
+    @keyframes conveyorMove {
+      from { background-position: 0% 0%; }
+      to   { background-position: -100% 0%; }
+    }
 
-			.cert-card-body h3 a {
-				color: #1e1e1e;
-				text-decoration: none;
-				border-bottom: 2px solid transparent;
-				transition: border-color 0.2s;
-			}
+    /* ─────────────────────────────────────────────
+       INTRO / HERO
+    ───────────────────────────────────────────── */
+    #intro {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 4rem 2rem;
+      position: relative;
+      z-index: 1;
+    }
 
-			.cert-card-body h3 a:hover {
-				border-color: #f56a6a;
-				color: #f56a6a;
-			}
+    #intro::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(245,158,11,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
 
-			.cert-meta {
-				font-size: 0.82rem;
-				color: #888;
-				margin: 0;
-			}
+    .intro-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid var(--amber-dim);
+      color: var(--amber);
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      padding: 5px 14px;
+      border-radius: 2px;
+      margin-bottom: 2rem;
+      background: rgba(245,158,11,0.06);
+      animation: fadeUp 0.6s ease both;
+    }
+    .intro-badge::before {
+      content: '';
+      width: 7px; height: 7px;
+      background: var(--amber);
+      border-radius: 50%;
+      animation: pulse 2s ease infinite;
+    }
+    @keyframes pulse {
+      0%,100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.7); }
+    }
 
-			.cert-verify-btn {
-				margin-top: auto;
-				display: inline-block;
-				padding: 0.45rem 1rem;
-				background: #f56a6a;
-				color: #fff !important;
-				border-radius: 4px;
-				font-size: 0.82rem;
-				font-weight: 600;
-				text-decoration: none;
-				text-align: center;
-				transition: background 0.2s;
-				align-self: flex-start;
-			}
+    #intro h1 {
+      font-family: var(--heading-font);
+      font-size: clamp(2.8rem, 7vw, 5.5rem);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.2rem;
+      animation: fadeUp 0.7s 0.1s ease both;
+    }
+    #intro h1 span {
+      color: var(--amber);
+    }
 
-			.cert-verify-btn:hover {
-				background: #d9534f;
-				color: #fff !important;
-			}
+    .tagline-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+      animation: fadeUp 0.7s 0.2s ease both;
+    }
+    .tagline-chip {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      color: var(--cyan);
+      background: rgba(34,211,238,0.07);
+      border: 1px solid rgba(34,211,238,0.2);
+      padding: 4px 12px;
+      border-radius: 2px;
+      letter-spacing: 0.05em;
+    }
 
-			.cert-placeholder {
-				width: 100%;
-				height: 200px;
-				background: linear-gradient(135deg, #f0f0f0 0%, #e0e0e0 100%);
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				font-size: 3rem;
-				color: #bbb;
-				border-bottom: 1px solid #eee;
-			}
+    #intro p {
+      max-width: 640px;
+      color: var(--text2);
+      font-size: 1rem;
+      margin-bottom: 2.5rem;
+      animation: fadeUp 0.7s 0.3s ease both;
+    }
 
-			#cert-page > .inner {
-				max-width: 1200px;
-				margin: 0 auto;
-				padding: 3rem 2rem;
-			}
+    .hero-cta {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      animation: fadeUp 0.7s 0.4s ease both;
+    }
 
-			#cert-page h1 {
-				font-size: 2rem;
-				margin-bottom: 0.3rem;
-			}
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--amber);
+      color: #000;
+      font-family: var(--heading-font);
+      font-weight: 700;
+      font-size: 0.88rem;
+      letter-spacing: 0.08em;
+      padding: 12px 28px;
+      border-radius: var(--radius);
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-transform: uppercase;
+    }
+    .btn-primary:hover {
+      background: var(--amber2);
+      box-shadow: var(--glow-amber);
+      transform: translateY(-2px);
+    }
 
-			#cert-page .subtitle {
-				color: #888;
-				margin-bottom: 2rem;
-				font-size: 0.95rem;
-			}
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      color: var(--text);
+      font-family: var(--heading-font);
+      font-weight: 600;
+      font-size: 0.88rem;
+      letter-spacing: 0.08em;
+      padding: 12px 28px;
+      border-radius: var(--radius);
+      text-decoration: none;
+      border: 1px solid var(--border2);
+      cursor: pointer;
+      transition: all 0.2s;
+      text-transform: uppercase;
+    }
+    .btn-outline:hover {
+      border-color: var(--amber);
+      color: var(--amber);
+      background: rgba(245,158,11,0.05);
+    }
 
-			.posts article p, .post.featured p {
-    			text-align: justify;
-			}
-		</style>
-	</head>
-	<body class="is-preload">
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
 
-		<!-- Wrapper -->
-			<div id="wrapper" class="fade-in">
+    /* ─────────────────────────────────────────────
+       NAVBAR
+    ───────────────────────────────────────────── */
+    #navbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(10,12,15,0.9);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
 
-				<!-- Intro -->
-					<div id="intro">
-						<h1>Akshay Chandrola Portfolio<br />
-						</h1>
-						<p>A Simulation Engineer focused on material flow and production system optimization, with a background in Systems Engineering for Manufacturing. Experienced with Tecnomatix Plant Simulation and Python-based discrete-event simulation, supported by skills in C#, Power BI, Tableau, MySQL, and Git. Strong interest in improving intralogistics systems through data-driven analysis and modeling.
-						</p>
-						<ul class="actions">
-							<li><a href="#header" class="button icon solid solo fa-arrow-down scrolly">Continue</a></li>
-						</ul>
-					</div>
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 58px;
+    }
 
-				<!-- Header -->
-					<header id="header">
-						<a href="index.html" class="logo">Akshay Chandrola</a>
-					</header>
+    .nav-logo {
+      font-family: var(--heading-font);
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: var(--amber);
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .nav-logo .logo-icon {
+      width: 28px; height: 28px;
+      background: var(--amber);
+      border-radius: 4px;
+      display: flex; align-items: center; justify-content: center;
+      color: #000;
+      font-size: 0.8rem;
+      font-weight: 800;
+    }
 
-				<!-- Nav -->
-					<nav id="nav">
-						<ul class="links">
-							<li id="nav-projects" class="active"><a href="#" onclick="showPage('projects'); return false;">Projects</a></li>
-							<li id="nav-certs"><a href="#" onclick="showPage('certs'); return false;">Certificates</a></li>
-						</ul>
-						<ul class="icons">
-							<li><a href="https://www.linkedin.com/in/akshay-chandrola/" class="icon brands alt fa-linkedin"><span class="label">LinkedIn</span></a></li>
-							<li><a href="https://github.com/AkshayChandrola" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
-						</ul>
-					</nav>
+    .nav-tabs {
+      display: flex;
+      gap: 4px;
+      list-style: none;
+    }
 
-				<!-- Main - Projects Page -->
-					<div id="main">
-						<!-- Featured Post - Master Thesis -->
-						<section class="post featured">
-							<article>
-							<header class="major">
-								<h2><a href="https://github.com/AkshayChandrola" target="_blank">Master Thesis: A Comparative Study of Python Libraries for Discrete Event Simulation</a></h2>
-								<p>This master's thesis investigates and compares five open-source Python libraries for Discrete Event Simulation (DES) - SimPy, Salabim, PyDSOL-core, Akatosh, and the HADES-Framework - as alternatives to commercial tools such as Siemens Plant Simulation. A structured case study was designed and implemented involving complex real-world scenarios, including the modelling of free-moving objects such as Automated Guided Vehicles (AGVs) and human operators. Each library was systematically evaluated against a set of pre-defined criteria covering real-time simulation capability, resource management, ease of implementation, and visualization support. The work provides a thorough comparative analysis of each library's strengths and limitations, concluding with practical recommendations for library selection based on use case requirements and an outlook on future research directions in open-source DES tooling.</p>
-							</header>
-							<a href="https://github.com/AkshayChandrola" target="_blank" class="image main"><img src="images/pic00.png" alt="" /></a>
-							<ul class="actions special">
-								<li><a href="https://github.com/AkshayChandrola" target="_blank" class="button large">View Project</a></li>
-							</ul>
-							</article>
-						</section class="post featured">
-						
+    .nav-tab {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      color: var(--text3);
+      padding: 8px 16px;
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: all 0.2s;
+      border: 1px solid transparent;
+      text-transform: uppercase;
+      user-select: none;
+    }
+    .nav-tab:hover { color: var(--text2); background: var(--bg3); }
+    .nav-tab.active {
+      color: var(--amber);
+      border-color: var(--amber-dim);
+      background: rgba(245,158,11,0.08);
+    }
 
-						<!-- Posts Grid - 12 articles (even number = perfect pairs) -->
-						<section class="posts">
+    .nav-socials {
+      display: flex;
+      gap: 10px;
+    }
+    .nav-social-btn {
+      width: 34px; height: 34px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--text3);
+      text-decoration: none;
+      transition: all 0.2s;
+      font-size: 0.85rem;
+    }
+    .nav-social-btn:hover {
+      border-color: var(--amber);
+      color: var(--amber);
+      background: rgba(245,158,11,0.07);
+    }
 
-							<article>
-								<header>
-									<h2><a href="https://github.com/AkshayChandrola/AkshayChandrola.github.io/tree/main/Projects/Bosch%20Manufacturing%20Solution%20internship" target="_blank">Example Project: Material Flow Simulation Training</a></h2>
-								</header>
-								<a href="https://github.com/AkshayChandrola" target="_blank" class="image fit"><img src="images/pic01.png" alt="" /></a>
-								<p>As the foundational phase of a compulsory internship at Bosch Manufacturing Solutions GmbH, this training project built a solid understanding of material flow simulation using Siemens Tecnomatix Plant Simulation. The project covered core simulation objects and workflows - including conveyor systems, supermarkets (buffer zones), turntables, angular converters, manual stations, and event-driven scripting methods. Through a series of structured, step-by-step simulation tasks, practical competency was developed in building and running simulation models, setting global variables, tracking KPIs, and interpreting results - forming the essential groundwork before transitioning to live customer projects.</p>
-								<ul class="actions special">
-									<li><a href="https://github.com/AkshayChandrola/AkshayChandrola.github.io/tree/main/Projects/Bosch%20Manufacturing%20Solution%20internship" target="_blank" class="button">View Project</a></li>
-								</ul>
-							</article>
+    /* ─────────────────────────────────────────────
+       PAGES CONTAINER
+    ───────────────────────────────────────────── */
+    .page { display: none; }
+    .page.active { display: block; }
 
-							<article>
-								<header>
-									<h2><a href="https://github.com/AkshayChandrola/AkshayChandrola.github.io/tree/main/Projects/Bosch%20Manufacturing%20Solution%20internship" target="_blank">Customer Project A: Production Line Optimization</a></h2>
-								</header>
-								<a href="https://github.com/AkshayChandrola" target="_blank" class="image fit"><img src="images/pic02.png" alt="" /></a>
-								<p>Completed as part of the internship at Bosch Manufacturing Solutions GmbH, this confidential project addressed a critical bottleneck in a customer's existing production line. Using Siemens Plant Simulation, a digital model of the production line was built and multiple scenarios were developed to evaluate the strategic introduction of a supermarket (buffer zone) at various points in the line. An interactive user interface with scenario-control buttons was implemented to allow dynamic testing. Key performance indicators - including throughput, cycle time, and resource utilization - were analyzed across scenarios to deliver a data-driven recommendation for the most efficient supermarket placement and configuration.</p>
-								<ul class="actions special">
-									<li><a href="https://github.com/AkshayChandrola/AkshayChandrola.github.io/tree/main/Projects/Bosch%20Manufacturing%20Solution%20internship" target="_blank" class="button">View Project</a></li>
-								</ul>
-							</article>
+    .page-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 3rem 2rem 5rem;
+      position: relative;
+      z-index: 1;
+    }
 
-							<article>
-								<header>
-									<h2><a href="https://github.com/AkshayChandrola/AkshayChandrola.github.io/tree/main/Projects/Bosch%20Manufacturing%20Solution%20internship" target="_blank">Customer Project B: Dual-Product Production Line</a></h2>
-								</header>
-								<a href="https://github.com/AkshayChandrola" target="_blank" class="image fit"><img src="images/pic03.png" alt="" /></a>
-								<p>Also completed during the Bosch Manufacturing Solutions GmbH internship, this confidential project involved designing and simulating a concept production line capable of manufacturing two distinct products - each with unique assembly and testing process requirements. The work encompassed flexible production line layout design, workstation configuration, resource allocation strategy, and changeover planning. Siemens Plant Simulation was used to model the dual-product line, run production scenarios for both products, and assess cycle times, throughput, and equipment utilization - ultimately delivering a simulation-validated concept for an adaptable, high-efficiency production system.</p>
-								<ul class="actions special">
-									<li><a href="https://github.com/AkshayChandrola/AkshayChandrola.github.io/tree/main/Projects/Bosch%20Manufacturing%20Solution%20internship" target="_blank" class="button">View Project</a></li>
-								</ul>
-							</article>
+    /* ─────────────────────────────────────────────
+       SECTION HEADERS
+    ───────────────────────────────────────────── */
+    .section-header {
+      margin-bottom: 2.5rem;
+    }
+    .section-label {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      color: var(--amber);
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 0.5rem;
+    }
+    .section-label::after {
+      content: '';
+      flex: 1;
+      max-width: 60px;
+      height: 1px;
+      background: var(--amber-dim);
+    }
+    .section-title {
+      font-family: var(--heading-font);
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.02em;
+    }
 
-							<article>
-								<header>
-									<h2><a href="https://github.com/AkshayChandrola/AkshayChandrola.github.io/tree/main/Projects/Production%20Planning%20with%20Discrete-Event%20Simulation%20(DES)%20and%20Optimization%20in%20Tecnomatix" target="_blank">Production Planning with Discrete-Event Simulation (DES) and Optimization in Tecnomatix</a></h2>
-								</header>
-								<a href="https://github.com/AkshayChandrola" target="_blank" class="image fit"><img src="images/pic04.png" alt="" /></a>
-								<p>This project involved the end-to-end implementation of a production planning and optimization workflow using Siemens Tecnomatix Plant Simulation. Starting from real production data, an initial material flow simulation model was constructed to replicate the existing manufacturing system. A Genetic Algorithm (GA) assistant was then applied to minimize two competing objectives - makespan and total tardiness. The project further explored the sensitivity of the optimization by experimentally tuning parameters and adjusting the weighting of the objective function, providing deeper insight into the trade-offs between production speed and schedule adherence.</p>
-								<ul class="actions special">
-									<li><a href="https://github.com/AkshayChandrola/AkshayChandrola.github.io/tree/main/Projects/Production%20Planning%20with%20Discrete-Event%20Simulation%20(DES)%20and%20Optimization%20in%20Tecnomatix" target="_blank" class="button">View Project</a></li>
-								</ul>
-							</article>
+    /* ─────────────────────────────────────────────
+       PROJECTS PAGE
+    ───────────────────────────────────────────── */
+    .featured-project {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 2rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      transition: border-color 0.3s, box-shadow 0.3s;
+      position: relative;
+    }
+    .featured-project::before {
+      content: 'FEATURED';
+      position: absolute;
+      top: 16px; right: 16px;
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      color: var(--amber);
+      background: rgba(245,158,11,0.12);
+      border: 1px solid var(--amber-dim);
+      padding: 3px 10px;
+      border-radius: 2px;
+      z-index: 2;
+    }
+    .featured-project:hover {
+      border-color: var(--amber-dim);
+      box-shadow: var(--glow-amber);
+    }
+    .featured-project-img {
+      background: var(--bg3);
+      min-height: 280px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .featured-project-img img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      opacity: 0.7;
+    }
+    .featured-project-body {
+      padding: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .project-tag {
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--cyan);
+      background: rgba(34,211,238,0.08);
+      border: 1px solid rgba(34,211,238,0.2);
+      padding: 3px 10px;
+      border-radius: 2px;
+      letter-spacing: 0.08em;
+      margin-bottom: 1rem;
+      width: fit-content;
+    }
+    .featured-project-body h2 {
+      font-family: var(--heading-font);
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.35;
+      margin-bottom: 1rem;
+    }
+    .featured-project-body h2 a {
+      color: inherit;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .featured-project-body h2 a:hover { color: var(--amber); }
+    .featured-project-body p {
+      color: var(--text2);
+      font-size: 0.9rem;
+      line-height: 1.65;
+      margin-bottom: 1.5rem;
+      text-align: justify;
+    }
 
-							<article>
-								<header>
-									<h2><a href="https://github.com/AkshayChandrola/AkshayChandrola.github.io/tree/main/Projects/Material_Handling_System" target="_blank">Automatic Material Handling System (MHS) Design and Reliability</a></h2>
-								</header>
-								<a href="https://github.com/AkshayChandrola" target="_blank" class="image fit"><img src="images/pic05.png" alt="" /></a>
-								<p>In this project, a fully automated Material Handling System (MHS) was designed from the ground up for a complex industrial facility. The system architecture integrated multiple conveyor belts, diverters, accumulators, and angular converters, all coordinated through a network of sensors and actuators to ensure precise, uninterrupted material flow. Component selection was driven by throughput requirements, system reliability targets, and layout constraints. The project also incorporated a reliability analysis of the overall system, evaluating failure modes and assessing the impact of component downtime on overall system performance.</p>
-								<ul class="actions special">
-									<li><a href="https://github.com/AkshayChandrola/AkshayChandrola.github.io/tree/main/Projects/Material_Handling_System" target="_blank" class="button">View Project</a></li>
-								</ul>
-							</article>
+    /* Projects Grid */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 1.2rem;
+    }
 
-							<article>
-								<header>
-									<h2><!--a href="https://github.com/AkshayChandrola" target="_blank"-->The Fresh Connection Juice Company Business Simulation</a></h2>
-								</header>
-								<a href="https://github.com/AkshayChandrola" target="_blank" class="image fit"><img src="images/pic06.png" alt="" /></a>
-								<p>In this cross-functional business simulation, the role of Supply Chain Manager was taken on for The Fresh Connection - a juice manufacturing company facing declining profitability. Responsibilities included monitoring and interpreting supply chain KPIs, managing inventory levels across both inbound and outbound warehouses, and aligning procurement and logistics decisions with sales and operations planning. Through close interdepartmental coordination and iterative decision-making across multiple simulation rounds, the team successfully reversed a negative return on investment, improving ROI from -4.0% to +4.95%.</p>
-								<!--<ul class="actions special">
-									<li><a href="https://github.com/AkshayChandrola" target="_blank" class="button">View Project</a></li>
-								</ul> -->
-							</article>
+    .project-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+      cursor: pointer;
+    }
+    .project-card:hover {
+      border-color: var(--border2);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+      transform: translateY(-3px);
+    }
+    .project-card-img {
+      height: 180px;
+      background: var(--bg3);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .project-card-img img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      opacity: 0.6;
+      transition: opacity 0.3s;
+    }
+    .project-card:hover .project-card-img img { opacity: 0.8; }
+    .project-card-body {
+      padding: 1.4rem;
+    }
+    .project-card-body h3 {
+      font-family: var(--heading-font);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.35;
+      margin-bottom: 0.6rem;
+    }
+    .project-card-body h3 a {
+      color: inherit; text-decoration: none; transition: color 0.2s;
+    }
+    .project-card-body h3 a:hover { color: var(--amber); }
+    .project-card-body p {
+      color: var(--text2);
+      font-size: 0.85rem;
+      line-height: 1.6;
+      text-align: justify;
+      display: -webkit-box;
+      -webkit-line-clamp: 4;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      margin-bottom: 1rem;
+    }
+    .project-link-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      color: var(--amber);
+      text-decoration: none;
+      border: 1px solid var(--amber-dim);
+      padding: 5px 14px;
+      border-radius: 3px;
+      transition: all 0.2s;
+      text-transform: uppercase;
+    }
+    .project-link-btn:hover {
+      background: rgba(245,158,11,0.1);
+      box-shadow: var(--glow-amber);
+    }
 
-							<article>
-								<header>
-									<h2><!--a href="https://github.com/AkshayChandrola" target="_blank"-->E-Commerce Shipping Prediction</a></h2>
-								</header>
-								<a href="https://github.com/AkshayChandrola" target="_blank" class="image fit"><img src="images/pic07.png" alt="" /></a>
-								<p>This project focused on improving delivery performance for an international electronics e-commerce company. A Python-based algorithm was developed to calculate on-time delivery rates across different shipment modes, providing operational insight into logistics performance. Building on this analysis, an Artificial Neural Network (ANN) was implemented using PyTorch to predict whether an individual order would be delivered on time or not. The model was trained, validated, and evaluated on historical shipment data, demonstrating the potential of machine learning to proactively flag at-risk deliveries and support smarter logistics decision-making.</p>
-								<!--<ul class="actions special">
-									<li><a href="https://github.com/AkshayChandrola" target="_blank" class="button">View Project</a></li>
-								</ul> -->
-							</article>
+    /* ─────────────────────────────────────────────
+       CERTIFICATES PAGE
+    ───────────────────────────────────────────── */
+    .certs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.2rem;
+    }
 
-							<article>
-								<header>
-									<h2><!--a href="https://github.com/AkshayChandrola" target="_blank"-->A Structured Literature Review on Supply Chain Mapping</a></h2>
-								</header>
-								<a href="https://github.com/AkshayChandrola" target="_blank" class="image fit"><img src="images/pic08.avif" alt="" /></a>
-								<p>This structured literature review examined the growing importance of supply chain mapping in an era of increasing global disruption - accelerated by the vulnerabilities exposed during the COVID-19 pandemic. The review systematically identified and evaluated methods for uncovering supply chain risks, catalogued existing visualization techniques used to represent complex supplier networks, and assessed available software tools that support supply chain mapping efforts. The project concluded with a critical analysis of current gaps in the literature and practical recommendations for organizations seeking to build more transparent and resilient supply chains.</p>
-								<!--<ul class="actions special">
-									<li><a href="https://github.com/AkshayChandrola" target="_blank" class="button">View Project</a></li>
-								</ul> -->
-							</article>
+    .cert-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      transition: all 0.3s;
+      display: flex;
+      flex-direction: column;
+    }
+    .cert-card:hover {
+      border-color: var(--border2);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+    }
+    .cert-card-img {
+      height: 160px;
+      background: var(--bg3);
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+    .cert-card-img img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: top;
+      opacity: 0.75;
+      transition: opacity 0.3s;
+    }
+    .cert-card:hover .cert-card-img img { opacity: 0.9; }
+    .cert-placeholder-icon {
+      font-size: 2.5rem;
+      color: var(--border2);
+    }
+    .cert-card-body {
+      padding: 1.2rem 1.4rem 1.4rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+    .cert-card-body h3 {
+      font-family: var(--heading-font);
+      font-size: 0.95rem;
+      font-weight: 600;
+      line-height: 1.35;
+    }
+    .cert-card-body h3 a {
+      color: var(--text); text-decoration: none; transition: color 0.2s;
+    }
+    .cert-card-body h3 a:hover { color: var(--amber); }
+    .cert-meta {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--text3);
+      letter-spacing: 0.03em;
+    }
+    .cert-verify-btn {
+      margin-top: auto;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      background: rgba(245,158,11,0.1);
+      color: var(--amber) !important;
+      border: 1px solid var(--amber-dim);
+      border-radius: 3px;
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-decoration: none;
+      text-transform: uppercase;
+      align-self: flex-start;
+      transition: all 0.2s;
+      margin-top: 0.8rem;
+    }
+    .cert-verify-btn:hover {
+      background: rgba(245,158,11,0.2);
+      box-shadow: var(--glow-amber);
+    }
 
-							<article>
-								<header>
-									<h2><a href="https://github.com/AkshayChandrola/AkshayChandrola.github.io/tree/main/Projects/Power%20BI" target="_blank">Data Professional Survey - Power BI Dashboard</a></h2>
-								</header>
-								<a href="https://github.com/AkshayChandrola" target="_blank" class="image fit"><img src="images/pic09.png" alt="" /></a>
-								<p>This project involved cleaning, transforming, and visualizing a real-world survey dataset collected from data professionals across various industries and roles. The raw survey data was first processed in Power BI's Power Query Editor - handling inconsistencies, restructuring salary range responses, and standardizing categorical fields such as job title and country. The cleaned dataset was then used to build an interactive dashboard that surfaced key insights including favourite programming languages by role, average salary across job titles, self-reported work-life balance and job satisfaction scores, and the perceived difficulty of breaking into the data field. The final dashboard provides a comprehensive snapshot of the current data profession landscape.</p>
-								<ul class="actions special">
-									<li><a href="https://github.com/AkshayChandrola/AkshayChandrola.github.io/tree/main/Projects/Power%20BI" target="_blank" class="button">View Project</a></li>
-								</ul>
-							</article>
+    /* ─────────────────────────────────────────────
+       ABOUT ME PAGE
+    ───────────────────────────────────────────── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      gap: 2rem;
+      align-items: start;
+    }
 
-							<article>
-								<header>
-									<h2><a href="https://github.com/AkshayChandrola/AkshayChandrola.github.io/tree/main/Projects/My_sql" target="_blank">Data Cleaning in SQL</a></h2>
-								</header>
-								<a href="https://github.com/AkshayChandrola" target="_blank" class="image fit"><img src="images/pic10.jpg" alt="" /></a>
-								<p>This project demonstrates a structured approach to data cleaning and preparation using SQL Server. Working with a raw real estate housing dataset, a series of SQL transformation techniques were applied to improve data quality and usability - including standardizing date formats, populating missing property address values, splitting combined address fields into individual columns, replacing abbreviated categorical values with descriptive labels, removing duplicate records, and dropping redundant columns. The result is a clean, well-structured dataset ready for downstream analysis or reporting.</p>
-								<ul class="actions special">
-									<li><a href="https://github.com/AkshayChandrola/AkshayChandrola.github.io/tree/main/Projects/My_sql" target="_blank" class="button">View Project</a></li>
-								</ul>
-							</article>
+    /* Profile sidebar */
+    .about-sidebar {
+      position: sticky;
+      top: 80px;
+    }
 
-							<article>
-								<header>
-									<h2><a href="https://github.com/AkshayChandrola/AkshayChandrola.github.io/tree/main/Projects/SQL" target="_blank">COVID-19 Data Exploration in SQL</a></h2>
-								</header>
-								<a href="https://github.com/AkshayChandrola" target="_blank" class="image fit"><img src="images/pic11.png" alt="" /></a>
-								<p>This project uses SQL Server to conduct an exploratory analysis of a global COVID-19 dataset covering cases, deaths, and vaccination records across countries and continents. Key analytical techniques included joins, CTEs, temporary tables, window functions, and aggregate functions to surface meaningful insights - such as infection rates relative to population, death percentages by country, continental mortality comparisons, and the rolling progress of global vaccination campaigns. The queries are structured to support further visualization and dashboard development.</p>
-								<ul class="actions special">
-									<li><a href="https://github.com/AkshayChandrola/AkshayChandrola.github.io/tree/main/Projects/SQL" target="_blank" class="button">View Project</a></li>
-								</ul>
-							</article>
+    .profile-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 1.2rem;
+    }
 
-							<article>
-								<header>
-									<h2><a href="https://public.tableau.com/app/profile/akshay.chandrola/viz/Airbnb_Dashboard_17769497932630/Dashboard1?publish=yes)" target="_blank">Tableau Dashboard - AirBnB Market Analysis</a></h2>
-								</header>
-								<a href="https://github.com/AkshayChandrola" target="_blank" class="image fit"><img src="images/pic12.png" alt="" /></a>
-								<p>This project involved designing and building an interactive Tableau dashboard to analyze AirBnB listing data and help users make informed decisions - whether as hosts setting competitive prices or as guests evaluating value across neighborhoods. The dashboard visualizes key metrics including average price by location and property type, revenue trends over time, occupancy patterns, and the relationship between the number of bedrooms and listing price. Filters and interactive elements allow users to explore the data dynamically and extract insights relevant to their specific needs.</p>
-								<ul class="actions special">
-									<li><a href="https://public.tableau.com/app/profile/akshay.chandrola/viz/Airbnb_Dashboard_17769497932630/Dashboard1?publish=yes)" target="_blank" class="button">View Project</a></li>
-								</ul>
-							</article>
+    .profile-card-top {
+      background: var(--bg3);
+      padding: 2rem 1.5rem 1.5rem;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+    }
+    .profile-card-top::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 0%, rgba(245,158,11,0.1) 0%, transparent 70%);
+    }
 
-						</section>
-					</div><!-- end #main -->
+    .profile-avatar {
+      width: 90px; height: 90px;
+      border-radius: 50%;
+      background: var(--bg);
+      border: 3px solid var(--amber-dim);
+      margin: 0 auto 1rem;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--heading-font);
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--amber);
+      position: relative;
+      z-index: 1;
+      overflow: hidden;
+    }
+    .profile-avatar::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      box-shadow: inset 0 0 0 2px rgba(245,158,11,0.3);
+      animation: rotateBorder 8s linear infinite;
+    }
+    @keyframes rotateBorder {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
 
-				<!-- Certificates Page -->
-				<div id="cert-page">
-				<div class="inner">
-					<h1>Certificates</h1>
-					<p class="subtitle">Click on a certificate name or the verify button to view the official credential.</p>
+    .profile-name {
+      font-family: var(--heading-font);
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 0.3rem;
+      position: relative; z-index: 1;
+    }
+    .profile-title {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--amber);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      position: relative; z-index: 1;
+    }
 
-					<div class="certificates-grid">
+    .profile-card-info {
+      padding: 1.2rem 1.5rem;
+    }
 
-						<!-- 1. Foundational C# with Microsoft - Apr 13, 2026 -->
-						<div class="cert-card">
-							<img src="images/certificate1.png" alt="Foundational C# with Microsoft"
-								onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
-							<div class="cert-placeholder" style="display:none;">🎓</div>
-							<div class="cert-card-body">
-								<h3><a href="https://freecodecamp.org/certification/akshaychandrola/foundational-c-sharp-with-microsoft" target="_blank">Foundational C# with Microsoft</a></h3>
-								<p class="cert-meta">Microsoft &nbsp;·&nbsp; freeCodeCamp &nbsp;·&nbsp; April 2026</p>
-								<a href="https://freecodecamp.org/certification/akshaychandrola/foundational-c-sharp-with-microsoft" target="_blank" class="cert-verify-btn">Verify Certificate ↗</a>
-							</div>
-						</div>
+    .info-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 0.55rem 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.85rem;
+    }
+    .info-row:last-child { border-bottom: none; }
+    .info-icon {
+      color: var(--amber);
+      font-size: 0.9rem;
+      width: 18px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .info-row a {
+      color: var(--text2);
+      text-decoration: none;
+      transition: color 0.2s;
+      font-size: 0.82rem;
+      word-break: break-all;
+    }
+    .info-row a:hover { color: var(--amber); }
+    .info-label {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      color: var(--text3);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 1px;
+    }
+    .info-val {
+      color: var(--text2);
+      font-size: 0.83rem;
+    }
 
-						<!-- 2. Learning C# - Feb 22, 2026 -->
-						<div class="cert-card">
-							<img src="images/certificate2.png" alt="Learning C#"
-								onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
-							<div class="cert-placeholder" style="display:none;">🎓</div>
-							<div class="cert-card-body">
-								<h3><a href="https://www.linkedin.com/learning/certificates/9e39b57d2d6c37048767a28efe7a776ceb87c10af59e354726d00fd56aba056c" target="_blank">Learning C#</a></h3>
-								<p class="cert-meta">LinkedIn Learning &nbsp;·&nbsp; February 2026</p>
-								<a href="https://www.linkedin.com/learning/certificates/9e39b57d2d6c37048767a28efe7a776ceb87c10af59e354726d00fd56aba056c" target="_blank" class="cert-verify-btn">Verify Certificate ↗</a>
-							</div>
-						</div>
+    /* Status indicator */
+    .status-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(16,185,129,0.07);
+      border: 1px solid rgba(16,185,129,0.2);
+      border-radius: var(--radius);
+      padding: 8px 14px;
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--green);
+      letter-spacing: 0.06em;
+    }
+    .status-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--green);
+      animation: pulse 2s ease infinite;
+    }
 
-						<!-- 3. Visual Studio Essential Training - Feb 20, 2026 -->
-						<div class="cert-card">
-							<img src="images/certificate3.png" alt="Visual Studio Essential Training"
-								onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
-							<div class="cert-placeholder" style="display:none;">🎓</div>
-							<div class="cert-card-body">
-								<h3><a href="https://www.linkedin.com/learning/certificates/332a44bb183dab6a136e0670a7744f3a95be476ac8e6f5ceaa2e0ea9d747eedb" target="_blank">Visual Studio Essential Training</a></h3>
-								<p class="cert-meta">LinkedIn Learning &nbsp;·&nbsp; February 2026</p>
-								<a href="https://www.linkedin.com/learning/certificates/332a44bb183dab6a136e0670a7744f3a95be476ac8e6f5ceaa2e0ea9d747eedb" target="_blank" class="cert-verify-btn">Verify Certificate ↗</a>
-							</div>
-						</div>
+    /* Languages card */
+    .lang-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.4rem;
+      margin-bottom: 1.2rem;
+    }
+    .lang-card-title {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--amber);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    .lang-item {
+      margin-bottom: 0.9rem;
+    }
+    .lang-item:last-child { margin-bottom: 0; }
+    .lang-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 4px;
+    }
+    .lang-name {
+      font-size: 0.85rem;
+      color: var(--text);
+    }
+    .lang-level {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      color: var(--text3);
+      letter-spacing: 0.05em;
+    }
+    .lang-bar {
+      height: 3px;
+      background: var(--border);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .lang-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--amber-dim), var(--amber));
+      border-radius: 2px;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+    .lang-bar-fill.animated { transform: scaleX(1); }
 
-						<!-- 4. Six Sigma: Green Belt - Jan 14, 2026 -->
-						<div class="cert-card">
-							<img src="images/certificate4.png" alt="Six Sigma: Green Belt"
-								onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
-							<div class="cert-placeholder" style="display:none;">🎓</div>
-							<div class="cert-card-body">
-								<h3><a href="https://www.linkedin.com/learning/certificates/7012f44281d26980439b9da04e3c192404a9a3f6c84b182f17679bc32130270b" target="_blank">Six Sigma: Green Belt</a></h3>
-								<p class="cert-meta">LinkedIn Learning &nbsp;·&nbsp; January 2026</p>
-								<a href="https://www.linkedin.com/learning/certificates/7012f44281d26980439b9da04e3c192404a9a3f6c84b182f17679bc32130270b" target="_blank" class="cert-verify-btn">Verify Certificate ↗</a>
-							</div>
-						</div>
+    /* About main content */
+    .about-main {}
 
-						<!-- 5. Learning Minitab - Jan 13, 2026 -->
-						<div class="cert-card">
-							<img src="images/certificate5.png" alt="Learning Minitab"
-								onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
-							<div class="cert-placeholder" style="display:none;">🎓</div>
-							<div class="cert-card-body">
-								<h3><a href="https://www.linkedin.com/learning/certificates/c32de35fd9ff093405c4fe321785dbec5cf95a5568be0461150aa7bcfc020534?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_certifications_details%3BcZxuamHyQ4CZQ02yBEMxJA%3D%3D" target="_blank">Learning Minitab</a></h3>
-								<p class="cert-meta">LinkedIn Learning &nbsp;·&nbsp; January 2026</p>
-								<a href="https://www.linkedin.com/learning/certificates/c32de35fd9ff093405c4fe321785dbec5cf95a5568be0461150aa7bcfc020534?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_certifications_details%3BcZxuamHyQ4CZQ02yBEMxJA%3D%3D" target="_blank" class="cert-verify-btn">Verify Certificate ↗</a>
-							</div>
-						</div>
+    .about-section {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.8rem;
+      margin-bottom: 1.2rem;
+    }
 
-						<!-- 6. Statistics Foundations 4: Advanced Topics - Jan 10, 2026 -->
-						<div class="cert-card">
-							<img src="images/certificate6.png" alt="Statistics Foundations 4: Advanced Topics"
-								onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
-							<div class="cert-placeholder" style="display:none;">🎓</div>
-							<div class="cert-card-body">
-								<h3><a href="https://www.linkedin.com/learning/certificates/48608fd5e350be49ebaf2937c2270c74aa3c28c1828555f511254411cc075184?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_certifications_details%3BcZxuamHyQ4CZQ02yBEMxJA%3D%3D" target="_blank">Statistics Foundations 4: Advanced Topics</a></h3>
-								<p class="cert-meta">LinkedIn Learning &nbsp;·&nbsp; January 2026</p>
-								<a href="https://www.linkedin.com/learning/certificates/48608fd5e350be49ebaf2937c2270c74aa3c28c1828555f511254411cc075184?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_certifications_details%3BcZxuamHyQ4CZQ02yBEMxJA%3D%3D" target="_blank" class="cert-verify-btn">Verify Certificate ↗</a>
-							</div>
-						</div>
+    .about-section-title {
+      font-family: var(--heading-font);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      letter-spacing: 0.02em;
+    }
+    .about-section-title .icon {
+      color: var(--amber);
+      font-size: 1rem;
+    }
 
-						<!-- 7. Statistics Foundations 3: Using Data Sets - Jan 03, 2026 -->
-						<div class="cert-card">
-							<img src="images/certificate7.png" alt="Statistics Foundations 3: Using Data Sets"
-								onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
-							<div class="cert-placeholder" style="display:none;">🎓</div>
-							<div class="cert-card-body">
-								<h3><a href="https://www.linkedin.com/learning/certificates/0fda391e569c062bd4c3956ae4429d371f9e28e7ea814bf0cee4e4bb75dcba7b?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_certifications_details%3BcZxuamHyQ4CZQ02yBEMxJA%3D%3D" target="_blank">Statistics Foundations 3: Using Data Sets</a></h3>
-								<p class="cert-meta">LinkedIn Learning &nbsp;·&nbsp; January 2026</p>
-								<a href="https://www.linkedin.com/learning/certificates/0fda391e569c062bd4c3956ae4429d371f9e28e7ea814bf0cee4e4bb75dcba7b?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_certifications_details%3BcZxuamHyQ4CZQ02yBEMxJA%3D%3D" target="_blank" class="cert-verify-btn">Verify Certificate ↗</a>
-							</div>
-						</div>
+    .about-bio {
+      color: var(--text2);
+      font-size: 0.92rem;
+      line-height: 1.75;
+    }
+    .about-bio strong { color: var(--amber); font-weight: 600; }
 
-						<!-- 8. Operational Excellence Work-Out and Kaizen Facilitator - Jan 01, 2026 -->
-						<div class="cert-card">
-							<img src="images/certificate8.png" alt="Operational Excellence Work-Out and Kaizen Facilitator"
-								onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
-							<div class="cert-placeholder" style="display:none;">🎓</div>
-							<div class="cert-card-body">
-								<h3><a href="https://www.linkedin.com/learning/certificates/c4426050795bec44eff421b87cf0fc02e536dbe8cc64cfd45e2c71a4ebb96c17?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_certifications_details%3BVIJWFR%2BBTWSUYn8Citt9Hw%3D%3D" target="_blank">Operational Excellence Work-Out and Kaizen Facilitator</a></h3>
-								<p class="cert-meta">LinkedIn Learning &nbsp;·&nbsp; January 2026</p>
-								<a href="https://www.linkedin.com/learning/certificates/c4426050795bec44eff421b87cf0fc02e536dbe8cc64cfd45e2c71a4ebb96c17?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_certifications_details%3BVIJWFR%2BBTWSUYn8Citt9Hw%3D%3D" target="_blank" class="cert-verify-btn">Verify Certificate ↗</a>
-							</div>
-						</div>
+    /* Timeline */
+    .timeline { list-style: none; position: relative; }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 10px; top: 6px; bottom: 6px;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--amber), var(--border));
+    }
+    .timeline-item {
+      display: flex;
+      gap: 1.2rem;
+      padding: 0 0 1.5rem 2.5rem;
+      position: relative;
+    }
+    .timeline-item:last-child { padding-bottom: 0; }
+    .timeline-dot {
+      position: absolute;
+      left: 4px;
+      top: 6px;
+      width: 14px; height: 14px;
+      background: var(--bg);
+      border: 2px solid var(--amber);
+      border-radius: 50%;
+    }
+    .timeline-date {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--amber);
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+      padding-top: 2px;
+      min-width: 110px;
+    }
+    .timeline-content {}
+    .timeline-content h4 {
+      font-family: var(--heading-font);
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 2px;
+    }
+    .timeline-content .org {
+      font-size: 0.82rem;
+      color: var(--amber);
+      font-style: italic;
+      margin-bottom: 4px;
+    }
+    .timeline-content p {
+      color: var(--text2);
+      font-size: 0.82rem;
+      line-height: 1.6;
+    }
+    .timeline-content ul {
+      list-style: none;
+      padding: 0;
+      margin-top: 4px;
+    }
+    .timeline-content ul li {
+      color: var(--text2);
+      font-size: 0.82rem;
+      line-height: 1.6;
+      padding-left: 14px;
+      position: relative;
+    }
+    .timeline-content ul li::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      color: var(--amber-dim);
+    }
 
-						<!-- 9. Lean Six Sigma: Analyze, Improve, and Control Tools - Dec 07, 2025 -->
-						<div class="cert-card">
-							<img src="images/certificate9.png" alt="Lean Six Sigma: Analyze, Improve, and Control Tools"
-								onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
-							<div class="cert-placeholder" style="display:none;">🎓</div>
-							<div class="cert-card-body">
-								<h3><a href="https://www.linkedin.com/learning/certificates/06cbda929efe681e6afa956fc6b39bf8e0b2f6c2a073114c3025437b0f8d1c88?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_certifications_details%3BVIJWFR%2BBTWSUYn8Citt9Hw%3D%3D" target="_blank">Lean Six Sigma: Analyze, Improve, and Control Tools</a></h3>
-								<p class="cert-meta">LinkedIn Learning &nbsp;·&nbsp; December 2025</p>
-								<a href="https://www.linkedin.com/learning/certificates/06cbda929efe681e6afa956fc6b39bf8e0b2f6c2a073114c3025437b0f8d1c88?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_certifications_details%3BVIJWFR%2BBTWSUYn8Citt9Hw%3D%3D" target="_blank" class="cert-verify-btn">Verify Certificate ↗</a>
-							</div>
-						</div>
+    /* Skills */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.8rem;
+    }
 
-						<!-- 10. Lean Six Sigma: Define and Measure Tools - Nov 06, 2025 -->
-						<div class="cert-card">
-							<img src="images/certificate10.png" alt="Lean Six Sigma: Define and Measure Tools"
-								onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
-							<div class="cert-placeholder" style="display:none;">🎓</div>
-							<div class="cert-card-body">
-								<h3><a href="https://www.linkedin.com/learning/certificates/5a2ab41b4f0dbbdac6e513e3ffb3d151e1855da514620e690b2f5598a2df2377?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_certifications_details%3B1ASZmT9RSRCd4SXv9GAQtA%3D%3D" target="_blank">Lean Six Sigma: Define and Measure Tools</a></h3>
-								<p class="cert-meta">LinkedIn Learning &nbsp;·&nbsp; November 2025</p>
-								<a href="https://www.linkedin.com/learning/certificates/5a2ab41b4f0dbbdac6e513e3ffb3d151e1855da514620e690b2f5598a2df2377?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_certifications_details%3B1ASZmT9RSRCd4SXv9GAQtA%3D%3D" target="_blank" class="cert-verify-btn">Verify Certificate ↗</a>
-							</div>
-						</div>
+    .skill-category {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem 1.2rem;
+    }
+    .skill-cat-title {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      color: var(--cyan);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 0.7rem;
+    }
+    .skill-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .skill-pill {
+      font-size: 0.78rem;
+      color: var(--text2);
+      background: var(--panel);
+      border: 1px solid var(--border);
+      padding: 3px 10px;
+      border-radius: 3px;
+      transition: all 0.2s;
+    }
+    .skill-pill:hover {
+      border-color: var(--amber-dim);
+      color: var(--amber);
+      background: rgba(245,158,11,0.05);
+    }
+    .skill-pill.highlight {
+      border-color: var(--amber-dim);
+      color: var(--amber);
+      background: rgba(245,158,11,0.06);
+    }
 
-						<!-- 11. Statistics Foundations 1: The Basics - Apr 22, 2025 -->
-						<div class="cert-card">
-							<img src="images/certificate11.png" alt="Statistics Foundations 1: The Basics"
-								onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
-							<div class="cert-placeholder" style="display:none;">🎓</div>
-							<div class="cert-card-body">
-								<h3><a href="https://www.linkedin.com/learning/certificates/c09b883e7d9a1dd25781467125098aa048a7c6b731024f4e0bb2ec9c011e48a3?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_certifications_details%3B1ASZmT9RSRCd4SXv9GAQtA%3D%3D" target="_blank">Statistics Foundations 1: The Basics</a></h3>
-								<p class="cert-meta">LinkedIn Learning &nbsp;·&nbsp; April 2025</p>
-								<a href="https://www.linkedin.com/learning/certificates/c09b883e7d9a1dd25781467125098aa048a7c6b731024f4e0bb2ec9c011e48a3?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_certifications_details%3B1ASZmT9RSRCd4SXv9GAQtA%3D%3D" target="_blank" class="cert-verify-btn">Verify Certificate ↗</a>
-							</div>
-						</div>
-						<!-- 14. Six Sigma Foundations - March 2025 -->
-						<div class="cert-card">
-							<img src="images/certificate14.png" alt="Six Sigma Foundations"
-								onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
-							<div class="cert-placeholder" style="display:none;">🎓</div>
-							<div class="cert-card-body">
-								<h3><a href="https://www.linkedin.com/learning/certificates/c1574b38842c5d9cdc56e6b426880d813309819ae0b4a04d46484b8e669f6a3e?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_certifications_details%3BreHCiMA1Soa8SrLmg29ydA%3D%3D" target="_blank">Six Sigma Foundations</a></h3>
-								<p class="cert-meta">LinkedIn Learning &nbsp;·&nbsp; March 2025</p>
-								<a href="https://www.linkedin.com/learning/certificates/c1574b38842c5d9cdc56e6b426880d813309819ae0b4a04d46484b8e669f6a3e?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_certifications_details%3BreHCiMA1Soa8SrLmg29ydA%3D%3D" target="_blank" class="cert-verify-btn">Verify Certificate ↗</a>
-							</div>
-						</div>
-						
-						<!-- 20. Agile Foundations - March 2025 -->
-						<div class="cert-card">
-							<img src="images/certificate20.png" alt="Agile Foundations"
-								onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
-							<div class="cert-placeholder" style="display:none;">🎓</div>
-							<div class="cert-card-body">
-								<h3><a href="https://www.linkedin.com/learning/certificates/15bf4edc0f0fb931e496fdce54208f1701dc6ae88ad2a432696665c3870ca7e3?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_certifications_details%3BreHCiMA1Soa8SrLmg29ydA%3D%3D" target="_blank">Agile Foundations</a></h3>
-								<p class="cert-meta">LinkedIn Learning &nbsp;·&nbsp; March 2025</p>
-								<a href="https://www.linkedin.com/learning/certificates/15bf4edc0f0fb931e496fdce54208f1701dc6ae88ad2a432696665c3870ca7e3?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_certifications_details%3BreHCiMA1Soa8SrLmg29ydA%3D%3D" target="_blank" class="cert-verify-btn">Verify Certificate ↗</a>
-							</div>
-						</div>
-						
-						<!-- 19. Scrum: The Basics - March 2025 -->
-						<div class="cert-card">
-							<img src="images/certificate19.png" alt="Scrum: The Basics"
-								onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
-							<div class="cert-placeholder" style="display:none;">🎓</div>
-							<div class="cert-card-body">
-								<h3><a href="https://www.linkedin.com/learning/certificates/1b82cd468522272d8d692ff2d55c8865e0be7562b5d01827e3a54bf2204ce0ea?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_certifications_details%3BreHCiMA1Soa8SrLmg29ydA%3D%3D" target="_blank">Scrum: The Basics</a></h3>
-								<p class="cert-meta">LinkedIn Learning &nbsp;·&nbsp; March 2025</p>
-								<a href="https://www.linkedin.com/learning/certificates/1b82cd468522272d8d692ff2d55c8865e0be7562b5d01827e3a54bf2204ce0ea?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_certifications_details%3BreHCiMA1Soa8SrLmg29ydA%3D%3D" target="_blank" class="cert-verify-btn">Verify Certificate ↗</a>
-							</div>
-						</div>
-						
-						<!-- 12. Introduction to Data Science - Mar 21, 2025 -->
-						<div class="cert-card">
-							<img src="images/certificate12.png" alt="Introduction to Data Science"
-								onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
-							<div class="cert-placeholder" style="display:none;">🎓</div>
-							<div class="cert-card-body">
-								<h3><a href="https://www.linkedin.com/learning/certificates/9ea7683199a2b019cc6fa8170d64c503d236b69baa5348d7d6168c96a9d17805?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_certifications_details%3B1ASZmT9RSRCd4SXv9GAQtA%3D%3D" target="_blank">Introduction to Data Science</a></h3>
-								<p class="cert-meta">LinkedIn Learning &nbsp;·&nbsp; March 2025</p>
-								<a href="https://www.linkedin.com/learning/certificates/9ea7683199a2b019cc6fa8170d64c503d236b69baa5348d7d6168c96a9d17805?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_certifications_details%3B1ASZmT9RSRCd4SXv9GAQtA%3D%3D" target="_blank" class="cert-verify-btn">Verify Certificate ↗</a>
-							</div>
-						</div>
+    /* Hobbies */
+    .hobbies-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.8rem;
+    }
+    .hobby-card {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.2rem 1rem;
+      text-align: center;
+      transition: all 0.3s;
+      cursor: default;
+    }
+    .hobby-card:hover {
+      border-color: var(--amber-dim);
+      background: rgba(245,158,11,0.04);
+      transform: translateY(-2px);
+    }
+    .hobby-emoji {
+      font-size: 2rem;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+    .hobby-name {
+      font-family: var(--heading-font);
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.3rem;
+    }
+    .hobby-desc {
+      font-size: 0.78rem;
+      color: var(--text3);
+      line-height: 1.5;
+    }
 
-						<!-- 13. Operational Excellence Foundations - Feb 03, 2025 -->
-						<div class="cert-card">
-							<img src="images/certificate13.png" alt="Operational Excellence Foundations"
-								onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
-							<div class="cert-placeholder" style="display:none;">🎓</div>
-							<div class="cert-card-body">
-								<h3><a href="https://www.linkedin.com/learning/certificates/67de9724c71da0551542d05a308ba7a392dc05bbaabc3e3d0d79eb774f6740e3?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_certifications_details%3B1ASZmT9RSRCd4SXv9GAQtA%3D%3D" target="_blank">Operational Excellence Foundations</a></h3>
-								<p class="cert-meta">LinkedIn Learning &nbsp;·&nbsp; February 2025</p>
-								<a href="https://www.linkedin.com/learning/certificates/67de9724c71da0551542d05a308ba7a392dc05bbaabc3e3d0d79eb774f6740e3?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_certifications_details%3B1ASZmT9RSRCd4SXv9GAQtA%3D%3D" target="_blank" class="cert-verify-btn">Verify Certificate ↗</a>
-							</div>
-						</div>
+    /* KPI stats row */
+    .kpi-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .kpi-box {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.2rem;
+      text-align: center;
+      transition: all 0.3s;
+    }
+    .kpi-box:hover {
+      border-color: var(--amber-dim);
+      background: rgba(245,158,11,0.04);
+    }
+    .kpi-num {
+      font-family: var(--heading-font);
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--amber);
+      line-height: 1;
+      margin-bottom: 0.3rem;
+    }
+    .kpi-label {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      color: var(--text3);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
 
-						
+    /* ─────────────────────────────────────────────
+       FOOTER
+    ───────────────────────────────────────────── */
+    #footer {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      padding: 2.5rem;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+    .footer-left {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      text-align: left;
+    }
+    .footer-name {
+      font-family: var(--heading-font);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--amber);
+    }
+    .footer-tagline {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--text3);
+      letter-spacing: 0.06em;
+    }
+    .footer-contact {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .footer-contact a {
+      font-size: 0.82rem;
+      color: var(--text3);
+      text-decoration: none;
+      transition: color 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .footer-contact a:hover { color: var(--amber); }
+    .footer-copy {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--text3);
+      text-align: right;
+    }
 
-						<!-- 15. Learning AutoCAD 2024 - Aug 11, 2024 -->
-						<div class="cert-card">
-							<img src="images/certificate15.png" alt="Learning AutoCAD 2024"
-								onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
-							<div class="cert-placeholder" style="display:none;">🎓</div>
-							<div class="cert-card-body">
-								<h3><a href="https://www.linkedin.com/learning/certificates/80b135f07391ab6ea5c87c5cea34bbedf68ad108660b1112dce5cdcf1255ffe4" target="_blank">Learning AutoCAD 2024</a></h3>
-								<p class="cert-meta">LinkedIn Learning &nbsp;·&nbsp; August 2024</p>
-								<a href="https://www.linkedin.com/learning/certificates/80b135f07391ab6ea5c87c5cea34bbedf68ad108660b1112dce5cdcf1255ffe4" target="_blank" class="cert-verify-btn">Verify Certificate ↗</a>
-							</div>
-						</div>
+    /* ─────────────────────────────────────────────
+       RESPONSIVE
+    ───────────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .featured-project { grid-template-columns: 1fr; }
+      .featured-project-img { min-height: 200px; }
+      .about-grid { grid-template-columns: 1fr; }
+      .about-sidebar { position: static; }
+      .kpi-row { grid-template-columns: repeat(2, 1fr); }
+      .skills-grid { grid-template-columns: 1fr; }
+      .hobbies-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 600px) {
+      .nav-socials { display: none; }
+      .nav-logo span { display: none; }
+      .kpi-row { grid-template-columns: repeat(2, 1fr); }
+      .timeline-date { min-width: 80px; font-size: 0.65rem; }
+      .hobbies-grid { grid-template-columns: 1fr; }
+    }
 
-						<!-- 16. Crash Course on Python - Jan 08, 2024 -->
-						<div class="cert-card">
-							<img src="images/certificate16.png" alt="Crash Course on Python"
-								onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
-							<div class="cert-placeholder" style="display:none;">🎓</div>
-							<div class="cert-card-body">
-								<h3><a href="https://coursera.org/verify/NPAFH953CVR3" target="_blank">Crash Course on Python</a></h3>
-								<p class="cert-meta">Google &nbsp;·&nbsp; Coursera &nbsp;·&nbsp; January 2024</p>
-								<a href="https://coursera.org/verify/NPAFH953CVR3" target="_blank" class="cert-verify-btn">Verify Certificate ↗</a>
-							</div>
-						</div>
+    /* ─── ANIMATIONS ─── */
+    .fade-in-up {
+      opacity: 0;
+      transform: translateY(16px);
+      animation: fadeUp 0.5s ease forwards;
+    }
+    .fade-in-up:nth-child(1) { animation-delay: 0.05s; }
+    .fade-in-up:nth-child(2) { animation-delay: 0.1s; }
+    .fade-in-up:nth-child(3) { animation-delay: 0.15s; }
+    .fade-in-up:nth-child(4) { animation-delay: 0.2s; }
+    .fade-in-up:nth-child(5) { animation-delay: 0.25s; }
+    .fade-in-up:nth-child(6) { animation-delay: 0.3s; }
 
-						<!-- 17. Introduction to Model-Based Systems Engineering - Sep 26, 2023 -->
-						<div class="cert-card">
-							<img src="images/certificate17.png" alt="Introduction to Model-Based Systems Engineering"
-								onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
-							<div class="cert-placeholder" style="display:none;">🎓</div>
-							<div class="cert-card-body">
-								<h3><a href="https://coursera.org/verify/L7BNZQGDLMHW" target="_blank">Introduction to Model-Based Systems Engineering</a></h3>
-								<p class="cert-meta">Siemens &nbsp;·&nbsp; Coursera &nbsp;·&nbsp; September 2023</p>
-								<a href="https://coursera.org/verify/L7BNZQGDLMHW" target="_blank" class="cert-verify-btn">Verify Certificate ↗</a>
-							</div>
-						</div>
+    /* Scanline overlay on hero */
+    .scanlines::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        to bottom,
+        transparent 0px, transparent 2px,
+        rgba(0,0,0,0.06) 2px, rgba(0,0,0,0.06) 4px
+      );
+      pointer-events: none;
+    }
 
-						<!-- 18. SAP Professional Fundamentals - Sep 17, 2023 -->
-						<div class="cert-card">
-							<img src="images/certificate18.png" alt="SAP Professional Fundamentals"
-								onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
-							<div class="cert-placeholder" style="display:none;">🎓</div>
-							<div class="cert-card-body">
-								<h3><a href="https://coursera.org/verify/9ZXM5UJL78H7" target="_blank">SAP Professional Fundamentals</a></h3>
-								<p class="cert-meta">SAP &nbsp;·&nbsp; Coursera &nbsp;·&nbsp; September 2023</p>
-								<a href="https://coursera.org/verify/9ZXM5UJL78H7" target="_blank" class="cert-verify-btn">Verify Certificate ↗</a>
-							</div>
-						</div>
+    /* Ticker at bottom of hero */
+    .ticker-wrap {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      background: rgba(245,158,11,0.07);
+      border-top: 1px solid var(--amber-dim);
+      overflow: hidden;
+      height: 36px;
+    }
+    .ticker {
+      display: flex;
+      align-items: center;
+      height: 100%;
+      white-space: nowrap;
+      animation: ticker 30s linear infinite;
+    }
+    .ticker-item {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--amber);
+      letter-spacing: 0.1em;
+      padding: 0 3rem;
+    }
+    .ticker-sep {
+      color: var(--amber-dim);
+      padding: 0 0.5rem;
+    }
+    @keyframes ticker {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
 
-					</div><!-- end .certificates-grid -->
-				
-							<!-- Placeholder cards - replace with real certificates as you collect them -->
-							<!-- Example structure for future certificates:
-							<div class="cert-card">
-								<img src="images/cert_XXXX.jpg" alt="Certificate Name" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
-								<div class="cert-placeholder" style="display:none;">🎓</div>
-								<div class="cert-card-body">
-									<h3><a href="VERIFY_LINK_HERE" target="_blank">Certificate Name</a></h3>
-									<p class="cert-meta">Issuer &nbsp;·&nbsp; Platform &nbsp;·&nbsp; Month Year</p>
-									<a href="VERIFY_LINK_HERE" target="_blank" class="cert-verify-btn">Verify Certificate ↗</a>
-								</div>
-							</div>
-							-->
+    /* ── PROJECT HOVER TOOLTIP ── */
+    #proj-hover-modal {
+      position: fixed;
+      z-index: 999;
+      background: var(--panel);
+      border: 1px solid var(--amber-dim);
+      border-radius: 10px;
+      padding: 1.5rem;
+      max-width: 380px;
+      width: 90vw;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.75), var(--glow-amber);
+      pointer-events: none;
+      opacity: 0;
+      transform: translateY(8px) scale(0.97);
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+    #proj-hover-modal.visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+    #proj-hover-modal h4 {
+      font-family: var(--heading-font);
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--amber);
+      margin-bottom: 0.75rem;
+      line-height: 1.35;
+    }
+    #proj-hover-modal p {
+      font-size: 0.83rem;
+      color: var(--text2);
+      line-height: 1.72;
+    }
+  </style>
+</head>
+<body>
 
-						</div>
-					</div>
-				</div><!-- end #cert-page -->
+  <!-- CONVEYOR BAR -->
+  <div class="conveyor-bar"></div>
 
-				<!-- Footer -->
-					<footer id="footer">
-						<section class="split contact">
-							<section class="alt">
-								<h3>Address</h3>
-								<p>Magdeburg, Germany<br />
-								</p>
-							</section>
-							<section>
-								<h3>Phone</h3>
-								<p><a href="#">(+49) 176 470 69444</a></p>
-							</section>
-							<section>
-								<h3>Email</h3>
-								<p><a href="#">akshay.chandrola@gmail.com</a></p>
-							</section>
-							<section>
-								<h3>Social</h3>
-								<ul class="icons alt">
-									<li><a href="https://www.linkedin.com/in/akshay-chandrola/" class="icon brands alt fa-linkedin"><span class="label">LinkedIn</span></a></li>
-									<li><a href="https://github.com/AkshayChandrola" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
-								</ul>
-							</section>
-						</section>
-					</footer>
+  <!-- HERO / INTRO -->
+  <section id="intro" class="scanlines">
+    <div class="intro-badge">SIMULATION ENGINEER · INTRALOGISTICS ENTHUSIAST</div>
+    <h1>Akshay<br><span>Chandrola</span></h1>
+    <div class="tagline-row">
+      <span class="tagline-chip">Plant Simulation</span>
+      <span class="tagline-chip">DES · Python</span>
+      <span class="tagline-chip">Digital Twin</span>
+      <span class="tagline-chip">Material Flow</span>
+    </div>
+    <p>Designing and optimizing automated material handling systems through data‑driven simulation — turning complex logistics challenges into efficient, validated production flows.</p>
+    <div class="hero-cta">
+      <button class="btn-primary" onclick="showPage('projects'); document.getElementById('navbar').scrollIntoView({behavior:'smooth'});">
+        ▶ View Projects
+      </button>
+      <button class="btn-outline" onclick="showPage('about'); document.getElementById('navbar').scrollIntoView({behavior:'smooth'});">
+        About Me
+      </button>
+    </div>
+    <!-- Ticker -->
+    <div class="ticker-wrap">
+      <div class="ticker">
+        <span class="ticker-item">TECNOMATIX PLANT SIMULATION</span><span class="ticker-sep">◆</span>
+        <span class="ticker-item">DISCRETE EVENT SIMULATION</span><span class="ticker-sep">◆</span>
+        <span class="ticker-item">AUTOMATED GUIDED VEHICLES</span><span class="ticker-sep">◆</span>
+        <span class="ticker-item">BOTTLENECK ANALYSIS</span><span class="ticker-sep">◆</span>
+        <span class="ticker-item">MATERIAL FLOW OPTIMIZATION</span><span class="ticker-sep">◆</span>
+        <span class="ticker-item">DIGITAL TWIN</span><span class="ticker-sep">◆</span>
+        <span class="ticker-item">WAREHOUSE LAYOUT DESIGN</span><span class="ticker-sep">◆</span>
+        <span class="ticker-item">LEAN SIX SIGMA</span><span class="ticker-sep">◆</span>
+        <!-- repeat for seamless loop -->
+        <span class="ticker-item">TECNOMATIX PLANT SIMULATION</span><span class="ticker-sep">◆</span>
+        <span class="ticker-item">DISCRETE EVENT SIMULATION</span><span class="ticker-sep">◆</span>
+        <span class="ticker-item">AUTOMATED GUIDED VEHICLES</span><span class="ticker-sep">◆</span>
+        <span class="ticker-item">BOTTLENECK ANALYSIS</span><span class="ticker-sep">◆</span>
+        <span class="ticker-item">MATERIAL FLOW OPTIMIZATION</span><span class="ticker-sep">◆</span>
+        <span class="ticker-item">DIGITAL TWIN</span><span class="ticker-sep">◆</span>
+        <span class="ticker-item">WAREHOUSE LAYOUT DESIGN</span><span class="ticker-sep">◆</span>
+        <span class="ticker-item">LEAN SIX SIGMA</span><span class="ticker-sep">◆</span>
+      </div>
+    </div>
+  </section>
 
-				<!-- Copyright -->
-					<div id="copyright">
-						<ul><li>&copy; Akshay Chandrola</li><li>Design: <a href="https://html5up.net">HTML5 UP</a></li></ul>
-					</div>
+  <!-- NAVBAR -->
+  <nav id="navbar">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo" onclick="scrollToTop(); return false;">
+        <div class="logo-icon">AC</div>
+        <span>Akshay Chandrola</span>
+      </a>
+      <ul class="nav-tabs">
+        <li class="nav-tab active" id="tab-projects" onclick="showPage('projects')">Projects</li>
+        <li class="nav-tab" id="tab-certs" onclick="showPage('certs')">Certificates</li>
+        <li class="nav-tab" id="tab-about" onclick="showPage('about')">About Me</li>
+      </ul>
+      <div class="nav-socials">
+        <a href="https://www.linkedin.com/in/akshay-chandrola/" target="_blank" class="nav-social-btn" title="LinkedIn">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+        </a>
+        <a href="https://github.com/AkshayChandrola" target="_blank" class="nav-social-btn" title="GitHub">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+        </a>
+      </div>
+    </div>
+  </nav>
 
-			</div>
+  <!-- ══════════════════════════════════════
+       PROJECTS PAGE
+  ══════════════════════════════════════ -->
+  <div id="page-projects" class="page active">
+    <div class="page-inner">
+      <div class="section-header">
+        <div class="section-label">Portfolio</div>
+        <h2 class="section-title">Projects</h2>
+      </div>
 
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.scrollex.min.js"></script>
-			<script src="assets/js/jquery.scrolly.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
+      <!-- Featured -->
+      <div class="featured-project fade-in-up">
+        <div class="featured-project-img">
+          <img src="images/pic00.png" alt="Master Thesis" onerror="this.style.display='none'">
+        </div>
+        <div class="featured-project-body">
+          <span class="project-tag">MASTER THESIS · 2024–2025</span>
+          <h2><a href="https://github.com/AkshayChandrola" target="_blank">A Comparative Study of Python Libraries for Discrete Event Simulation</a></h2>
+          <p>Investigates and compares five open-source Python DES libraries — SimPy, Salabim, PyDSOL-core, Akatosh, and HADES-Framework — as alternatives to commercial tools such as Siemens Plant Simulation. Complex real-world scenarios including AGVs and human operators were systematically modeled and evaluated against criteria covering real-time capability, resource management, ease of implementation, and visualization support.</p>
+          <a href="https://github.com/AkshayChandrola" target="_blank" class="project-link-btn">View Project ↗</a>
+        </div>
+      </div>
 
-			<script>
-				function showPage(page) {
-					const main      = document.getElementById('main');
-					const certPage  = document.getElementById('cert-page');
-					const navProj   = document.getElementById('nav-projects');
-					const navCerts  = document.getElementById('nav-certs');
+      <!-- Grid -->
+      <div class="projects-grid">
 
-					if (page === 'projects') {
-						main.classList.remove('hidden');
-						certPage.classList.remove('active');
-						navProj.classList.add('active');
-						navCerts.classList.remove('active');
-					} else {
-						main.classList.add('hidden');
-						certPage.classList.add('active');
-						navProj.classList.remove('active');
-						navCerts.classList.add('active');
-						// Scroll to top of cert section
-						window.scrollTo({ top: 0, behavior: 'smooth' });
-					}
-				}
-			</script>
+        <div class="project-card fade-in-up">
+          <div class="project-card-img">
+            <img src="images/pic01.png" alt="" onerror="this.style.display='none'">
+          </div>
+          <div class="project-card-body">
+            <span class="project-tag" style="font-size:0.65rem;padding:2px 8px;">INTERNSHIP · TRAINING</span>
+            <h3><a href="https://github.com/AkshayChandrola/AkshayChandrola.github.io/tree/main/Projects/Bosch%20Manufacturing%20Solution%20internship" target="_blank">Material Flow Simulation Training</a></h3>
+            <p>Foundational training at Bosch Manufacturing Solutions GmbH covering core simulation objects, workflows, conveyor systems, supermarkets, turntables, event-driven scripting, KPI tracking, and model validation using Siemens Tecnomatix Plant Simulation.</p>
+            <a href="https://github.com/AkshayChandrola/AkshayChandrola.github.io/tree/main/Projects/Bosch%20Manufacturing%20Solution%20internship" target="_blank" class="project-link-btn">View Project ↗</a>
+          </div>
+        </div>
 
-	</body>
+        <div class="project-card fade-in-up">
+          <div class="project-card-img">
+            <img src="images/pic02.png" alt="" onerror="this.style.display='none'">
+          </div>
+          <div class="project-card-body">
+            <span class="project-tag" style="font-size:0.65rem;padding:2px 8px;">CLIENT PROJECT · BOSCH</span>
+            <h3><a href="https://github.com/AkshayChandrola/AkshayChandrola.github.io/tree/main/Projects/Bosch%20Manufacturing%20Solution%20internship" target="_blank">Customer Project A: Production Line Optimization</a></h3>
+            <p>Addressed a critical bottleneck using Siemens Plant Simulation. Developed an interactive UI with scenario-control buttons to evaluate strategic supermarket placement, analyzing throughput, cycle time, and resource utilization to deliver data-driven recommendations.</p>
+            <a href="https://github.com/AkshayChandrola/AkshayChandrola.github.io/tree/main/Projects/Bosch%20Manufacturing%20Solution%20internship" target="_blank" class="project-link-btn">View Project ↗</a>
+          </div>
+        </div>
+
+        <div class="project-card fade-in-up">
+          <div class="project-card-img">
+            <img src="images/pic03.png" alt="" onerror="this.style.display='none'">
+          </div>
+          <div class="project-card-body">
+            <span class="project-tag" style="font-size:0.65rem;padding:2px 8px;">CLIENT PROJECT · BOSCH</span>
+            <h3><a href="https://github.com/AkshayChandrola/AkshayChandrola.github.io/tree/main/Projects/Bosch%20Manufacturing%20Solution%20internship" target="_blank">Customer Project B: Dual-Product Production Line</a></h3>
+            <p>Designed and simulated a concept production line capable of manufacturing two distinct products with unique assembly and testing requirements — including flexible layout design, resource allocation, and changeover planning to deliver a simulation-validated concept.</p>
+            <a href="https://github.com/AkshayChandrola/AkshayChandrola.github.io/tree/main/Projects/Bosch%20Manufacturing%20Solution%20internship" target="_blank" class="project-link-btn">View Project ↗</a>
+          </div>
+        </div>
+
+        <div class="project-card fade-in-up">
+          <div class="project-card-img">
+            <img src="images/pic04.png" alt="" onerror="this.style.display='none'">
+          </div>
+          <div class="project-card-body">
+            <span class="project-tag" style="font-size:0.65rem;padding:2px 8px;">OPTIMIZATION · DES</span>
+            <h3><a href="https://github.com/AkshayChandrola/AkshayChandrola.github.io/tree/main/Projects/Production%20Planning%20with%20Discrete-Event%20Simulation%20(DES)%20and%20Optimization%20in%20Tecnomatix" target="_blank">Production Planning with DES and Optimization in Tecnomatix</a></h3>
+            <p>End-to-end production planning workflow using Genetic Algorithm optimization in Tecnomatix to minimize makespan and total tardiness simultaneously. Reduced makespan by 15% and total tardiness by 20% through parameter tuning and objective function weighting.</p>
+            <a href="https://github.com/AkshayChandrola/AkshayChandrola.github.io/tree/main/Projects/Production%20Planning%20with%20Discrete-Event%20Simulation%20(DES)%20and%20Optimization%20in%20Tecnomatix" target="_blank" class="project-link-btn">View Project ↗</a>
+          </div>
+        </div>
+
+        <div class="project-card fade-in-up">
+          <div class="project-card-img">
+            <img src="images/pic05.png" alt="" onerror="this.style.display='none'">
+          </div>
+          <div class="project-card-body">
+            <span class="project-tag" style="font-size:0.65rem;padding:2px 8px;">MHS DESIGN · RELIABILITY</span>
+            <h3><a href="https://github.com/AkshayChandrola/AkshayChandrola.github.io/tree/main/Projects/Material_Handling_System" target="_blank">Automatic Material Handling System (MHS) Design</a></h3>
+            <p>Fully automated MHS designed from scratch integrating conveyor belts, diverters, accumulators, and angular converters. Incorporated a reliability analysis evaluating failure modes and component downtime impact. Reduced manual handling time by 30%.</p>
+            <a href="https://github.com/AkshayChandrola/AkshayChandrola.github.io/tree/main/Projects/Material_Handling_System" target="_blank" class="project-link-btn">View Project ↗</a>
+          </div>
+        </div>
+
+        <div class="project-card fade-in-up">
+          <div class="project-card-img">
+            <img src="images/pic06.png" alt="" onerror="this.style.display='none'">
+          </div>
+          <div class="project-card-body">
+            <span class="project-tag" style="font-size:0.65rem;padding:2px 8px;">SUPPLY CHAIN · SIMULATION</span>
+            <h3>The Fresh Connection Juice Company Business Simulation</h3>
+            <p>Took on the role of Supply Chain Manager for a juice manufacturing company facing declining profitability. Through iterative decision-making and cross-departmental coordination, improved ROI from -4.0% to +4.95% by optimizing inventory and distribution strategy.</p>
+          </div>
+        </div>
+
+        <div class="project-card fade-in-up">
+          <div class="project-card-img">
+            <img src="images/pic07.png" alt="" onerror="this.style.display='none'">
+          </div>
+          <div class="project-card-body">
+            <span class="project-tag" style="font-size:0.65rem;padding:2px 8px;">ML · PYTHON · PYTORCH</span>
+            <h3>E-Commerce Shipping Prediction</h3>
+            <p>Developed a Python algorithm to calculate on-time delivery rates, then built an Artificial Neural Network using PyTorch to predict individual order delivery performance — trained, validated, and evaluated on historical shipment data to proactively flag at-risk deliveries.</p>
+          </div>
+        </div>
+
+        <div class="project-card fade-in-up">
+          <div class="project-card-img">
+            <img src="images/pic08.avif" alt="" onerror="this.style.display='none'">
+          </div>
+          <div class="project-card-body">
+            <span class="project-tag" style="font-size:0.65rem;padding:2px 8px;">LITERATURE REVIEW</span>
+            <h3>A Structured Literature Review on Supply Chain Mapping</h3>
+            <p>Examined supply chain mapping in an era of global disruption, systematically identifying risk-uncovering methods, cataloguing visualization techniques, and assessing software tools — concluding with practical recommendations for resilient, transparent supply chains.</p>
+          </div>
+        </div>
+
+        <div class="project-card fade-in-up">
+          <div class="project-card-img">
+            <img src="images/pic09.png" alt="" onerror="this.style.display='none'">
+          </div>
+          <div class="project-card-body">
+            <span class="project-tag" style="font-size:0.65rem;padding:2px 8px;">POWER BI · DATA VIZ</span>
+            <h3><a href="https://github.com/AkshayChandrola/AkshayChandrola.github.io/tree/main/Projects/Power%20BI" target="_blank">Data Professional Survey — Power BI Dashboard</a></h3>
+            <p>Cleaned and transformed a real-world survey dataset in Power Query Editor, then built an interactive dashboard surfacing insights on programming language preferences, salary by role, work-life balance scores, and the perceived difficulty of entering the data profession.</p>
+            <a href="https://github.com/AkshayChandrola/AkshayChandrola.github.io/tree/main/Projects/Power%20BI" target="_blank" class="project-link-btn">View Project ↗</a>
+          </div>
+        </div>
+
+        <div class="project-card fade-in-up">
+          <div class="project-card-img">
+            <img src="images/pic10.jpg" alt="" onerror="this.style.display='none'">
+          </div>
+          <div class="project-card-body">
+            <span class="project-tag" style="font-size:0.65rem;padding:2px 8px;">SQL · DATA CLEANING</span>
+            <h3><a href="https://github.com/AkshayChandrola/AkshayChandrola.github.io/tree/main/Projects/My_sql" target="_blank">Data Cleaning in SQL</a></h3>
+            <p>Structured data cleaning on a raw real estate housing dataset in SQL Server — standardizing date formats, populating missing values, splitting address fields, replacing abbreviated categoricals, removing duplicates, and dropping redundant columns for downstream analysis.</p>
+            <a href="https://github.com/AkshayChandrola/AkshayChandrola.github.io/tree/main/Projects/My_sql" target="_blank" class="project-link-btn">View Project ↗</a>
+          </div>
+        </div>
+
+        <div class="project-card fade-in-up">
+          <div class="project-card-img">
+            <img src="images/pic11.png" alt="" onerror="this.style.display='none'">
+          </div>
+          <div class="project-card-body">
+            <span class="project-tag" style="font-size:0.65rem;padding:2px 8px;">SQL · EDA</span>
+            <h3><a href="https://github.com/AkshayChandrola/AkshayChandrola.github.io/tree/main/Projects/SQL" target="_blank">COVID-19 Data Exploration in SQL</a></h3>
+            <p>Exploratory analysis of global COVID-19 data using joins, CTEs, temp tables, window functions, and aggregates — surfacing infection rates, death percentages by country, continental mortality comparisons, and rolling vaccination campaign progress across countries.</p>
+            <a href="https://github.com/AkshayChandrola/AkshayChandrola.github.io/tree/main/Projects/SQL" target="_blank" class="project-link-btn">View Project ↗</a>
+          </div>
+        </div>
+
+        <div class="project-card fade-in-up">
+          <div class="project-card-img">
+            <img src="images/pic12.png" alt="" onerror="this.style.display='none'">
+          </div>
+          <div class="project-card-body">
+            <span class="project-tag" style="font-size:0.65rem;padding:2px 8px;">TABLEAU · DASHBOARD</span>
+            <h3><a href="https://public.tableau.com/app/profile/akshay.chandrola/viz/Airbnb_Dashboard_17769497932630/Dashboard1" target="_blank">Tableau Dashboard — AirBnB Market Analysis</a></h3>
+            <p>Interactive Tableau dashboard analyzing AirBnB listing data — visualizing average price by location and property type, revenue trends over time, occupancy patterns, and bedroom-to-price relationships to support both hosts and guests in data-driven decisions.</p>
+            <a href="https://public.tableau.com/app/profile/akshay.chandrola/viz/Airbnb_Dashboard_17769497932630/Dashboard1" target="_blank" class="project-link-btn">View Project ↗</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       CERTIFICATES PAGE
+  ══════════════════════════════════════ -->
+  <div id="page-certs" class="page">
+    <div class="page-inner">
+      <div class="section-header">
+        <div class="section-label">Credentials</div>
+        <h2 class="section-title">Certificates</h2>
+      </div>
+
+      <div class="certs-grid">
+
+        <!-- Helper macro pattern repeated for each cert -->
+        <div class="cert-card fade-in-up">
+          <div class="cert-card-img"><img src="images/certificate1.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><div class="cert-placeholder-icon" style="display:none;">🎓</div></div>
+          <div class="cert-card-body">
+            <h3><a href="https://freecodecamp.org/certification/akshaychandrola/foundational-c-sharp-with-microsoft" target="_blank">Foundational C# with Microsoft</a></h3>
+            <p class="cert-meta">Microsoft · freeCodeCamp · April 2026</p>
+            <a href="https://freecodecamp.org/certification/akshaychandrola/foundational-c-sharp-with-microsoft" target="_blank" class="cert-verify-btn">Verify ↗</a>
+          </div>
+        </div>
+
+        <div class="cert-card fade-in-up">
+          <div class="cert-card-img"><img src="images/certificate2.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><div class="cert-placeholder-icon" style="display:none;">🎓</div></div>
+          <div class="cert-card-body">
+            <h3><a href="https://www.linkedin.com/learning/certificates/9e39b57d2d6c37048767a28efe7a776ceb87c10af59e354726d00fd56aba056c" target="_blank">Learning C#</a></h3>
+            <p class="cert-meta">LinkedIn Learning · February 2026</p>
+            <a href="https://www.linkedin.com/learning/certificates/9e39b57d2d6c37048767a28efe7a776ceb87c10af59e354726d00fd56aba056c" target="_blank" class="cert-verify-btn">Verify ↗</a>
+          </div>
+        </div>
+
+        <div class="cert-card fade-in-up">
+          <div class="cert-card-img"><img src="images/certificate3.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><div class="cert-placeholder-icon" style="display:none;">🎓</div></div>
+          <div class="cert-card-body">
+            <h3><a href="https://www.linkedin.com/learning/certificates/332a44bb183dab6a136e0670a7744f3a95be476ac8e6f5ceaa2e0ea9d747eedb" target="_blank">Visual Studio Essential Training</a></h3>
+            <p class="cert-meta">LinkedIn Learning · February 2026</p>
+            <a href="https://www.linkedin.com/learning/certificates/332a44bb183dab6a136e0670a7744f3a95be476ac8e6f5ceaa2e0ea9d747eedb" target="_blank" class="cert-verify-btn">Verify ↗</a>
+          </div>
+        </div>
+
+        <div class="cert-card fade-in-up">
+          <div class="cert-card-img"><img src="images/certificate4.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><div class="cert-placeholder-icon" style="display:none;">🎓</div></div>
+          <div class="cert-card-body">
+            <h3><a href="https://www.linkedin.com/learning/certificates/7012f44281d26980439b9da04e3c192404a9a3f6c84b182f17679bc32130270b" target="_blank">Six Sigma: Green Belt</a></h3>
+            <p class="cert-meta">LinkedIn Learning · January 2026</p>
+            <a href="https://www.linkedin.com/learning/certificates/7012f44281d26980439b9da04e3c192404a9a3f6c84b182f17679bc32130270b" target="_blank" class="cert-verify-btn">Verify ↗</a>
+          </div>
+        </div>
+
+        <div class="cert-card fade-in-up">
+          <div class="cert-card-img"><img src="images/certificate5.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><div class="cert-placeholder-icon" style="display:none;">🎓</div></div>
+          <div class="cert-card-body">
+            <h3><a href="https://www.linkedin.com/learning/certificates/c32de35fd9ff093405c4fe321785dbec5cf95a5568be0461150aa7bcfc020534" target="_blank">Learning Minitab</a></h3>
+            <p class="cert-meta">LinkedIn Learning · January 2026</p>
+            <a href="https://www.linkedin.com/learning/certificates/c32de35fd9ff093405c4fe321785dbec5cf95a5568be0461150aa7bcfc020534" target="_blank" class="cert-verify-btn">Verify ↗</a>
+          </div>
+        </div>
+
+        <div class="cert-card fade-in-up">
+          <div class="cert-card-img"><img src="images/certificate6.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><div class="cert-placeholder-icon" style="display:none;">🎓</div></div>
+          <div class="cert-card-body">
+            <h3><a href="https://www.linkedin.com/learning/certificates/48608fd5e350be49ebaf2937c2270c74aa3c28c1828555f511254411cc075184" target="_blank">Statistics Foundations 4: Advanced Topics</a></h3>
+            <p class="cert-meta">LinkedIn Learning · January 2026</p>
+            <a href="https://www.linkedin.com/learning/certificates/48608fd5e350be49ebaf2937c2270c74aa3c28c1828555f511254411cc075184" target="_blank" class="cert-verify-btn">Verify ↗</a>
+          </div>
+        </div>
+
+        <div class="cert-card fade-in-up">
+          <div class="cert-card-img"><img src="images/certificate7.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><div class="cert-placeholder-icon" style="display:none;">🎓</div></div>
+          <div class="cert-card-body">
+            <h3><a href="https://www.linkedin.com/learning/certificates/0fda391e569c062bd4c3956ae4429d371f9e28e7ea814bf0cee4e4bb75dcba7b" target="_blank">Statistics Foundations 3: Using Data Sets</a></h3>
+            <p class="cert-meta">LinkedIn Learning · January 2026</p>
+            <a href="https://www.linkedin.com/learning/certificates/0fda391e569c062bd4c3956ae4429d371f9e28e7ea814bf0cee4e4bb75dcba7b" target="_blank" class="cert-verify-btn">Verify ↗</a>
+          </div>
+        </div>
+
+        <div class="cert-card fade-in-up">
+          <div class="cert-card-img"><img src="images/certificate8.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><div class="cert-placeholder-icon" style="display:none;">🎓</div></div>
+          <div class="cert-card-body">
+            <h3><a href="https://www.linkedin.com/learning/certificates/c4426050795bec44eff421b87cf0fc02e536dbe8cc64cfd45e2c71a4ebb96c17" target="_blank">Operational Excellence Work-Out and Kaizen Facilitator</a></h3>
+            <p class="cert-meta">LinkedIn Learning · January 2026</p>
+            <a href="https://www.linkedin.com/learning/certificates/c4426050795bec44eff421b87cf0fc02e536dbe8cc64cfd45e2c71a4ebb96c17" target="_blank" class="cert-verify-btn">Verify ↗</a>
+          </div>
+        </div>
+
+        <div class="cert-card fade-in-up">
+          <div class="cert-card-img"><img src="images/certificate9.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><div class="cert-placeholder-icon" style="display:none;">🎓</div></div>
+          <div class="cert-card-body">
+            <h3><a href="https://www.linkedin.com/learning/certificates/06cbda929efe681e6afa956fc6b39bf8e0b2f6c2a073114c3025437b0f8d1c88" target="_blank">Lean Six Sigma: Analyze, Improve, and Control Tools</a></h3>
+            <p class="cert-meta">LinkedIn Learning · December 2025</p>
+            <a href="https://www.linkedin.com/learning/certificates/06cbda929efe681e6afa956fc6b39bf8e0b2f6c2a073114c3025437b0f8d1c88" target="_blank" class="cert-verify-btn">Verify ↗</a>
+          </div>
+        </div>
+
+        <div class="cert-card fade-in-up">
+          <div class="cert-card-img"><img src="images/certificate10.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><div class="cert-placeholder-icon" style="display:none;">🎓</div></div>
+          <div class="cert-card-body">
+            <h3><a href="https://www.linkedin.com/learning/certificates/5a2ab41b4f0dbbdac6e513e3ffb3d151e1855da514620e690b2f5598a2df2377" target="_blank">Lean Six Sigma: Define and Measure Tools</a></h3>
+            <p class="cert-meta">LinkedIn Learning · November 2025</p>
+            <a href="https://www.linkedin.com/learning/certificates/5a2ab41b4f0dbbdac6e513e3ffb3d151e1855da514620e690b2f5598a2df2377" target="_blank" class="cert-verify-btn">Verify ↗</a>
+          </div>
+        </div>
+
+        <div class="cert-card fade-in-up">
+          <div class="cert-card-img"><img src="images/certificate11.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><div class="cert-placeholder-icon" style="display:none;">🎓</div></div>
+          <div class="cert-card-body">
+            <h3><a href="https://www.linkedin.com/learning/certificates/c09b883e7d9a1dd25781467125098aa048a7c6b731024f4e0bb2ec9c011e48a3" target="_blank">Statistics Foundations 1: The Basics</a></h3>
+            <p class="cert-meta">LinkedIn Learning · April 2025</p>
+            <a href="https://www.linkedin.com/learning/certificates/c09b883e7d9a1dd25781467125098aa048a7c6b731024f4e0bb2ec9c011e48a3" target="_blank" class="cert-verify-btn">Verify ↗</a>
+          </div>
+        </div>
+
+        <div class="cert-card fade-in-up">
+          <div class="cert-card-img"><img src="images/certificate14.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><div class="cert-placeholder-icon" style="display:none;">🎓</div></div>
+          <div class="cert-card-body">
+            <h3><a href="https://www.linkedin.com/learning/certificates/c1574b38842c5d9cdc56e6b426880d813309819ae0b4a04d46484b8e669f6a3e" target="_blank">Six Sigma Foundations</a></h3>
+            <p class="cert-meta">LinkedIn Learning · March 2025</p>
+            <a href="https://www.linkedin.com/learning/certificates/c1574b38842c5d9cdc56e6b426880d813309819ae0b4a04d46484b8e669f6a3e" target="_blank" class="cert-verify-btn">Verify ↗</a>
+          </div>
+        </div>
+
+        <div class="cert-card fade-in-up">
+          <div class="cert-card-img"><img src="images/certificate20.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><div class="cert-placeholder-icon" style="display:none;">🎓</div></div>
+          <div class="cert-card-body">
+            <h3><a href="https://www.linkedin.com/learning/certificates/15bf4edc0f0fb931e496fdce54208f1701dc6ae88ad2a432696665c3870ca7e3" target="_blank">Agile Foundations</a></h3>
+            <p class="cert-meta">LinkedIn Learning · March 2025</p>
+            <a href="https://www.linkedin.com/learning/certificates/15bf4edc0f0fb931e496fdce54208f1701dc6ae88ad2a432696665c3870ca7e3" target="_blank" class="cert-verify-btn">Verify ↗</a>
+          </div>
+        </div>
+
+        <div class="cert-card fade-in-up">
+          <div class="cert-card-img"><img src="images/certificate19.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><div class="cert-placeholder-icon" style="display:none;">🎓</div></div>
+          <div class="cert-card-body">
+            <h3><a href="https://www.linkedin.com/learning/certificates/1b82cd468522272d8d692ff2d55c8865e0be7562b5d01827e3a54bf2204ce0ea" target="_blank">Scrum: The Basics</a></h3>
+            <p class="cert-meta">LinkedIn Learning · March 2025</p>
+            <a href="https://www.linkedin.com/learning/certificates/1b82cd468522272d8d692ff2d55c8865e0be7562b5d01827e3a54bf2204ce0ea" target="_blank" class="cert-verify-btn">Verify ↗</a>
+          </div>
+        </div>
+
+        <div class="cert-card fade-in-up">
+          <div class="cert-card-img"><img src="images/certificate12.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><div class="cert-placeholder-icon" style="display:none;">🎓</div></div>
+          <div class="cert-card-body">
+            <h3><a href="https://www.linkedin.com/learning/certificates/9ea7683199a2b019cc6fa8170d64c503d236b69baa5348d7d6168c96a9d17805" target="_blank">Introduction to Data Science</a></h3>
+            <p class="cert-meta">LinkedIn Learning · March 2025</p>
+            <a href="https://www.linkedin.com/learning/certificates/9ea7683199a2b019cc6fa8170d64c503d236b69baa5348d7d6168c96a9d17805" target="_blank" class="cert-verify-btn">Verify ↗</a>
+          </div>
+        </div>
+
+        <div class="cert-card fade-in-up">
+          <div class="cert-card-img"><img src="images/certificate13.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><div class="cert-placeholder-icon" style="display:none;">🎓</div></div>
+          <div class="cert-card-body">
+            <h3><a href="https://www.linkedin.com/learning/certificates/67de9724c71da0551542d05a308ba7a392dc05bbaabc3e3d0d79eb774f6740e3" target="_blank">Operational Excellence Foundations</a></h3>
+            <p class="cert-meta">LinkedIn Learning · February 2025</p>
+            <a href="https://www.linkedin.com/learning/certificates/67de9724c71da0551542d05a308ba7a392dc05bbaabc3e3d0d79eb774f6740e3" target="_blank" class="cert-verify-btn">Verify ↗</a>
+          </div>
+        </div>
+
+        <div class="cert-card fade-in-up">
+          <div class="cert-card-img"><img src="images/certificate15.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><div class="cert-placeholder-icon" style="display:none;">🎓</div></div>
+          <div class="cert-card-body">
+            <h3><a href="https://www.linkedin.com/learning/certificates/80b135f07391ab6ea5c87c5cea34bbedf68ad108660b1112dce5cdcf1255ffe4" target="_blank">Learning AutoCAD 2024</a></h3>
+            <p class="cert-meta">LinkedIn Learning · August 2024</p>
+            <a href="https://www.linkedin.com/learning/certificates/80b135f07391ab6ea5c87c5cea34bbedf68ad108660b1112dce5cdcf1255ffe4" target="_blank" class="cert-verify-btn">Verify ↗</a>
+          </div>
+        </div>
+
+        <div class="cert-card fade-in-up">
+          <div class="cert-card-img"><img src="images/certificate16.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><div class="cert-placeholder-icon" style="display:none;">🎓</div></div>
+          <div class="cert-card-body">
+            <h3><a href="https://coursera.org/verify/NPAFH953CVR3" target="_blank">Crash Course on Python</a></h3>
+            <p class="cert-meta">Google · Coursera · January 2024</p>
+            <a href="https://coursera.org/verify/NPAFH953CVR3" target="_blank" class="cert-verify-btn">Verify ↗</a>
+          </div>
+        </div>
+
+        <div class="cert-card fade-in-up">
+          <div class="cert-card-img"><img src="images/certificate17.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><div class="cert-placeholder-icon" style="display:none;">🎓</div></div>
+          <div class="cert-card-body">
+            <h3><a href="https://coursera.org/verify/L7BNZQGDLMHW" target="_blank">Introduction to Model-Based Systems Engineering</a></h3>
+            <p class="cert-meta">Siemens · Coursera · September 2023</p>
+            <a href="https://coursera.org/verify/L7BNZQGDLMHW" target="_blank" class="cert-verify-btn">Verify ↗</a>
+          </div>
+        </div>
+
+        <div class="cert-card fade-in-up">
+          <div class="cert-card-img"><img src="images/certificate18.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><div class="cert-placeholder-icon" style="display:none;">🎓</div></div>
+          <div class="cert-card-body">
+            <h3><a href="https://coursera.org/verify/9ZXM5UJL78H7" target="_blank">SAP Professional Fundamentals</a></h3>
+            <p class="cert-meta">SAP · Coursera · September 2023</p>
+            <a href="https://coursera.org/verify/9ZXM5UJL78H7" target="_blank" class="cert-verify-btn">Verify ↗</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       ABOUT ME PAGE
+  ══════════════════════════════════════ -->
+  <div id="page-about" class="page">
+    <div class="page-inner">
+      <div class="section-header">
+        <div class="section-label">Profile</div>
+        <h2 class="section-title">About Me</h2>
+      </div>
+
+      <!-- KPI Row -->
+      <div class="kpi-row">
+        <div class="kpi-box">
+          <div class="kpi-num">2+</div>
+          <div class="kpi-label">Years Experience</div>
+        </div>
+        <div class="kpi-box">
+          <div class="kpi-num">12+</div>
+          <div class="kpi-label">Projects Completed</div>
+        </div>
+        <div class="kpi-box">
+          <div class="kpi-num">20</div>
+          <div class="kpi-label">Certificates Earned</div>
+        </div>
+        <div class="kpi-box">
+          <div class="kpi-num">3</div>
+          <div class="kpi-label">Languages Spoken</div>
+        </div>
+      </div>
+
+      <div class="about-grid">
+        <!-- Sidebar -->
+        <div class="about-sidebar">
+
+          <div class="profile-card">
+            <div class="profile-card-top">
+              <div class="profile-avatar">AC</div>
+              <div class="profile-name">Akshay D. Chandrola</div>
+              <div class="profile-title">Simulation Engineer</div>
+            </div>
+            <div class="profile-card-info">
+              <div class="info-row">
+                <span class="info-icon">📍</span>
+                <div>
+                  <span class="info-label">Location</span>
+                  <span class="info-val">Magdeburg, Germany</span>
+                </div>
+              </div>
+              <div class="info-row">
+                <span class="info-icon">✉</span>
+                <div>
+                  <span class="info-label">Email</span>
+                  <a href="mailto:akshay.chandrola@gmail.com">akshay.chandrola@gmail.com</a>
+                </div>
+              </div>
+              <div class="info-row">
+                <span class="info-icon">📞</span>
+                <div>
+                  <span class="info-label">Phone</span>
+                  <span class="info-val">+49 176 470 69444</span>
+                </div>
+              </div>
+              <div class="info-row">
+                <span class="info-icon">🎓</span>
+                <div>
+                  <span class="info-label">Degree</span>
+                  <span class="info-val">M.Sc. Systems Engineering for Manufacturing</span>
+                </div>
+              </div>
+              <div class="info-row">
+                <span class="info-icon">🏛</span>
+                <div>
+                  <span class="info-label">University</span>
+                  <span class="info-val">Otto-von-Guericke Universität Magdeburg</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-bottom:1.2rem;">
+            <div class="status-badge">
+              <div class="status-dot"></div>
+              Open to new opportunities
+            </div>
+          </div>
+
+          <div class="lang-card">
+            <div class="lang-card-title">Languages</div>
+            <div class="lang-item">
+              <div class="lang-row">
+                <span class="lang-name">English</span>
+                <span class="lang-level">Professional</span>
+              </div>
+              <div class="lang-bar"><div class="lang-bar-fill" data-width="0.9"></div></div>
+            </div>
+            <div class="lang-item">
+              <div class="lang-row">
+                <span class="lang-name">German</span>
+                <span class="lang-level">Intermediate</span>
+              </div>
+              <div class="lang-bar"><div class="lang-bar-fill" data-width="0.55"></div></div>
+            </div>
+            <div class="lang-item">
+              <div class="lang-row">
+                <span class="lang-name">Hindi</span>
+                <span class="lang-level">Native</span>
+              </div>
+              <div class="lang-bar"><div class="lang-bar-fill" data-width="1.0"></div></div>
+            </div>
+          </div>
+
+          <a href="https://www.linkedin.com/in/akshay-chandrola/" target="_blank" class="btn-primary" style="width:100%;justify-content:center;text-align:center;">
+            Connect on LinkedIn ↗
+          </a>
+
+        </div>
+
+        <!-- Main content -->
+        <div class="about-main">
+
+          <!-- Bio -->
+          <div class="about-section">
+            <div class="about-section-title">
+              <span class="icon">▶</span> Profile
+            </div>
+            <p class="about-bio">
+              I'm a <strong>Material Flow Simulation &amp; Intralogistics Enthusiast</strong> with proven expertise in <strong>Siemens Tecnomatix Plant Simulation</strong> and Python-based discrete event simulation. With a Master's degree in Systems Engineering for Manufacturing from Otto-von-Guericke Universität Magdeburg, I have built a strong foundation in designing and optimizing automated material handling and warehouse systems for efficient, cost-effective production flows.
+              <br><br>
+              My career spans simulation engineering at <strong>Robert Bosch Manufacturing Solutions GmbH</strong>, research assistance in material flow methodologies, and quality assurance roles in India — giving me a diverse perspective on manufacturing challenges. I'm experienced in supplier communication, cross-functional teamwork, and driving continuous improvement in logistics and supply chain environments.
+              <br><br>
+              I'm <strong>open-minded, adaptable, and eager to learn</strong> new tools and methods to add value to diverse engineering projects. Whether it's building a digital twin, analyzing bottlenecks, or comparing simulation frameworks, I approach every challenge with data-driven rigor and an eye for practical impact.
+            </p>
+          </div>
+
+          <!-- Work Experience -->
+          <div class="about-section">
+            <div class="about-section-title">
+              <span class="icon">◈</span> Work Experience
+            </div>
+            <ul class="timeline">
+              <li class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div>
+                  <div class="timeline-date">01/2024 – 01/2025</div>
+                </div>
+                <div class="timeline-content">
+                  <h4>Master's Thesis Researcher</h4>
+                  <div class="org">Otto-von-Guericke Universität Magdeburg</div>
+                  <ul>
+                    <li>Conducted comparative analysis of Python DES libraries for manufacturing and logistics applications.</li>
+                    <li>Designed case studies to evaluate modeling efficiency and simulation performance with AGV and operator scenarios.</li>
+                  </ul>
+                </div>
+              </li>
+              <li class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div>
+                  <div class="timeline-date">05/2024 – 10/2024</div>
+                </div>
+                <div class="timeline-content">
+                  <h4>Research Assistant</h4>
+                  <div class="org">Otto-von-Guericke Universität Magdeburg</div>
+                  <ul>
+                    <li>Supported students in Material Flow Simulation using Tecnomatix Plant Simulation and Python.</li>
+                    <li>Assisted professors with research and process optimization projects.</li>
+                    <li>Promoted knowledge sharing and continuous improvement in simulation methodologies.</li>
+                  </ul>
+                </div>
+              </li>
+              <li class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div>
+                  <div class="timeline-date">02/2023 – 07/2023</div>
+                </div>
+                <div class="timeline-content">
+                  <h4>Simulation of Material Flow Intern</h4>
+                  <div class="org">Robert Bosch Manufacturing Solutions GmbH · Feuerbach</div>
+                  <ul>
+                    <li>Designed and optimized production systems using Siemens Tecnomatix Plant Simulation and Digital Twin concepts.</li>
+                    <li>Developed automated material handling layouts for Greenfield and Brownfield projects.</li>
+                    <li>Coordinated technical requirements and communicated directly with suppliers.</li>
+                    <li>Identified and mitigated bottlenecks, improving overall production efficiency.</li>
+                  </ul>
+                </div>
+              </li>
+              <li class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div>
+                  <div class="timeline-date">12/2018 – 10/2019</div>
+                </div>
+                <div class="timeline-content">
+                  <h4>Quality Assurance Engineer</h4>
+                  <div class="org">Shiv Manufacturer · Rajkot, India</div>
+                  <ul>
+                    <li>Led cross-functional teams in product feature testing and quality inspections.</li>
+                    <li>Applied Lean Six Sigma strategies to streamline processes and enhance customer satisfaction.</li>
+                  </ul>
+                </div>
+              </li>
+              <li class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div>
+                  <div class="timeline-date">06/2018 – 11/2018</div>
+                </div>
+                <div class="timeline-content">
+                  <h4>Production Supervisor</h4>
+                  <div class="org">Safar Polyfiber PVT. LTD. · Rajkot, India</div>
+                  <ul>
+                    <li>Improved production planning to minimize downtime and increase efficiency.</li>
+                    <li>Applied Kaizen methodologies to optimize production processes.</li>
+                  </ul>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Education -->
+          <div class="about-section">
+            <div class="about-section-title">
+              <span class="icon">◈</span> Education
+            </div>
+            <ul class="timeline">
+              <li class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div>
+                  <div class="timeline-date">10/2020 – 05/2025</div>
+                </div>
+                <div class="timeline-content">
+                  <h4>M.Sc. Systems Engineering for Manufacturing</h4>
+                  <div class="org">Otto-von-Guericke Universität Magdeburg, Germany</div>
+                  <p>Thesis: A Comparative Study of Python Libraries for Discrete Event Simulation — developed a comparative framework for DES libraries validated with intralogistics case studies.</p>
+                </div>
+              </li>
+              <li class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div>
+                  <div class="timeline-date">10/2014 – 05/2018</div>
+                </div>
+                <div class="timeline-content">
+                  <h4>B.Eng. Mechanical Engineering</h4>
+                  <div class="org">Gujarat Technical University, Ahmedabad, India</div>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Skills -->
+          <div class="about-section">
+            <div class="about-section-title">
+              <span class="icon">⬡</span> Technical Skills
+            </div>
+            <div class="skills-grid">
+              <div class="skill-category">
+                <div class="skill-cat-title">Simulation &amp; Tools</div>
+                <div class="skill-pills">
+                  <span class="skill-pill highlight">Tecnomatix Plant Simulation</span>
+                  <span class="skill-pill highlight">Python DES</span>
+                  <span class="skill-pill">AnyLogic</span>
+                  <span class="skill-pill">AutoCAD</span>
+                  <span class="skill-pill">Siemens NX</span>
+                  <span class="skill-pill">Matlab</span>
+                </div>
+              </div>
+              <div class="skill-category">
+                <div class="skill-cat-title">Programming</div>
+                <div class="skill-pills">
+                  <span class="skill-pill highlight">Python</span>
+                  <span class="skill-pill highlight">C#</span>
+                  <span class="skill-pill">SimTalk</span>
+                  <span class="skill-pill">C++</span>
+                  <span class="skill-pill">PLC Programming</span>
+                  <span class="skill-pill">KUKA KRL</span>
+                </div>
+              </div>
+              <div class="skill-category">
+                <div class="skill-cat-title">Data &amp; Analytics</div>
+                <div class="skill-pills">
+                  <span class="skill-pill highlight">Power BI</span>
+                  <span class="skill-pill highlight">Tableau</span>
+                  <span class="skill-pill">MySQL</span>
+                  <span class="skill-pill">SQL Server</span>
+                  <span class="skill-pill">PyTorch</span>
+                  <span class="skill-pill">Git</span>
+                </div>
+              </div>
+              <div class="skill-category">
+                <div class="skill-cat-title">Logistics &amp; Methods</div>
+                <div class="skill-pills">
+                  <span class="skill-pill highlight">Material Flow Analysis</span>
+                  <span class="skill-pill highlight">Lean Six Sigma</span>
+                  <span class="skill-pill">Warehouse Layout Design</span>
+                  <span class="skill-pill">Kaizen</span>
+                  <span class="skill-pill">Agile / Scrum</span>
+                  <span class="skill-pill">Digital Twin</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Hobbies -->
+          <div class="about-section">
+            <div class="about-section-title">
+              <span class="icon">◉</span> Outside the Office
+            </div>
+            <div class="hobbies-grid">
+              <div class="hobby-card">
+                <span class="hobby-emoji">🥾</span>
+                <div class="hobby-name">Hiking</div>
+                <div class="hobby-desc">Exploring new trails across Germany — building endurance, clearing the mind, and finding balance between screen time and fresh air.</div>
+              </div>
+              <div class="hobby-card">
+                <span class="hobby-emoji">🧗</span>
+                <div class="hobby-name">Climbing &amp; Bouldering</div>
+                <div class="hobby-desc">Each route is a puzzle — enhancing problem-solving, focus, and body awareness one hold at a time.</div>
+              </div>
+              <div class="hobby-card">
+                <span class="hobby-emoji">🏐</span>
+                <div class="hobby-name">Volleyball</div>
+                <div class="hobby-desc">A sport that mirrors good engineering: quick decisions, tight coordination, and trusting your teammates to do their part.</div>
+              </div>
+            </div>
+          </div>
+
+        </div><!-- end about-main -->
+      </div><!-- end about-grid -->
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer id="footer">
+    <div class="footer-inner">
+      <div class="footer-left">
+        <div class="footer-name">Akshay Chandrola</div>
+        <div class="footer-tagline">Simulation Engineer · Magdeburg, Germany</div>
+      </div>
+      <div class="footer-contact">
+        <a href="mailto:akshay.chandrola@gmail.com">✉ akshay.chandrola@gmail.com</a>
+        <a href="https://www.linkedin.com/in/akshay-chandrola/" target="_blank">🔗 LinkedIn</a>
+        <a href="https://github.com/AkshayChandrola" target="_blank">⌥ GitHub</a>
+      </div>
+      <div class="footer-copy">© 2025 Akshay Chandrola</div>
+    </div>
+  </footer>
+
+  <script>
+    // ── PAGE SWITCHING ──
+    function showPage(name) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+      document.getElementById('page-' + name).classList.add('active');
+      document.getElementById('tab-' + name).classList.add('active');
+      window.scrollTo({ top: document.getElementById('navbar').offsetTop - 2, behavior: 'smooth' });
+
+      // Animate lang bars when About is opened
+      if (name === 'about') {
+        setTimeout(() => {
+          document.querySelectorAll('.lang-bar-fill').forEach(bar => {
+            const w = parseFloat(bar.dataset.width);
+            bar.style.width = (w * 100) + '%';
+            bar.classList.add('animated');
+          });
+        }, 200);
+      }
+    }
+
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // ── FADE IN ON SCROLL ──
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.style.opacity = '1';
+          e.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.08 });
+
+    document.querySelectorAll('.project-card, .cert-card, .about-section, .kpi-box').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(16px)';
+      el.style.transition = 'opacity 0.45s ease, transform 0.45s ease';
+      observer.observe(el);
+    });
+
+    // ── PROJECT HOVER TOOLTIP ──
+    const hoverModal = document.createElement('div');
+    hoverModal.id = 'proj-hover-modal';
+    hoverModal.innerHTML = '<h4></h4><p></p>';
+    document.body.appendChild(hoverModal);
+
+    document.querySelectorAll('.project-card').forEach(card => {
+      const title = card.querySelector('h3')?.innerText || '';
+      const desc  = card.querySelector('p')?.innerText  || '';
+
+      card.addEventListener('mouseenter', e => {
+        hoverModal.querySelector('h4').textContent = title;
+        hoverModal.querySelector('p').textContent  = desc;
+        positionHoverModal(e);
+        hoverModal.classList.add('visible');
+      });
+      card.addEventListener('mousemove', positionHoverModal);
+      card.addEventListener('mouseleave', () => hoverModal.classList.remove('visible'));
+    });
+
+    function positionHoverModal(e) {
+      const pad = 18, mw = hoverModal.offsetWidth || 380, mh = hoverModal.offsetHeight || 220;
+      let x = e.clientX + pad, y = e.clientY + pad;
+      if (x + mw > window.innerWidth  - pad) x = e.clientX - mw - pad;
+      if (y + mh > window.innerHeight - pad) y = e.clientY - mh - pad;
+      hoverModal.style.left = x + 'px';
+      hoverModal.style.top  = y + 'px';
+    }
+  </script>
+
+
+</body>
 </html>
