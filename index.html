@@ -35,7 +35,7 @@
       --glow-cyan:   0 0 20px rgba(34,211,238,0.3);
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * { box-sizing: border-box; margin: 0; padding: 0; cursor: none; }
 
     html { scroll-behavior: smooth; }
 
@@ -1240,6 +1240,10 @@
 
   <!-- CONVEYOR BAR -->
   <div class="conveyor-bar"></div>
+  <canvas id="agv-cursor" style="
+    position:fixed; top:0; left:0; pointer-events:none;
+    z-index:99999; width:60px; height:60px;
+  " width="120" height="120"></canvas>
 
   <!-- HERO / INTRO -->
   <section id="intro" class="scanlines">
@@ -2024,6 +2028,127 @@
   </footer>
 
   <script>
+    // ── AGV CURSOR ──
+    (function(){
+      const cvs = document.getElementById('agv-cursor');
+      const ctx = cvs.getContext('2d');
+      const S = 2; // retina scale (canvas is 120px, displayed at 60px)
+      let mx = -200, my = -200, angle = 0, lastX = -200, lastY = -200;
+      let trail = [];
+    
+      document.addEventListener('mousemove', e => {
+        // smooth angle from movement direction
+        const dx = e.clientX - lastX, dy = e.clientY - lastY;
+        if (Math.abs(dx) + Math.abs(dy) > 2) {
+          angle = Math.atan2(dy, dx) + Math.PI / 2;
+        }
+        lastX = mx; lastY = my;
+        mx = e.clientX; my = e.clientY;
+    
+        // trail dots
+        trail.push({ x: mx, y: my, life: 1 });
+        if (trail.length > 18) trail.shift();
+      });
+    
+      function drawAGV(cx, cy, a) {
+        ctx.save();
+        ctx.translate(cx * S, cy * S);
+        ctx.rotate(a);
+        ctx.scale(S, S);
+    
+        const W = 14, H = 20;
+    
+        // Ambient glow
+        const grd = ctx.createRadialGradient(0, 0, 4, 0, 0, 26);
+        grd.addColorStop(0, 'rgba(34,211,238,0.18)');
+        grd.addColorStop(1, 'rgba(34,211,238,0)');
+        ctx.fillStyle = grd;
+        ctx.beginPath(); ctx.arc(0, 0, 26, 0, Math.PI*2); ctx.fill();
+    
+        // Shadow
+        ctx.fillStyle = 'rgba(0,0,0,0.3)';
+        ctx.beginPath();
+        ctx.ellipse(2, 2, W*0.7, H*0.55, 0, 0, Math.PI*2);
+        ctx.fill();
+    
+        // Body
+        ctx.fillStyle = 'rgba(5,15,26,0.96)';
+        ctx.strokeStyle = '#22d3ee';
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.roundRect(-W/2, -H/2, W, H, 4);
+        ctx.fill(); ctx.stroke();
+    
+        // Cyan top stripe (direction indicator)
+        ctx.fillStyle = 'rgba(34,211,238,0.25)';
+        ctx.beginPath();
+        ctx.roundRect(-W/2+2, -H/2+2, W-4, H*0.22, 2);
+        ctx.fill();
+    
+        // Front chevron arrow
+        ctx.fillStyle = 'rgba(34,211,238,0.9)';
+        ctx.beginPath();
+        ctx.moveTo(0, -H*0.28);
+        ctx.lineTo(-W*0.28, H*0.05);
+        ctx.lineTo(0, -H*0.04);
+        ctx.lineTo(W*0.28, H*0.05);
+        ctx.closePath(); ctx.fill();
+    
+        // Center dot (sensor)
+        ctx.fillStyle = '#22d3ee';
+        ctx.beginPath(); ctx.arc(0, H*0.15, 2, 0, Math.PI*2); ctx.fill();
+        ctx.fillStyle = 'rgba(34,211,238,0.25)';
+        ctx.beginPath(); ctx.arc(0, H*0.15, 5, 0, Math.PI*2); ctx.fill();
+    
+        // Wheels — 4 corners
+        const WX = W*0.52, WY = H*0.38, WR = 2.8;
+        ctx.fillStyle = 'rgba(4,10,18,0.95)';
+        ctx.strokeStyle = 'rgba(34,211,238,0.5)';
+        ctx.lineWidth = 1;
+        [[-1,-1],[1,-1],[-1,1],[1,1]].forEach(([sx,sy]) => {
+          ctx.beginPath(); ctx.arc(sx*WX, sy*WY, WR, 0, Math.PI*2);
+          ctx.fill(); ctx.stroke();
+        });
+    
+        // Scan beam from front
+        const beamGrd = ctx.createLinearGradient(0, -H/2-18, 0, -H/2);
+        beamGrd.addColorStop(0, 'rgba(34,211,238,0)');
+        beamGrd.addColorStop(1, 'rgba(34,211,238,0.3)');
+        ctx.fillStyle = beamGrd;
+        ctx.beginPath();
+        ctx.moveTo(-W*0.4, -H/2);
+        ctx.lineTo(W*0.4, -H/2);
+        ctx.lineTo(W*0.7, -H/2-18);
+        ctx.lineTo(-W*0.7, -H/2-18);
+        ctx.closePath(); ctx.fill();
+    
+        ctx.restore();
+      }
+    
+      function loop() {
+        ctx.clearRect(0, 0, cvs.width, cvs.height);
+        const ox = 30, oy = 30; // canvas center offset from cursor tip
+    
+        // Trail
+        trail.forEach((p, i) => {
+          const alpha = (i / trail.length) * 0.35;
+          const r = (i / trail.length) * 4;
+          ctx.fillStyle = `rgba(34,211,238,${alpha})`;
+          ctx.beginPath();
+          ctx.arc((p.x - mx + ox) * S, (p.y - my + oy) * S, r * S, 0, Math.PI*2);
+          ctx.fill();
+        });
+    
+        drawAGV(ox, oy, angle);
+    
+        // Position canvas so center aligns to cursor
+        cvs.style.left = (mx - ox) + 'px';
+        cvs.style.top  = (my - oy) + 'px';
+    
+        requestAnimationFrame(loop);
+      }
+      loop();
+    })();
     // ── PAGE SWITCHING ──
     function showPage(name) {
       document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
