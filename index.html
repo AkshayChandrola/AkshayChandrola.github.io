@@ -35,7 +35,7 @@
       --glow-cyan:   0 0 20px rgba(34,211,238,0.3);
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; cursor: none; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     html { scroll-behavior: smooth; }
 
@@ -1142,6 +1142,153 @@
       .hobbies-grid { grid-template-columns: 1fr; }
     }
 
+      /* ─────────────────────────────────────────────
+      MATERIAL FLOW REVEAL — PROFESSIONAL VERSION
+    ──────────────────────────────────────────── */
+    .flow-reveal {
+      opacity: 0;
+      transform: translateY(38px);
+      filter: blur(4px);
+      transition:
+        opacity 1.05s ease,
+        transform 1.15s cubic-bezier(0.22, 1, 0.36, 1),
+        filter 1.05s ease;
+      transition-delay: var(--flow-delay, 0ms);
+      position: relative;
+      overflow: hidden;
+      animation: none !important;
+    }
+
+    .flow-reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+      filter: blur(0);
+    }
+
+    /* route line draws around the card */
+    .flow-reveal::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      pointer-events: none;
+      z-index: 3;
+      opacity: 0;
+      background:
+        linear-gradient(90deg, var(--amber), var(--amber)) top left / 0% 1px no-repeat,
+        linear-gradient(180deg, var(--amber), var(--cyan)) top right / 1px 0% no-repeat,
+        linear-gradient(270deg, var(--cyan), var(--cyan)) bottom right / 0% 1px no-repeat,
+        linear-gradient(0deg, var(--cyan), var(--amber)) bottom left / 1px 0% no-repeat;
+    }
+
+    .flow-reveal.is-visible::before {
+      opacity: 0.65;
+      animation: routeTrace 1.8s ease forwards;
+      animation-delay: calc(var(--flow-delay, 0ms) + 90ms);
+    }
+
+    /* soft system scan */
+    .flow-reveal::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -55%;
+      width: 45%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 2;
+      opacity: 0;
+      background: linear-gradient(
+        100deg,
+        transparent,
+        rgba(245,158,11,0.035),
+        rgba(34,211,238,0.07),
+        transparent
+      );
+    }
+
+    .flow-reveal.is-visible::after {
+      animation: systemScan 1.55s ease forwards;
+      animation-delay: calc(var(--flow-delay, 0ms) + 70ms);
+    }
+
+    @keyframes routeTrace {
+      0% {
+        background-size: 0% 1px, 1px 0%, 0% 1px, 1px 0%;
+      }
+      40% {
+        background-size: 100% 1px, 1px 0%, 0% 1px, 1px 0%;
+      }
+      65% {
+        background-size: 100% 1px, 1px 100%, 0% 1px, 1px 0%;
+      }
+      85% {
+        background-size: 100% 1px, 1px 100%, 100% 1px, 1px 0%;
+      }
+      100% {
+        background-size: 100% 1px, 1px 100%, 100% 1px, 1px 100%;
+      }
+    }
+
+    @keyframes systemScan {
+      0% {
+        left: -55%;
+        opacity: 0;
+      }
+      25% {
+        opacity: 1;
+      }
+      100% {
+        left: 110%;
+        opacity: 0;
+      }
+    }
+
+
+    /* Vertical material-flow progress rail */
+    .scroll-flow-rail {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 3px;
+      height: 100vh;
+      z-index: 200;
+      background: rgba(42,52,69,0.34);
+      pointer-events: none;
+    }
+
+    .scroll-flow-fill {
+      width: 100%;
+      height: 0%;
+      background: linear-gradient(
+        to bottom,
+        var(--amber) 0%,
+        var(--amber2) 44%,
+        var(--cyan) 100%
+      );
+      box-shadow:
+        0 0 14px rgba(245,158,11,0.45),
+        0 0 26px rgba(34,211,238,0.18);
+      transition: height 0.08s linear;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .flow-reveal {
+        opacity: 1;
+        transform: none;
+        filter: none;
+        transition: none;
+      }
+
+      .flow-reveal::before,
+      .flow-reveal::after,
+      .scroll-flow-rail {
+        display: none;
+      }
+    }
+
+
+
     /* ─── ANIMATIONS ─── */
     .fade-in-up {
       opacity: 0;
@@ -1238,12 +1385,11 @@
 </head>
 <body>
 
-  <!-- CONVEYOR BAR -->
-  <div class="conveyor-bar"></div>
-  <canvas id="agv-cursor" style="
-    position:fixed; top:0; left:0; pointer-events:none;
-    z-index:99999; width:60px; height:60px;
-  " width="120" height="120"></canvas>
+  <div class="scroll-flow-rail">
+    <div class="scroll-flow-fill"></div>
+  </div>
+
+
 
   <!-- HERO / INTRO -->
   <section id="intro" class="scanlines">
@@ -2028,127 +2174,6 @@
   </footer>
 
   <script>
-    // ── AGV CURSOR ──
-    (function(){
-      const cvs = document.getElementById('agv-cursor');
-      const ctx = cvs.getContext('2d');
-      const S = 2; // retina scale (canvas is 120px, displayed at 60px)
-      let mx = -200, my = -200, angle = 0, lastX = -200, lastY = -200;
-      let trail = [];
-    
-      document.addEventListener('mousemove', e => {
-        // smooth angle from movement direction
-        const dx = e.clientX - lastX, dy = e.clientY - lastY;
-        if (Math.abs(dx) + Math.abs(dy) > 2) {
-          angle = Math.atan2(dy, dx) + Math.PI / 2;
-        }
-        lastX = mx; lastY = my;
-        mx = e.clientX; my = e.clientY;
-    
-        // trail dots
-        trail.push({ x: mx, y: my, life: 1 });
-        if (trail.length > 18) trail.shift();
-      });
-    
-      function drawAGV(cx, cy, a) {
-        ctx.save();
-        ctx.translate(cx * S, cy * S);
-        ctx.rotate(a);
-        ctx.scale(S, S);
-    
-        const W = 14, H = 20;
-    
-        // Ambient glow
-        const grd = ctx.createRadialGradient(0, 0, 4, 0, 0, 26);
-        grd.addColorStop(0, 'rgba(34,211,238,0.18)');
-        grd.addColorStop(1, 'rgba(34,211,238,0)');
-        ctx.fillStyle = grd;
-        ctx.beginPath(); ctx.arc(0, 0, 26, 0, Math.PI*2); ctx.fill();
-    
-        // Shadow
-        ctx.fillStyle = 'rgba(0,0,0,0.3)';
-        ctx.beginPath();
-        ctx.ellipse(2, 2, W*0.7, H*0.55, 0, 0, Math.PI*2);
-        ctx.fill();
-    
-        // Body
-        ctx.fillStyle = 'rgba(5,15,26,0.96)';
-        ctx.strokeStyle = '#22d3ee';
-        ctx.lineWidth = 1.5;
-        ctx.beginPath();
-        ctx.roundRect(-W/2, -H/2, W, H, 4);
-        ctx.fill(); ctx.stroke();
-    
-        // Cyan top stripe (direction indicator)
-        ctx.fillStyle = 'rgba(34,211,238,0.25)';
-        ctx.beginPath();
-        ctx.roundRect(-W/2+2, -H/2+2, W-4, H*0.22, 2);
-        ctx.fill();
-    
-        // Front chevron arrow
-        ctx.fillStyle = 'rgba(34,211,238,0.9)';
-        ctx.beginPath();
-        ctx.moveTo(0, -H*0.28);
-        ctx.lineTo(-W*0.28, H*0.05);
-        ctx.lineTo(0, -H*0.04);
-        ctx.lineTo(W*0.28, H*0.05);
-        ctx.closePath(); ctx.fill();
-    
-        // Center dot (sensor)
-        ctx.fillStyle = '#22d3ee';
-        ctx.beginPath(); ctx.arc(0, H*0.15, 2, 0, Math.PI*2); ctx.fill();
-        ctx.fillStyle = 'rgba(34,211,238,0.25)';
-        ctx.beginPath(); ctx.arc(0, H*0.15, 5, 0, Math.PI*2); ctx.fill();
-    
-        // Wheels — 4 corners
-        const WX = W*0.52, WY = H*0.38, WR = 2.8;
-        ctx.fillStyle = 'rgba(4,10,18,0.95)';
-        ctx.strokeStyle = 'rgba(34,211,238,0.5)';
-        ctx.lineWidth = 1;
-        [[-1,-1],[1,-1],[-1,1],[1,1]].forEach(([sx,sy]) => {
-          ctx.beginPath(); ctx.arc(sx*WX, sy*WY, WR, 0, Math.PI*2);
-          ctx.fill(); ctx.stroke();
-        });
-    
-        // Scan beam from front
-        const beamGrd = ctx.createLinearGradient(0, -H/2-18, 0, -H/2);
-        beamGrd.addColorStop(0, 'rgba(34,211,238,0)');
-        beamGrd.addColorStop(1, 'rgba(34,211,238,0.3)');
-        ctx.fillStyle = beamGrd;
-        ctx.beginPath();
-        ctx.moveTo(-W*0.4, -H/2);
-        ctx.lineTo(W*0.4, -H/2);
-        ctx.lineTo(W*0.7, -H/2-18);
-        ctx.lineTo(-W*0.7, -H/2-18);
-        ctx.closePath(); ctx.fill();
-    
-        ctx.restore();
-      }
-    
-      function loop() {
-        ctx.clearRect(0, 0, cvs.width, cvs.height);
-        const ox = 30, oy = 30; // canvas center offset from cursor tip
-    
-        // Trail
-        trail.forEach((p, i) => {
-          const alpha = (i / trail.length) * 0.35;
-          const r = (i / trail.length) * 4;
-          ctx.fillStyle = `rgba(34,211,238,${alpha})`;
-          ctx.beginPath();
-          ctx.arc((p.x - mx + ox) * S, (p.y - my + oy) * S, r * S, 0, Math.PI*2);
-          ctx.fill();
-        });
-    
-        drawAGV(ox, oy, angle);
-    
-        // Position canvas so center aligns to cursor
-        cvs.style.left = (mx - ox) + 'px';
-        cvs.style.top  = (my - oy) + 'px';
-    
-        requestAnimationFrame(loop);
-      }
-      loop();
-    })();
     // ── PAGE SWITCHING ──
     function showPage(name) {
       document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -2173,22 +2198,52 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // ── FADE IN ON SCROLL ──
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          e.target.style.opacity = '1';
-          e.target.style.transform = 'translateY(0)';
-        }
-      });
-    }, { threshold: 0.08 });
+  // ── MATERIAL FLOW SCROLL REVEAL ──
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
 
-    document.querySelectorAll('.project-card, .cert-card, .about-section, .kpi-box').forEach(el => {
-      el.style.opacity = '0';
-      el.style.transform = 'translateY(16px)';
-      el.style.transition = 'opacity 0.45s ease, transform 0.45s ease';
-      observer.observe(el);
+        entry.target.classList.add('is-visible');
+        revealObserver.unobserve(entry.target);
+      });
+    }, {
+      threshold: 0.16,
+      rootMargin: '0px 0px -12% 0px'
     });
+
+    document
+      .querySelectorAll('.featured-project, .project-card, .cert-card, .about-section, .kpi-box, .skill-category, .hobby-card')
+      .forEach((el, index) => {
+        el.classList.add('flow-reveal');
+        el.style.setProperty('--flow-delay', `${Math.min(index * 70, 420)}ms`);
+        revealObserver.observe(el);
+      });
+
+
+    // ── PAGE MATERIAL FLOW PROGRESS ──
+    const flowFill = document.querySelector('.scroll-flow-fill');
+
+    function updateFlowProgress() {
+      const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = scrollable > 0 ? (window.scrollY / scrollable) * 100 : 0;
+
+      if (flowFill) {
+        flowFill.style.height = progress + '%';
+      }
+    }
+
+    window.addEventListener('scroll', updateFlowProgress, { passive: true });
+    window.addEventListener('resize', updateFlowProgress);
+    updateFlowProgress();
+
+
+    document
+      .querySelectorAll('.featured-project, .project-card, .cert-card, .about-section, .kpi-box, .skill-category, .hobby-card')
+      .forEach((el, index) => {
+        el.classList.add('scroll-reveal');
+        el.style.setProperty('--reveal-delay', `${Math.min(index * 55, 330)}ms`);
+        revealObserver.observe(el);
+      });
 
     // ── PROJECT HOVER TOOLTIP ──
     const hoverModal = document.createElement('div');
