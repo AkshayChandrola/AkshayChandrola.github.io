@@ -4,6 +4,14 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
   <title>Akshay Chandrola — Simulation Engineer</title>
+  <meta name="description" content="Portfolio of Akshay Chandrola, Simulation Engineer specializing in material flow simulation, intralogistics, Siemens Tecnomatix Plant Simulation, Python DES, and digital twin systems.">
+  <meta name="author" content="Akshay Chandrola">
+  <meta property="og:title" content="Akshay Chandrola — Simulation Engineer">
+  <meta property="og:description" content="Material flow simulation, intralogistics, DES, Python, and digital twin portfolio.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://akshaychandrola.github.io/">
+  <meta property="og:image" content="https://akshaychandrola.github.io/images/profile.jpg">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;600;700;800&family=IBM+Plex+Mono:wght@300;400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
@@ -1108,7 +1116,7 @@
        FOOTER
     ───────────────────────────────────────────── */
     #footer {
-      bbackground: rgba(10,14,20,0.55);
+      background: rgba(10,14,20,0.55);
       backdrop-filter: blur(12px);
       border-top: 1px solid var(--border);
       padding: 2.5rem;
@@ -1163,6 +1171,131 @@
       font-size: 0.7rem;
       color: var(--text3);
       text-align: right;
+    }
+
+    .nav-cv-btn {
+      height: 34px;
+      display: inline-flex;
+      align-items: center;
+      padding: 0 14px;
+      border: 1px solid var(--amber-dim);
+      border-radius: var(--radius);
+      color: var(--amber);
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    
+    .nav-cv-btn:hover {
+      background: rgba(245,158,11,0.1);
+      box-shadow: var(--glow-amber);
+    }
+    
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 0.9rem;
+      margin-bottom: 2.5rem;
+    }
+    
+    .service-card {
+      background: rgba(18,26,44,0.46);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.1rem;
+    }
+    
+    .service-card h3 {
+      font-family: var(--heading-font);
+      font-size: 0.92rem;
+      color: var(--text);
+      margin-bottom: 0.4rem;
+    }
+    
+    .service-card p {
+      font-size: 0.78rem;
+      color: var(--text3);
+      line-height: 1.5;
+    }
+    
+    .project-facts {
+      display: grid;
+      gap: 0.45rem;
+      margin-bottom: 1rem;
+    }
+    
+    .project-fact {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      color: var(--text3);
+    }
+    
+    .project-fact strong {
+      color: var(--cyan);
+      font-weight: 500;
+    }
+    
+    .certs-grid.collapsed .cert-card:not(.cert-featured) {
+      display: none;
+    }
+    
+    .certs-actions {
+      display: flex;
+      justify-content: center;
+      margin-top: 2rem;
+    }
+    
+    .cv-preview {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.2rem;
+      margin-top: 1.2rem;
+    }
+    
+    .cv-preview-title {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--amber);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 0.9rem;
+    }
+    
+    .cv-preview-frame {
+      width: 100%;
+      height: 360px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--bg);
+      margin-bottom: 0.9rem;
+    }
+    
+    @media (max-width: 900px) {
+      .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    
+    @media (max-width: 700px) {
+      .project-card-body p {
+        max-height: none;
+      }
+    
+      .project-card:hover,
+      .project-card:focus-within {
+        transform: none;
+      }
+    
+      .services-grid {
+        grid-template-columns: 1fr;
+      }
+    
+      .cv-preview-frame {
+        height: 420px;
+      }
     }
 
     /* ─────────────────────────────────────────────
@@ -1415,10 +1548,14 @@
       <button class="btn-primary" onclick="showPage('projects'); document.getElementById('navbar').scrollIntoView({behavior:'smooth'});">
         ▶ View Projects
       </button>
-      <button class="btn-outline" onclick="showPage('about'); document.getElementById('navbar').scrollIntoView({behavior:'smooth'});">
-        About Me
-      </button>
+      <a class="btn-outline" href="images/Akshay_Chandrola_CV.pdf" target="_blank">
+        Download CV
+      </a>
+      <a class="btn-outline" href="mailto:akshay.chandrola@gmail.com">
+        Contact Me
+      </a>
     </div>
+
     <!-- Ticker -->
     <div class="ticker-wrap">
       <div class="ticker">
@@ -1456,6 +1593,7 @@
         <li class="nav-tab" id="tab-about" onclick="showPage('about')">About Me</li>
       </ul>
       <div class="nav-socials">
+        <a href="images/Akshay_Chandrola_CV.pdf" target="_blank" class="nav-cv-btn">CV</a>
         <a href="https://www.linkedin.com/in/akshay-chandrola/" target="_blank" class="nav-social-btn" title="LinkedIn">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
         </a>
@@ -1474,6 +1612,29 @@
       <div class="section-header">
         <div class="section-label">Portfolio</div>
         <h2 class="section-title">Projects</h2>
+      </div>
+
+      <div class="services-grid">
+        <div class="service-card">
+          <h3>Material Flow Simulation</h3>
+          <p>Discrete-event models for production, warehouse, and intralogistics systems.</p>
+        </div>
+        <div class="service-card">
+          <h3>Bottleneck Analysis</h3>
+          <p>Throughput, cycle-time, utilization, and queue behavior evaluation.</p>
+        </div>
+        <div class="service-card">
+          <h3>MHS Layout Design</h3>
+          <p>Conveyors, supermarkets, AGVs, buffers, and automated handling concepts.</p>
+        </div>
+        <div class="service-card">
+          <h3>Digital Twin Validation</h3>
+          <p>Scenario testing and model validation for production planning decisions.</p>
+        </div>
+        <div class="service-card">
+          <h3>Data-Driven Optimization</h3>
+          <p>Python, SQL, BI dashboards, and optimization methods for decision support.</p>
+        </div>
       </div>
 
       <!-- Featured -->
@@ -1590,7 +1751,7 @@
             <img src="images/pic09.png" alt="" onerror="this.style.display='none'">
           </div>
           <div class="project-card-body">
-            <span class="project-tag" style="font-size:0.65rem;padding:2px 8px;">POWER BI · DATA VIZULISATION</span>
+            <span class="project-tag" style="font-size:0.65rem;padding:2px 8px;">POWER BI · DATA VISUALIZATION</span>
             <h3><a href="https://github.com/AkshayChandrola/AkshayChandrola.github.io/tree/main/Projects/Power%20BI" target="_blank">PowerBI Dashboard — Data Professional Survey</a></h3>
             <p>Cleaned and transformed a real-world survey dataset in Power Query Editor, then built an interactive dashboard surfacing insights on programming language preferences, salary by role, work-life balance scores, and the perceived difficulty of entering the data profession.</p>
             <a href="https://github.com/AkshayChandrola/AkshayChandrola.github.io/tree/main/Projects/Power%20BI" target="_blank" class="project-link-btn">View Project ↗</a>
@@ -1647,10 +1808,9 @@
         <h2 class="section-title">Certificates</h2>
       </div>
 
-      <div class="certs-grid">
-
+      <div class="certs-grid collapsed" id="certsGrid">
         <!-- Helper macro pattern repeated for each cert -->
-        <div class="cert-card fade-in-up">
+        <div class="cert-card cert-featured fade-in-up">
           <div class="cert-card-img"><img src="images/certificate1.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><div class="cert-placeholder-icon" style="display:none;">🎓</div></div>
           <div class="cert-card-body">
             <h3><a href="https://freecodecamp.org/certification/akshaychandrola/foundational-c-sharp-with-microsoft" target="_blank">Foundational C# with Microsoft</a></h3>
@@ -1659,7 +1819,7 @@
           </div>
         </div>
 
-        <div class="cert-card fade-in-up">
+        <div class="cert-card cert-featured fade-in-up">
           <div class="cert-card-img"><img src="images/certificate2.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><div class="cert-placeholder-icon" style="display:none;">🎓</div></div>
           <div class="cert-card-body">
             <h3><a href="https://www.linkedin.com/learning/certificates/9e39b57d2d6c37048767a28efe7a776ceb87c10af59e354726d00fd56aba056c" target="_blank">Learning C#</a></h3>
@@ -1668,7 +1828,7 @@
           </div>
         </div>
 
-        <div class="cert-card fade-in-up">
+        <div class="cert-card cert-featured fade-in-up">
           <div class="cert-card-img"><img src="images/certificate3.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><div class="cert-placeholder-icon" style="display:none;">🎓</div></div>
           <div class="cert-card-body">
             <h3><a href="https://www.linkedin.com/learning/certificates/332a44bb183dab6a136e0670a7744f3a95be476ac8e6f5ceaa2e0ea9d747eedb" target="_blank">Visual Studio Essential Training</a></h3>
@@ -1776,7 +1936,7 @@
           </div>
         </div>
 
-        <div class="cert-card fade-in-up">
+        <div class="cert-card cert-featured fade-in-up">
           <div class="cert-card-img"><img src="images/certificate12.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><div class="cert-placeholder-icon" style="display:none;">🎓</div></div>
           <div class="cert-card-body">
             <h3><a href="https://www.linkedin.com/learning/certificates/9ea7683199a2b019cc6fa8170d64c503d236b69baa5348d7d6168c96a9d17805" target="_blank">Introduction to Data Science</a></h3>
@@ -1794,7 +1954,7 @@
           </div>
         </div>
 
-        <div class="cert-card fade-in-up">
+        <div class="cert-card cert-featured fade-in-up">
           <div class="cert-card-img"><img src="images/certificate15.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><div class="cert-placeholder-icon" style="display:none;">🎓</div></div>
           <div class="cert-card-body">
             <h3><a href="https://www.linkedin.com/learning/certificates/80b135f07391ab6ea5c87c5cea34bbedf68ad108660b1112dce5cdcf1255ffe4" target="_blank">Learning AutoCAD 2024</a></h3>
@@ -1803,7 +1963,7 @@
           </div>
         </div>
 
-        <div class="cert-card fade-in-up">
+        <div class="cert-card cert-featured fade-in-up">
           <div class="cert-card-img"><img src="images/certificate16.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><div class="cert-placeholder-icon" style="display:none;">🎓</div></div>
           <div class="cert-card-body">
             <h3><a href="https://coursera.org/verify/NPAFH953CVR3" target="_blank">Crash Course on Python</a></h3>
@@ -1812,7 +1972,7 @@
           </div>
         </div>
 
-        <div class="cert-card fade-in-up">
+        <div class="cert-card cert-featured fade-in-up">
           <div class="cert-card-img"><img src="images/certificate17.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><div class="cert-placeholder-icon" style="display:none;">🎓</div></div>
           <div class="cert-card-body">
             <h3><a href="https://coursera.org/verify/L7BNZQGDLMHW" target="_blank">Introduction to Model-Based Systems Engineering</a></h3>
@@ -1821,7 +1981,7 @@
           </div>
         </div>
 
-        <div class="cert-card fade-in-up">
+        <div class="cert-card cert-featured fade-in-up">
           <div class="cert-card-img"><img src="images/certificate18.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><div class="cert-placeholder-icon" style="display:none;">🎓</div></div>
           <div class="cert-card-body">
             <h3><a href="https://coursera.org/verify/9ZXM5UJL78H7" target="_blank">SAP Professional Fundamentals</a></h3>
@@ -1830,6 +1990,10 @@
           </div>
         </div>
 
+      </div>
+
+      <div class="certs-actions">
+        <button class="btn-outline" id="toggleCertsBtn" type="button">View All Certificates</button>
       </div>
     </div>
   </div>
@@ -1952,7 +2116,17 @@
           <a href="https://www.linkedin.com/in/akshay-chandrola/" target="_blank" class="btn-primary" style="width:100%;justify-content:center;text-align:center;">
             Connect on LinkedIn ↗
           </a>
-
+          <div class="cv-preview">
+            <div class="cv-preview-title">Curriculum Vitae</div>
+            <iframe
+              class="cv-preview-frame"
+              src="images/Akshay_Chandrola_CV.pdf#toolbar=0&navpanes=0"
+              title="Akshay Chandrola CV">
+            </iframe>
+            <a href="images/Akshay_Chandrola_CV.pdf" target="_blank" class="cert-verify-btn">
+              Open CV ↗
+            </a>
+          </div>
         </div>
 
         <!-- Main content -->
@@ -2220,15 +2394,6 @@
       rootMargin: '0px 0px -12% 0px'
     });
 
-    document
-      .querySelectorAll('.featured-project, .project-card, .cert-card, .about-section, .kpi-box, .skill-category, .hobby-card')
-      .forEach((el, index) => {
-        el.classList.add('flow-reveal');
-        el.style.setProperty('--flow-delay', `${Math.min(index * 70, 420)}ms`);
-        revealObserver.observe(el);
-      });
-
-
     // ── PAGE MATERIAL FLOW PROGRESS ──
     const flowFill = document.querySelector('.scroll-flow-fill');
 
@@ -2254,13 +2419,24 @@
         revealObserver.observe(el);
       });
 
+    // ── CERTIFICATE EXPAND / COLLAPSE ──
+    const certsGrid = document.getElementById('certsGrid');
+    const toggleCertsBtn = document.getElementById('toggleCertsBtn');
+    
+    if (certsGrid && toggleCertsBtn) {
+      toggleCertsBtn.addEventListener('click', () => {
+        const isCollapsed = certsGrid.classList.toggle('collapsed');
+        toggleCertsBtn.textContent = isCollapsed ? 'View All Certificates' : 'Show Fewer Certificates';
+      });
+    }
+
     // ── PROFESSIONAL WAREHOUSE BACKGROUND ──
     (function () {
       const cvs = document.createElement('canvas');
       Object.assign(cvs.style, {
         position:'fixed', top:'0', left:'0',
         width:'100%', height:'100%',
-        zIndex:'0', pointerEvents:'none', opacity:'0.55'
+        zIndex:'0', pointerEvents:'none', opacity:'0.28'
       });
       document.body.prepend(cvs);
       const ctx = cvs.getContext('2d');
@@ -2525,7 +2701,7 @@
 
         // ── PACKAGES ON CONVEYOR ──
         pkgs.forEach(p => {
-          p.t = (p.t+0.00024)%1;
+          p.t = (p.t+0.00010)%1;
           const [px,py] = pathPos(CV, p.t);
           const sz=BW*0.68;
           ctx.fillStyle='rgba(16,185,129,0.42)';
@@ -2541,7 +2717,7 @@
 
         // ── AGVs ──
         const GW=Math.max(20,W*0.022), GH=Math.max(14,H*0.04);
-        const speeds=[0.00017,0.000205,0.000145];
+        const speeds=[0.000075,0.00009,0.000065];
 
         for (let i=0; i<3; i++) {
           const t=(f*speeds[i]+i/3)%1;
