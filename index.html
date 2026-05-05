@@ -477,32 +477,59 @@
       border: 1px solid var(--border);
       border-radius: 10px;
       overflow: hidden;
-      transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+      transition:
+        border-color 0.35s ease,
+        box-shadow 0.35s ease,
+        transform 0.35s ease,
+        background 0.35s ease;
       cursor: pointer;
+      transform-origin: center;
     }
-    .project-card:hover {
-      border-color: var(--border2);
-      box-shadow: 0 8px 30px rgba(0,0,0,0.4);
-      transform: translateY(-3px);
+
+    .project-card:hover,
+    .project-card:focus-within {
+      border-color: var(--amber-dim);
+      box-shadow:
+        0 18px 50px rgba(0,0,0,0.48),
+        0 0 22px rgba(245,158,11,0.12);
+      transform: translateY(-6px) scale(1.018);
+      background: rgba(20,30,48,0.72);
+      z-index: 5;
     }
+
     .project-card-img {
       height: 180px;
       background: var(--bg3);
-      display: flex; align-items: center; justify-content: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       font-size: 3rem;
       position: relative;
       overflow: hidden;
     }
+
     .project-card-img img {
-      width: 100%; height: 100%;
+      width: 100%;
+      height: 100%;
       object-fit: cover;
-      opacity: 0.6;
-      transition: opacity 0.3s;
+      opacity: 0.62;
+      transition:
+        opacity 0.35s ease,
+        transform 0.55s ease,
+        filter 0.35s ease;
     }
-    .project-card:hover .project-card-img img { opacity: 0.8; }
+
+    .project-card:hover .project-card-img img,
+    .project-card:focus-within .project-card-img img {
+      opacity: 0.9;
+      transform: scale(1.06);
+      filter: saturate(1.08) contrast(1.08);
+    }
+
     .project-card-body {
       padding: 1.4rem;
     }
+
     .project-card-body h3 {
       font-family: var(--heading-font);
       font-size: 1rem;
@@ -511,21 +538,36 @@
       line-height: 1.35;
       margin-bottom: 0.6rem;
     }
+
     .project-card-body h3 a {
-      color: inherit; text-decoration: none; transition: color 0.2s;
+      color: inherit;
+      text-decoration: none;
+      transition: color 0.2s;
     }
-    .project-card-body h3 a:hover { color: var(--amber); }
+
+    .project-card-body h3 a:hover {
+      color: var(--amber);
+    }
+
     .project-card-body p {
       color: var(--text2);
       font-size: 0.85rem;
       line-height: 1.6;
       text-align: justify;
-      display: -webkit-box;
-      -webkit-line-clamp: 4;
-      -webkit-box-orient: vertical;
+      max-height: 5.45em;
       overflow: hidden;
       margin-bottom: 1rem;
+      transition:
+        max-height 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+        color 0.35s ease;
     }
+
+    .project-card:hover .project-card-body p,
+    .project-card:focus-within .project-card-body p {
+      max-height: 18em;
+      color: var(--text);
+    }
+
     .project-link-btn {
       display: inline-flex;
       align-items: center;
@@ -541,6 +583,7 @@
       transition: all 0.2s;
       text-transform: uppercase;
     }
+
     .project-link-btn:hover {
       background: rgba(245,158,11,0.1);
       box-shadow: var(--glow-amber);
@@ -1345,40 +1388,6 @@
     @keyframes ticker {
       from { transform: translateX(0); }
       to   { transform: translateX(-50%); }
-    }
-
-    /* ── PROJECT HOVER TOOLTIP ── */
-    #proj-hover-modal {
-      position: fixed;
-      z-index: 999;
-      background: #0f1520;
-      border: 1px solid var(--amber-dim);
-      border-radius: 10px;
-      padding: 1.5rem;
-      max-width: 380px;
-      width: 90vw;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.75), var(--glow-amber);
-      pointer-events: none;
-      opacity: 0;
-      transform: translateY(8px) scale(0.97);
-      transition: opacity 0.2s ease, transform 0.2s ease;
-    }
-    #proj-hover-modal.visible {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-    }
-    #proj-hover-modal h4 {
-      font-family: var(--heading-font);
-      font-size: 0.95rem;
-      font-weight: 700;
-      color: var(--amber);
-      margin-bottom: 0.75rem;
-      line-height: 1.35;
-    }
-    #proj-hover-modal p {
-      font-size: 0.83rem;
-      color: var(--text2);
-      line-height: 1.72;
     }
     
   </style>
@@ -2244,37 +2253,6 @@
         el.style.setProperty('--reveal-delay', `${Math.min(index * 55, 330)}ms`);
         revealObserver.observe(el);
       });
-
-    // ── PROJECT HOVER TOOLTIP ──
-    const hoverModal = document.createElement('div');
-    hoverModal.id = 'proj-hover-modal';
-    hoverModal.innerHTML = '<h4></h4><p></p>';
-    document.body.appendChild(hoverModal);
-
-    document.querySelectorAll('.project-card').forEach(card => {
-      const title = card.querySelector('h3')?.innerText || '';
-      const desc  = card.querySelector('p')?.innerText  || '';
-
-      card.addEventListener('mouseenter', e => {
-        hoverModal.querySelector('h4').textContent = title;
-        hoverModal.querySelector('p').textContent  = desc;
-        positionHoverModal(e);
-        hoverModal.classList.add('visible');
-      });
-      card.addEventListener('mousemove', positionHoverModal);
-      card.addEventListener('mouseleave', () => hoverModal.classList.remove('visible'));
-    });
-
-    function positionHoverModal(e) {
-      const pad = 18, mw = hoverModal.offsetWidth || 380, mh = hoverModal.offsetHeight || 220;
-      let x = e.clientX + pad, y = e.clientY + pad;
-      if (x + mw > window.innerWidth  - pad) x = e.clientX - mw - pad;
-      if (y + mh > window.innerHeight - pad) y = e.clientY - mh - pad;
-      hoverModal.style.left = x + 'px';
-      hoverModal.style.top  = y + 'px';
-    }
-    
-    
 
     // ── PROFESSIONAL WAREHOUSE BACKGROUND ──
     (function () {
