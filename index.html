@@ -52,7 +52,7 @@
       color: var(--text);
       font-family: var(--body-font);
       font-size: 15px;
-      line-height: 1.7;
+      line-height: 1.62;
       overflow-x: hidden;
     }
 
@@ -185,7 +185,8 @@
       max-width: 640px;
       color: var(--text2);
       font-size: 1rem;
-      margin-bottom: 2.5rem;
+      line-height: 1.58;
+      margin-bottom: 2rem;
       animation: fadeUp 0.7s 0.3s ease both;
     }
 
@@ -323,6 +324,65 @@
       display: flex;
       gap: 10px;
     }
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-right: 6.8rem;
+    }
+    .language-switcher {
+      position: fixed;
+      top: 6px;
+      right: 18px;
+      z-index: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: rgba(10,12,15,0.68);
+      backdrop-filter: blur(14px);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.32);
+    }
+    .lang-toggle {
+      width: 34px;
+      height: 34px;
+      border: 1px solid transparent;
+      border-radius: 50%;
+      background: transparent;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2px;
+      overflow: hidden;
+    }
+    .lang-toggle:hover,
+    .lang-toggle.active {
+      border-color: var(--amber-dim);
+      background: rgba(245,158,11,0.08);
+      box-shadow: var(--glow-amber);
+    }
+    .lang-toggle img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      display: block;
+    }
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+      white-space: nowrap;
+      border: 0;
+    }
     .nav-social-btn {
       width: 34px; height: 34px;
       border: 1px solid var(--border);
@@ -400,7 +460,7 @@
       position: relative;
     }
     .featured-project::before {
-      content: 'FEATURED';
+      content: attr(data-featured-label);
       position: absolute;
       top: 16px; right: 16px;
       font-family: var(--mono);
@@ -433,7 +493,7 @@
       opacity: 0.7;
     }
     .featured-project-body {
-      padding: 2.5rem;
+      padding: 2rem;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -468,9 +528,11 @@
     .featured-project-body p {
       color: var(--text2);
       font-size: 0.9rem;
-      line-height: 1.65;
-      margin-bottom: 1.5rem;
-      text-align: justify;
+      line-height: 1.55;
+      margin-bottom: 1.2rem;
+      text-align: left;
+      hyphens: auto;
+      overflow-wrap: break-word;
     }
 
     /* Projects Grid */
@@ -1527,6 +1589,17 @@
 </head>
 <body>
 
+  <div class="language-switcher" aria-label="Language selection">
+    <button class="lang-toggle active" type="button" data-lang="en" aria-label="Switch to English" aria-pressed="true">
+      <img src="images/flag-england.png" alt="English">
+      <span class="sr-only">English</span>
+    </button>
+    <button class="lang-toggle" type="button" data-lang="de" aria-label="Auf Deutsch wechseln" aria-pressed="false">
+      <img src="images/flag-germany.webp" alt="Deutsch">
+      <span class="sr-only">Deutsch</span>
+    </button>
+  </div>
+
   <div class="scroll-flow-rail">
     <div class="scroll-flow-fill"></div>
   </div>
@@ -1592,14 +1665,16 @@
         <li class="nav-tab" id="tab-certs" onclick="showPage('certs')">Certificates</li>
         <li class="nav-tab" id="tab-about" onclick="showPage('about')">About Me</li>
       </ul>
-      <div class="nav-socials">
-        <a href="images/Akshay_Chandrola_CV.pdf" target="_blank" class="nav-cv-btn">CV</a>
-        <a href="https://www.linkedin.com/in/akshay-chandrola/" target="_blank" class="nav-social-btn" title="LinkedIn">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
-        </a>
-        <a href="https://github.com/AkshayChandrola" target="_blank" class="nav-social-btn" title="GitHub">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
-        </a>
+      <div class="nav-actions">
+        <div class="nav-socials">
+          <a href="images/Akshay_Chandrola_CV.pdf" target="_blank" class="nav-cv-btn">CV</a>
+          <a href="https://www.linkedin.com/in/akshay-chandrola/" target="_blank" class="nav-social-btn" title="LinkedIn">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+          </a>
+          <a href="https://github.com/AkshayChandrola" target="_blank" class="nav-social-btn" title="GitHub">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+          </a>
+        </div>
       </div>
     </div>
   </nav>
@@ -1638,7 +1713,7 @@
       </div>
 
       <!-- Featured -->
-      <div class="featured-project fade-in-up">
+      <div class="featured-project fade-in-up" data-featured-label="FEATURED">
         <div class="featured-project-img">
           <img src="images/pic00.png" alt="Master Thesis" onerror="this.style.display='none'">
         </div>
@@ -2357,6 +2432,477 @@
   </footer>
 
   <script>
+    const I18N = {
+      en: {
+        lang: 'en',
+        cvPath: 'images/Akshay_Chandrola_CV.pdf',
+        pageTitle: 'Akshay Chandrola — Simulation Engineer',
+        metaDescription: 'Portfolio of Akshay Chandrola, Simulation Engineer specializing in material flow simulation, intralogistics, Siemens Tecnomatix Plant Simulation, Python DES, and digital twin systems.',
+        ogDescription: 'Material flow simulation, intralogistics, DES, Python, and digital twin portfolio.',
+        hero: {
+          badge: 'SIMULATION ENGINEER · INTRALOGISTICS ENTHUSIAST',
+          tags: ['Plant Simulation', 'DES · Python', 'Digital Twin', 'Material Flow'],
+          intro: 'Simulation Engineer with hands-on expertise in Tecnomatix Plant Simulation and Python-based DES — modeling AGV systems, production lines, and warehouse flows to reduce bottlenecks, cut costs, and validate layouts before a single machine moves.',
+          viewProjects: 'View Projects',
+          downloadCv: 'Download CV',
+          contact: 'Contact Me'
+        },
+        ticker: [
+          'TECNOMATIX PLANT SIMULATION',
+          'DISCRETE EVENT SIMULATION',
+          'AUTOMATED GUIDED VEHICLES',
+          'BOTTLENECK ANALYSIS',
+          'MATERIAL FLOW OPTIMIZATION',
+          'DIGITAL TWIN',
+          'WAREHOUSE LAYOUT DESIGN',
+          'LEAN SIX SIGMA'
+        ],
+        nav: { projects: 'Projects', certs: 'Certificates', about: 'About Me' },
+        sections: {
+          projectsLabel: 'Portfolio',
+          projectsTitle: 'Projects',
+          certsLabel: 'Credentials',
+          certsTitle: 'Certificates',
+          aboutLabel: 'Profile',
+          aboutTitle: 'About Me'
+        },
+        services: [
+          ['Material Flow Simulation', 'Discrete-event models for production, warehouse, and intralogistics systems.'],
+          ['Bottleneck Analysis', 'Throughput, cycle-time, utilization, and queue behavior evaluation.'],
+          ['MHS Layout Design', 'Conveyors, supermarkets, AGVs, buffers, and automated handling concepts.'],
+          ['Digital Twin Validation', 'Scenario testing and model validation for production planning decisions.'],
+          ['Data-Driven Optimization', 'Python, SQL, BI dashboards, and optimization methods for decision support.']
+        ],
+        featured: {
+          badge: 'FEATURED',
+          tag: 'MASTER THESIS · 2024–2025',
+          title: 'A Comparative Study of Python Libraries for Discrete Event Simulation',
+          description: 'Investigates and compares five open-source Python DES libraries — SimPy, Salabim, PyDSOL-core, Akatosh, and HADES-Framework — as alternatives to commercial tools such as Siemens Plant Simulation. Complex real-world scenarios including AGVs and human operators were systematically modeled and evaluated against criteria covering real-time capability, resource management, ease of implementation, and visualization support.',
+          link: 'View Project ↗',
+          imageAlt: 'Master Thesis'
+        },
+        projectLink: 'View Project ↗',
+        projects: [
+          ['INTERNSHIP · TRAINING', 'Material Flow Simulation Training', 'Foundational training at Bosch Manufacturing Solutions GmbH covering core simulation objects, workflows, conveyor systems, supermarkets, turntables, event-driven scripting, KPI tracking, and model validation using Siemens Tecnomatix Plant Simulation.'],
+          ['CLIENT PROJECT · BOSCH', 'Customer Project A: Production Line Optimization', 'Addressed a critical bottleneck using Siemens Plant Simulation. Developed an interactive UI with scenario-control buttons to evaluate strategic supermarket placement, analyzing throughput, cycle time, and resource utilization to deliver data-driven recommendations.'],
+          ['CLIENT PROJECT · BOSCH', 'Customer Project B: Dual-Product Production Line', 'Designed and simulated a concept production line capable of manufacturing two distinct products with unique assembly and testing requirements — including flexible layout design, resource allocation, and changeover planning to deliver a simulation-validated concept.'],
+          ['OPTIMIZATION · DES', 'Production Planning with DES and Optimization in Tecnomatix', 'End-to-end production planning workflow using Genetic Algorithm optimization in Tecnomatix to minimize makespan and total tardiness simultaneously. Reduced makespan by 15% and total tardiness by 20% through parameter tuning and objective function weighting.'],
+          ['MHS DESIGN · RELIABILITY', 'Automatic Material Handling System (MHS) Design', 'Fully automated MHS designed from scratch integrating conveyor belts, diverters, accumulators, and angular converters. Incorporated a reliability analysis evaluating failure modes and component downtime impact. Reduced manual handling time by 30%.'],
+          ['SUPPLY CHAIN · SIMULATION', 'The Fresh Connection Juice Company Business Simulation', 'Took on the role of Supply Chain Manager for a juice manufacturing company facing declining profitability. Through iterative decision-making and cross-departmental coordination, improved ROI from -4.0% to +4.95% by optimizing inventory and distribution strategy.'],
+          ['ML · PYTHON · PYTORCH', 'E-Commerce Shipping Prediction', 'Developed a Python algorithm to calculate on-time delivery rates, then built an Artificial Neural Network using PyTorch to predict individual order delivery performance — trained, validated, and evaluated on historical shipment data to proactively flag at-risk deliveries.'],
+          ['LITERATURE REVIEW', 'A Structured Literature Review on Supply Chain Mapping', 'Examined supply chain mapping in an era of global disruption, systematically identifying risk-uncovering methods, cataloguing visualization techniques, and assessing software tools — concluding with practical recommendations for resilient, transparent supply chains.'],
+          ['POWER BI · DATA VISUALIZATION', 'PowerBI Dashboard — Data Professional Survey', 'Cleaned and transformed a real-world survey dataset in Power Query Editor, then built an interactive dashboard surfacing insights on programming language preferences, salary by role, work-life balance scores, and the perceived difficulty of entering the data profession.'],
+          ['SQL · DATA CLEANING', 'Data Cleaning in SQL', 'Structured data cleaning on a raw real estate housing dataset in SQL Server — standardizing date formats, populating missing values, splitting address fields, replacing abbreviated categoricals, removing duplicates, and dropping redundant columns for downstream analysis.'],
+          ['SQL · EDA', 'COVID-19 Data Exploration in SQL', 'Exploratory analysis of global COVID-19 data using joins, CTEs, temp tables, window functions, and aggregates — surfacing infection rates, death percentages by country, continental mortality comparisons, and rolling vaccination campaign progress across countries.'],
+          ['TABLEAU · DASHBOARD', 'Tableau Dashboard — AirBnB Market Analysis', 'Interactive Tableau dashboard analyzing AirBnB listing data — visualizing average price by location and property type, revenue trends over time, occupancy patterns, and bedroom-to-price relationships to support both hosts and guests in data-driven decisions.']
+        ],
+        certs: {
+          showAll: 'View All Certificates',
+          showFewer: 'Show Fewer Certificates',
+          verify: 'Verify ↗',
+          cards: [
+            ['Foundational C# with Microsoft', 'Microsoft · freeCodeCamp · April 2026'],
+            ['Learning C#', 'LinkedIn Learning · February 2026'],
+            ['Visual Studio Essential Training', 'LinkedIn Learning · February 2026'],
+            ['Six Sigma: Green Belt', 'LinkedIn Learning · January 2026'],
+            ['Learning Minitab', 'LinkedIn Learning · January 2026'],
+            ['Statistics Foundations 4: Advanced Topics', 'LinkedIn Learning · January 2026'],
+            ['Statistics Foundations 3: Using Data Sets', 'LinkedIn Learning · January 2026'],
+            ['Operational Excellence Work-Out and Kaizen Facilitator', 'LinkedIn Learning · January 2026'],
+            ['Lean Six Sigma: Analyze, Improve, and Control Tools', 'LinkedIn Learning · December 2025'],
+            ['Lean Six Sigma: Define and Measure Tools', 'LinkedIn Learning · November 2025'],
+            ['Statistics Foundations 1: The Basics', 'LinkedIn Learning · April 2025'],
+            ['Six Sigma Foundations', 'LinkedIn Learning · March 2025'],
+            ['Agile Foundations', 'LinkedIn Learning · March 2025'],
+            ['Scrum: The Basics', 'LinkedIn Learning · March 2025'],
+            ['Introduction to Data Science', 'LinkedIn Learning · March 2025'],
+            ['Operational Excellence Foundations', 'LinkedIn Learning · February 2025'],
+            ['Learning AutoCAD 2024', 'LinkedIn Learning · August 2024'],
+            ['Crash Course on Python', 'Google · Coursera · January 2024'],
+            ['Introduction to Model-Based Systems Engineering', 'Siemens · Coursera · September 2023'],
+            ['SAP Professional Fundamentals', 'SAP · Coursera · September 2023']
+          ]
+        },
+        about: {
+          kpis: ['Years Experience', 'Projects Completed', 'Certificates Earned', 'Languages Spoken'],
+          profileTitle: 'Simulation Engineer',
+          infoLabels: ['Location', 'Email', 'Phone', 'Degree', 'University'],
+          infoValues: ['Magdeburg, Germany', '+49 176 470 69444', 'M.Sc. Systems Engineering for Manufacturing', 'Otto-von-Guericke Universität Magdeburg'],
+          status: 'Open to new opportunities',
+          languagesTitle: 'Languages',
+          languages: [['English', 'Professional'], ['German', 'Intermediate'], ['Hindi', 'Native']],
+          linkedin: 'Connect on LinkedIn ↗',
+          cvTitle: 'Curriculum Vitae',
+          cvFrameTitle: 'Akshay Chandrola CV',
+          openCv: 'Open CV ↗',
+          sectionTitles: ['Profile', 'Work Experience', 'Education', 'Technical Skills', 'Outside the Office'],
+          bio: `I'm a <strong>Material Flow Simulation &amp; Intralogistics Enthusiast</strong> with proven expertise in <strong>Siemens Tecnomatix Plant Simulation</strong> and Python-based discrete event simulation. With a Master's degree in Systems Engineering for Manufacturing from Otto-von-Guericke Universität Magdeburg, I have built a strong foundation in designing and optimizing automated material handling and warehouse systems for efficient, cost-effective production flows.<br><br>My career spans simulation engineering at <strong>Robert Bosch Manufacturing Solutions GmbH</strong>, research assistance in material flow methodologies, and quality assurance roles in India — giving me a diverse perspective on manufacturing challenges. I'm experienced in supplier communication, cross-functional teamwork, and driving continuous improvement in logistics and supply chain environments.<br><br>I'm <strong>open-minded, adaptable, and eager to learn</strong> new tools and methods to add value to diverse engineering projects. Whether it's building a digital twin, analyzing bottlenecks, or comparing simulation frameworks, I approach every challenge with data-driven rigor and an eye for practical impact.`,
+          work: [
+            ['01/2024 – 01/2025', "Master's Thesis Researcher", 'Otto-von-Guericke Universität Magdeburg', ['Conducted comparative analysis of Python DES libraries for manufacturing and logistics applications.', 'Designed case studies to evaluate modeling efficiency and simulation performance with AGV and operator scenarios.']],
+            ['05/2024 – 10/2024', 'Research Assistant', 'Otto-von-Guericke Universität Magdeburg', ['Supported students in Material Flow Simulation using Tecnomatix Plant Simulation and Python.', 'Assisted professors with research and process optimization projects.', 'Promoted knowledge sharing and continuous improvement in simulation methodologies.']],
+            ['02/2023 – 07/2023', 'Simulation of Material Flow Intern', 'Robert Bosch Manufacturing Solutions GmbH · Feuerbach', ['Designed and optimized production systems using Siemens Tecnomatix Plant Simulation and Digital Twin concepts.', 'Developed automated material handling layouts for Greenfield and Brownfield projects.', 'Coordinated technical requirements and communicated directly with suppliers.', 'Identified and mitigated bottlenecks, improving overall production efficiency.']],
+            ['12/2018 – 10/2019', 'Quality Assurance Engineer', 'Shiv Manufacturer · Rajkot, India', ['Led cross-functional teams in product feature testing and quality inspections.', 'Applied Lean Six Sigma strategies to streamline processes and enhance customer satisfaction.']],
+            ['06/2018 – 11/2018', 'Production Supervisor', 'Safar Polyfiber PVT. LTD. · Rajkot, India', ['Improved production planning to minimize downtime and increase efficiency.', 'Applied Kaizen methodologies to optimize production processes.']]
+          ],
+          education: [
+            ['10/2020 – 05/2025', 'M.Sc. Systems Engineering for Manufacturing', 'Otto-von-Guericke Universität Magdeburg, Germany', 'Thesis: A Comparative Study of Python Libraries for Discrete Event Simulation — developed a comparative framework for DES libraries validated with intralogistics case studies.'],
+            ['10/2014 – 05/2018', 'B.Eng. Mechanical Engineering', 'Gujarat Technical University, Ahmedabad, India', '']
+          ],
+          skills: [
+            ['Simulation & Tools', ['Tecnomatix Plant Simulation', 'Python DES', 'AnyLogic', 'AutoCAD', 'Siemens NX', 'Matlab']],
+            ['Programming', ['Python', 'C#', 'SimTalk', 'C++', 'PLC Programming', 'KUKA KRL']],
+            ['Data & Analytics', ['Power BI', 'Tableau', 'MySQL', 'SQL Server', 'PyTorch', 'Git']],
+            ['Logistics & Methods', ['Material Flow Analysis', 'Lean Six Sigma', 'Warehouse Layout Design', 'Kaizen', 'Agile / Scrum', 'Digital Twin']]
+          ],
+          hobbies: [
+            ['Hiking', 'Exploring new trails across Germany — building endurance, clearing the mind, and finding balance between screen time and fresh air.'],
+            ['Climbing & Bouldering', 'Each route is a puzzle — enhancing problem-solving, focus, and body awareness one hold at a time.'],
+            ['Volleyball', 'A sport that mirrors good engineering: quick decisions, tight coordination, and trusting your teammates to do their part.']
+          ]
+        },
+        footerTagline: 'Simulation Engineer · Magdeburg, Germany'
+      },
+      de: {
+        lang: 'de',
+        cvPath: 'images/Akshay_Chandrola_lebenslauf.pdf',
+        pageTitle: 'Akshay Chandrola — Simulationsingenieur',
+        metaDescription: 'Portfolio von Akshay Chandrola, Simulationsingenieur mit Schwerpunkt auf Materialflusssimulation, Intralogistik, Siemens Tecnomatix Plant Simulation, Python-DES und digitalen Zwillingen.',
+        ogDescription: 'Materialflusssimulation, Intralogistik, DES, Python und Digital-Twin-Portfolio.',
+        hero: {
+          badge: 'SIMULATIONSINGENIEUR · INTRALOGISTIK-ENTHUSIAST',
+          tags: ['Plant Simulation', 'DES · Python', 'Digitaler Zwilling', 'Materialfluss'],
+          intro: 'Simulationsingenieur mit praktischer Erfahrung in Tecnomatix Plant Simulation und Python-basierter diskreter Ereignissimulation. Ich modelliere AGV-Systeme, Produktionslinien und Lagerflüsse, um Engpässe zu reduzieren, Kosten zu senken und Layouts zu validieren, bevor eine Maschine bewegt wird.',
+          viewProjects: 'Projekte ansehen',
+          downloadCv: 'Lebenslauf herunterladen',
+          contact: 'Kontakt'
+        },
+        ticker: [
+          'TECNOMATIX PLANT SIMULATION',
+          'DISKRETE EREIGNISSIMULATION',
+          'FAHRERLOSE TRANSPORTSYSTEME',
+          'ENGPASSANALYSE',
+          'MATERIALFLUSSOPTIMIERUNG',
+          'DIGITALER ZWILLING',
+          'LAGERLAYOUT-DESIGN',
+          'LEAN SIX SIGMA'
+        ],
+        nav: { projects: 'Projekte', certs: 'Zertifikate', about: 'Über mich' },
+        sections: {
+          projectsLabel: 'Portfolio',
+          projectsTitle: 'Projekte',
+          certsLabel: 'Qualifikationen',
+          certsTitle: 'Zertifikate',
+          aboutLabel: 'Profil',
+          aboutTitle: 'Über mich'
+        },
+        services: [
+          ['Materialflusssimulation', 'Diskrete Ereignismodelle für Produktions-, Lager- und Intralogistiksysteme.'],
+          ['Engpassanalyse', 'Bewertung von Durchsatz, Zykluszeit, Auslastung und Warteschlangenverhalten.'],
+          ['MHS-Layoutdesign', 'Fördertechnik, Supermärkte, AGVs, Puffer und automatisierte Handling-Konzepte.'],
+          ['Digital-Twin-Validierung', 'Szenariotests und Modellvalidierung für Entscheidungen in der Produktionsplanung.'],
+          ['Datengetriebene Optimierung', 'Python, SQL, BI-Dashboards und Optimierungsmethoden zur Entscheidungsunterstützung.']
+        ],
+        featured: {
+          badge: 'EMPFOHLEN',
+          tag: 'MASTERARBEIT · 2024–2025',
+          title: 'Vergleichsstudie zu Python-Bibliotheken für diskrete Ereignissimulation',
+          description: 'Untersucht und vergleicht fünf Open-Source-Python-Bibliotheken für DES — SimPy, Salabim, PyDSOL-core, Akatosh und HADES-Framework — als Alternativen zu kommerziellen Tools wie Siemens Plant Simulation. Komplexe praxisnahe Szenarien mit AGVs und menschlichen Bedienern wurden systematisch modelliert und anhand von Kriterien wie Echtzeitfähigkeit, Ressourcenmanagement, Implementierungsaufwand und Visualisierungsunterstützung bewertet.',
+          link: 'Projekt ansehen ↗',
+          imageAlt: 'Masterarbeit'
+        },
+        projectLink: 'Projekt ansehen ↗',
+        projects: [
+          ['PRAKTIKUM · TRAINING', 'Training zur Materialflusssimulation', 'Grundlagentraining bei Bosch Manufacturing Solutions GmbH zu zentralen Simulationsobjekten, Arbeitsabläufen, Fördersystemen, Supermärkten, Drehtischen, ereignisgesteuertem Scripting, KPI-Tracking und Modellvalidierung mit Siemens Tecnomatix Plant Simulation.'],
+          ['KUNDENPROJEKT · BOSCH', 'Kundenprojekt A: Optimierung einer Produktionslinie', 'Bearbeitung eines kritischen Engpasses mit Siemens Plant Simulation. Entwicklung einer interaktiven Benutzeroberfläche mit Szenario-Steuerung, um strategische Supermarkt-Platzierungen zu bewerten und Durchsatz, Zykluszeit sowie Ressourcenauslastung für datenbasierte Empfehlungen zu analysieren.'],
+          ['KUNDENPROJEKT · BOSCH', 'Kundenprojekt B: Produktionslinie für zwei Produkte', 'Konzeption und Simulation einer Produktionslinie, die zwei unterschiedliche Produkte mit jeweils eigenen Montage- und Prüfanforderungen fertigen kann. Dazu gehörten flexibles Layoutdesign, Ressourcenallokation und Wechselplanung, um ein simulationsvalidiertes Konzept zu liefern.'],
+          ['OPTIMIERUNG · DES', 'Produktionsplanung mit DES und Optimierung in Tecnomatix', 'End-to-End-Workflow für die Produktionsplanung mit genetischer Algorithmus-Optimierung in Tecnomatix, um Makespan und Gesamtverspätung gleichzeitig zu minimieren. Durch Parametertuning und Gewichtung der Zielfunktionen wurde der Makespan um 15 % und die Gesamtverspätung um 20 % reduziert.'],
+          ['MHS-DESIGN · ZUVERLÄSSIGKEIT', 'Design eines automatischen Materialflusssystems (MHS)', 'Vollautomatisches MHS von Grund auf entworfen, mit Integration von Förderbändern, Ausschleusern, Staustrecken und Winkelumsetzern. Zusätzlich wurde eine Zuverlässigkeitsanalyse zu Fehlerarten und Stillstandsfolgen der Komponenten durchgeführt. Die manuelle Handling-Zeit wurde um 30 % reduziert.'],
+          ['SUPPLY CHAIN · SIMULATION', 'The Fresh Connection Juice Company Business Simulation', 'Übernahme der Rolle des Supply Chain Managers für ein Safthersteller-Unternehmen mit sinkender Profitabilität. Durch iterative Entscheidungen und abteilungsübergreifende Koordination wurde der ROI von -4,0 % auf +4,95 % verbessert, insbesondere durch Optimierung von Bestand und Distributionsstrategie.'],
+          ['ML · PYTHON · PYTORCH', 'E-Commerce-Versandprognose', 'Entwicklung eines Python-Algorithmus zur Berechnung von Pünktlichkeitsraten bei Lieferungen, anschließend Aufbau eines künstlichen neuronalen Netzes mit PyTorch zur Vorhersage der Lieferperformance einzelner Bestellungen. Das Modell wurde mit historischen Versanddaten trainiert, validiert und ausgewertet, um gefährdete Lieferungen frühzeitig zu erkennen.'],
+          ['LITERATURÜBERSICHT', 'Strukturierte Literaturübersicht zum Supply Chain Mapping', 'Untersuchung von Supply Chain Mapping in Zeiten globaler Störungen. Systematische Identifikation von Methoden zur Risikoaufdeckung, Katalogisierung von Visualisierungstechniken und Bewertung geeigneter Softwaretools, ergänzt durch praktische Empfehlungen für resiliente und transparente Lieferketten.'],
+          ['POWER BI · DATENVISUALISIERUNG', 'Power-BI-Dashboard — Umfrage unter Datenprofis', 'Bereinigung und Transformation eines realen Umfragedatensatzes im Power Query Editor, anschließend Aufbau eines interaktiven Dashboards mit Einblicken zu Programmiersprachenpräferenzen, Gehältern nach Rolle, Work-Life-Balance-Bewertungen und der wahrgenommenen Einstiegshürde in den Datenbereich.'],
+          ['SQL · DATENBEREINIGUNG', 'Datenbereinigung in SQL', 'Strukturierte Datenbereinigung eines rohen Immobilien-Datensatzes in SQL Server: Standardisierung von Datumsformaten, Ergänzung fehlender Werte, Aufteilung von Adressfeldern, Vereinheitlichung abgekürzter Kategorien, Entfernung von Duplikaten und Löschen redundanter Spalten für die weitere Analyse.'],
+          ['SQL · EDA', 'COVID-19-Datenexploration in SQL', 'Explorative Analyse globaler COVID-19-Daten mithilfe von Joins, CTEs, temporären Tabellen, Window Functions und Aggregationen. Sichtbar gemacht wurden Infektionsraten, Sterbeanteile nach Land, kontinentale Mortalitätsvergleiche und der laufende Fortschritt von Impfkampagnen.'],
+          ['TABLEAU · DASHBOARD', 'Tableau-Dashboard — AirBnB-Marktanalyse', 'Interaktives Tableau-Dashboard zur Analyse von AirBnB-Listing-Daten. Visualisiert werden durchschnittliche Preise nach Standort und Immobilientyp, Umsatztrends im Zeitverlauf, Belegungsmuster und Preisbeziehungen nach Schlafzimmerzahl, um Gastgeber und Gäste bei datenbasierten Entscheidungen zu unterstützen.']
+        ],
+        certs: {
+          showAll: 'Alle Zertifikate anzeigen',
+          showFewer: 'Weniger Zertifikate anzeigen',
+          verify: 'Prüfen ↗',
+          cards: [
+            ['Grundlagen von C# mit Microsoft', 'Microsoft · freeCodeCamp · April 2026'],
+            ['C# lernen', 'LinkedIn Learning · Februar 2026'],
+            ['Visual Studio Essential Training', 'LinkedIn Learning · Februar 2026'],
+            ['Six Sigma: Green Belt', 'LinkedIn Learning · Januar 2026'],
+            ['Minitab lernen', 'LinkedIn Learning · Januar 2026'],
+            ['Statistik-Grundlagen 4: Fortgeschrittene Themen', 'LinkedIn Learning · Januar 2026'],
+            ['Statistik-Grundlagen 3: Arbeiten mit Datensätzen', 'LinkedIn Learning · Januar 2026'],
+            ['Operational Excellence: Work-Out und Kaizen Facilitator', 'LinkedIn Learning · Januar 2026'],
+            ['Lean Six Sigma: Analyze-, Improve- und Control-Werkzeuge', 'LinkedIn Learning · Dezember 2025'],
+            ['Lean Six Sigma: Define- und Measure-Werkzeuge', 'LinkedIn Learning · November 2025'],
+            ['Statistik-Grundlagen 1: Die Basics', 'LinkedIn Learning · April 2025'],
+            ['Six Sigma Foundations', 'LinkedIn Learning · März 2025'],
+            ['Agile Foundations', 'LinkedIn Learning · März 2025'],
+            ['Scrum: Grundlagen', 'LinkedIn Learning · März 2025'],
+            ['Einführung in Data Science', 'LinkedIn Learning · März 2025'],
+            ['Grundlagen der Operational Excellence', 'LinkedIn Learning · Februar 2025'],
+            ['AutoCAD 2024 lernen', 'LinkedIn Learning · August 2024'],
+            ['Crashkurs Python', 'Google · Coursera · Januar 2024'],
+            ['Einführung in Model-Based Systems Engineering', 'Siemens · Coursera · September 2023'],
+            ['SAP Professional Fundamentals', 'SAP · Coursera · September 2023']
+          ]
+        },
+        about: {
+          kpis: ['Jahre Erfahrung', 'Projekte abgeschlossen', 'Zertifikate erworben', 'Sprachen'],
+          profileTitle: 'Simulationsingenieur',
+          infoLabels: ['Standort', 'E-Mail', 'Telefon', 'Abschluss', 'Universität'],
+          infoValues: ['Magdeburg, Deutschland', '+49 176 470 69444', 'M.Sc. Systems Engineering for Manufacturing', 'Otto-von-Guericke Universität Magdeburg'],
+          status: 'Offen für neue Möglichkeiten',
+          languagesTitle: 'Sprachen',
+          languages: [['Englisch', 'Beruflich'], ['Deutsch', 'Mittelstufe'], ['Hindi', 'Muttersprache']],
+          linkedin: 'Auf LinkedIn vernetzen ↗',
+          cvTitle: 'Lebenslauf',
+          cvFrameTitle: 'Lebenslauf von Akshay Chandrola',
+          openCv: 'CV öffnen ↗',
+          sectionTitles: ['Profil', 'Berufserfahrung', 'Ausbildung', 'Technische Fähigkeiten', 'Außerhalb der Arbeit'],
+          bio: `Ich bin ein <strong>Materialflusssimulations- und Intralogistik-Enthusiast</strong> mit fundierter Erfahrung in <strong>Siemens Tecnomatix Plant Simulation</strong> und Python-basierter diskreter Ereignissimulation. Mit meinem Masterabschluss in Systems Engineering for Manufacturing an der Otto-von-Guericke Universität Magdeburg habe ich eine starke Grundlage im Entwurf und in der Optimierung automatisierter Materialfluss- und Lagersysteme für effiziente, kostengünstige Produktionsflüsse aufgebaut.<br><br>Meine Laufbahn umfasst Simulation Engineering bei <strong>Robert Bosch Manufacturing Solutions GmbH</strong>, wissenschaftliche Mitarbeit im Bereich Materialflussmethodik sowie Qualitätssicherungsrollen in Indien. Dadurch bringe ich eine vielseitige Perspektive auf Herausforderungen in der Fertigung mit. Ich habe Erfahrung in Lieferantenkommunikation, funktionsübergreifender Zusammenarbeit und kontinuierlicher Verbesserung in Logistik- und Supply-Chain-Umgebungen.<br><br>Ich bin <strong>offen, anpassungsfähig und lernbereit</strong>, wenn es darum geht, neue Tools und Methoden einzusetzen, um in unterschiedlichen Engineering-Projekten Mehrwert zu schaffen. Ob digitaler Zwilling, Engpassanalyse oder Vergleich von Simulationsframeworks: Jede Herausforderung gehe ich datenbasiert, strukturiert und mit Blick auf praktische Wirkung an.`,
+          work: [
+            ['01/2024 – 01/2025', 'Masterarbeitsforscher', 'Otto-von-Guericke Universität Magdeburg', ['Durchführung einer vergleichenden Analyse von Python-DES-Bibliotheken für Fertigungs- und Logistikanwendungen.', 'Entwicklung von Fallstudien zur Bewertung von Modellierungseffizienz und Simulationsleistung mit AGV- und Bedienerszenarien.']],
+            ['05/2024 – 10/2024', 'Wissenschaftliche Hilfskraft', 'Otto-von-Guericke Universität Magdeburg', ['Unterstützung von Studierenden in der Materialflusssimulation mit Tecnomatix Plant Simulation und Python.', 'Unterstützung von Professoren bei Forschungs- und Prozessoptimierungsprojekten.', 'Förderung von Wissensaustausch und kontinuierlicher Verbesserung von Simulationsmethoden.']],
+            ['02/2023 – 07/2023', 'Praktikant Simulation von Materialfluss', 'Robert Bosch Manufacturing Solutions GmbH · Feuerbach', ['Entwurf und Optimierung von Produktionssystemen mit Siemens Tecnomatix Plant Simulation und Digital-Twin-Konzepten.', 'Entwicklung automatisierter Materialflusslayouts für Greenfield- und Brownfield-Projekte.', 'Koordination technischer Anforderungen und direkte Kommunikation mit Lieferanten.', 'Identifikation und Minderung von Engpässen zur Verbesserung der gesamten Produktionseffizienz.']],
+            ['12/2018 – 10/2019', 'Qualitätssicherungsingenieur', 'Shiv Manufacturer · Rajkot, Indien', ['Leitung funktionsübergreifender Teams bei Produktfunktionstests und Qualitätsprüfungen.', 'Anwendung von Lean-Six-Sigma-Strategien zur Prozessverschlankung und Erhöhung der Kundenzufriedenheit.']],
+            ['06/2018 – 11/2018', 'Produktionsleiter', 'Safar Polyfiber PVT. LTD. · Rajkot, Indien', ['Verbesserung der Produktionsplanung zur Minimierung von Stillständen und Steigerung der Effizienz.', 'Anwendung von Kaizen-Methoden zur Optimierung von Produktionsprozessen.']]
+          ],
+          education: [
+            ['10/2020 – 05/2025', 'M.Sc. Systems Engineering for Manufacturing', 'Otto-von-Guericke Universität Magdeburg, Deutschland', 'Thesis: A Comparative Study of Python Libraries for Discrete Event Simulation — Entwicklung eines Vergleichsframeworks für DES-Bibliotheken, validiert durch Intralogistik-Fallstudien.'],
+            ['10/2014 – 05/2018', 'B.Eng. Maschinenbau', 'Gujarat Technical University, Ahmedabad, Indien', '']
+          ],
+          skills: [
+            ['Simulation & Tools', ['Tecnomatix Plant Simulation', 'Python DES', 'AnyLogic', 'AutoCAD', 'Siemens NX', 'Matlab']],
+            ['Programmierung', ['Python', 'C#', 'SimTalk', 'C++', 'SPS-Programmierung', 'KUKA KRL']],
+            ['Daten & Analytics', ['Power BI', 'Tableau', 'MySQL', 'SQL Server', 'PyTorch', 'Git']],
+            ['Logistik & Methoden', ['Materialflussanalyse', 'Lean Six Sigma', 'Lagerlayout-Design', 'Kaizen', 'Agile / Scrum', 'Digitaler Zwilling']]
+          ],
+          hobbies: [
+            ['Wandern', 'Neue Wege in Deutschland entdecken, Ausdauer aufbauen, den Kopf frei bekommen und einen Ausgleich zur Bildschirmzeit finden.'],
+            ['Klettern & Bouldern', 'Jede Route ist ein Puzzle und stärkt Problemlösung, Fokus und Körperbewusstsein Griff für Griff.'],
+            ['Volleyball', 'Ein Sport, der gute Engineering-Arbeit widerspiegelt: schnelle Entscheidungen, enge Abstimmung und Vertrauen ins Team.']
+          ]
+        },
+        footerTagline: 'Simulationsingenieur · Magdeburg, Deutschland'
+      }
+    };
+
+    let currentLang = 'en';
+
+    function setText(selector, value) {
+      const el = document.querySelector(selector);
+      if (el && value !== undefined) el.textContent = value;
+    }
+
+    function setHTML(selector, value) {
+      const el = document.querySelector(selector);
+      if (el && value !== undefined) el.innerHTML = value;
+    }
+
+    function setAllText(selector, values) {
+      document.querySelectorAll(selector).forEach((el, index) => {
+        if (values[index] !== undefined) el.textContent = values[index];
+      });
+    }
+
+    function setMeta(selector, value) {
+      const el = document.querySelector(selector);
+      if (el && value !== undefined) el.setAttribute('content', value);
+    }
+
+    function buildTicker(items) {
+      return [...items, ...items]
+        .map(item => `<span class="ticker-item">${item}</span><span class="ticker-sep">◆</span>`)
+        .join('');
+    }
+
+    function updateCvLinks(t) {
+      document
+        .querySelectorAll('a[href*="Akshay_Chandrola_CV.pdf"], a[href*="Akshay_Chandrola_lebenslauf.pdf"]')
+        .forEach(link => link.setAttribute('href', t.cvPath));
+
+      const cvFrame = document.querySelector('.cv-preview-frame');
+      if (cvFrame) {
+        cvFrame.setAttribute('src', `${t.cvPath}#toolbar=0&navpanes=0`);
+        cvFrame.setAttribute('title', t.about.cvFrameTitle);
+      }
+    }
+
+    function setTimelineItems(items, data) {
+      items.forEach((item, index) => {
+        const row = data[index];
+        if (!row) return;
+        const [date, title, org, details] = row;
+        const dateEl = item.querySelector('.timeline-date');
+        const titleEl = item.querySelector('h4');
+        const orgEl = item.querySelector('.org');
+        const listEl = item.querySelector('ul');
+        const paragraphEl = item.querySelector('p');
+
+        if (dateEl) dateEl.textContent = date;
+        if (titleEl) titleEl.textContent = title;
+        if (orgEl) orgEl.textContent = org;
+        if (Array.isArray(details) && listEl) {
+          listEl.innerHTML = details.map(point => `<li>${point}</li>`).join('');
+        } else if (paragraphEl) {
+          paragraphEl.textContent = details || '';
+        }
+      });
+    }
+
+    function setCertToggleText() {
+      const t = I18N[currentLang].certs;
+      const grid = document.getElementById('certsGrid');
+      const button = document.getElementById('toggleCertsBtn');
+      if (!grid || !button) return;
+      button.textContent = grid.classList.contains('collapsed') ? t.showAll : t.showFewer;
+    }
+
+    function applyLanguage(lang) {
+      const safeLang = I18N[lang] ? lang : 'en';
+      currentLang = safeLang;
+      const t = I18N[safeLang];
+
+      document.documentElement.lang = t.lang;
+      document.title = t.pageTitle;
+      setMeta('meta[name="description"]', t.metaDescription);
+      setMeta('meta[property="og:title"]', t.pageTitle);
+      setMeta('meta[property="og:description"]', t.ogDescription);
+
+      setText('.intro-badge', t.hero.badge);
+      setAllText('.tagline-chip', t.hero.tags);
+      setText('#intro p', t.hero.intro);
+      setText('.hero-cta .btn-primary', `▶ ${t.hero.viewProjects}`);
+      setText('.hero-cta .btn-outline:nth-of-type(1)', t.hero.downloadCv);
+      setText('.hero-cta .btn-outline:nth-of-type(2)', t.hero.contact);
+      setHTML('.ticker', buildTicker(t.ticker));
+
+      setText('#tab-projects', t.nav.projects);
+      setText('#tab-certs', t.nav.certs);
+      setText('#tab-about', t.nav.about);
+
+      setText('#page-projects .section-label', t.sections.projectsLabel);
+      setText('#page-projects .section-title', t.sections.projectsTitle);
+      setText('#page-certs .section-label', t.sections.certsLabel);
+      setText('#page-certs .section-title', t.sections.certsTitle);
+      setText('#page-about .section-label', t.sections.aboutLabel);
+      setText('#page-about .section-title', t.sections.aboutTitle);
+
+      document.querySelectorAll('.service-card').forEach((card, index) => {
+        const service = t.services[index];
+        if (!service) return;
+        const title = card.querySelector('h3');
+        const body = card.querySelector('p');
+        if (title) title.textContent = service[0];
+        if (body) body.textContent = service[1];
+      });
+
+      const featured = document.querySelector('.featured-project');
+      if (featured) featured.setAttribute('data-featured-label', t.featured.badge);
+      setText('.featured-project .project-tag', t.featured.tag);
+      setText('.featured-project-body h2 a', t.featured.title);
+      setText('.featured-project-body p', t.featured.description);
+      setText('.featured-project .project-link-btn', t.featured.link);
+      const featuredImage = document.querySelector('.featured-project-img img');
+      if (featuredImage) featuredImage.setAttribute('alt', t.featured.imageAlt);
+
+      document.querySelectorAll('.project-card').forEach((card, index) => {
+        const project = t.projects[index];
+        if (!project) return;
+        const tag = card.querySelector('.project-tag');
+        const title = card.querySelector('h3 a, h3');
+        const body = card.querySelector('p');
+        const link = card.querySelector('.project-link-btn');
+        if (tag) tag.textContent = project[0];
+        if (title) title.textContent = project[1];
+        if (body) body.textContent = project[2];
+        if (link) link.textContent = t.projectLink;
+      });
+
+      document.querySelectorAll('.cert-card').forEach((card, index) => {
+        const cert = t.certs.cards[index];
+        if (!cert) return;
+        const title = card.querySelector('h3 a');
+        const meta = card.querySelector('.cert-meta');
+        const verify = card.querySelector('.cert-verify-btn');
+        if (title) title.textContent = cert[0];
+        if (meta) meta.textContent = cert[1];
+        if (verify) verify.textContent = t.certs.verify;
+      });
+      setCertToggleText();
+
+      setAllText('.kpi-label', t.about.kpis);
+      setText('.profile-title', t.about.profileTitle);
+      setAllText('.profile-card-info .info-label', t.about.infoLabels);
+      setAllText('.profile-card-info .info-val', t.about.infoValues);
+      setHTML('.status-badge', `<div class="status-dot"></div>${t.about.status}`);
+      setText('.lang-card-title', t.about.languagesTitle);
+      document.querySelectorAll('.lang-item').forEach((item, index) => {
+        const langRow = t.about.languages[index];
+        if (!langRow) return;
+        const name = item.querySelector('.lang-name');
+        const level = item.querySelector('.lang-level');
+        if (name) name.textContent = langRow[0];
+        if (level) level.textContent = langRow[1];
+      });
+      setText('.about-sidebar > .btn-primary', t.about.linkedin);
+      setText('.cv-preview-title', t.about.cvTitle);
+      setText('.cv-preview .cert-verify-btn', t.about.openCv);
+      setHTML('.about-bio', t.about.bio);
+
+      const aboutSections = document.querySelectorAll('#page-about .about-main .about-section');
+      const sectionIcons = ['▶', '◈', '◈', '⬡', '◉'];
+      aboutSections.forEach((section, index) => {
+        const title = section.querySelector('.about-section-title');
+        if (title && t.about.sectionTitles[index]) {
+          title.innerHTML = `<span class="icon">${sectionIcons[index]}</span> ${t.about.sectionTitles[index]}`;
+        }
+      });
+      if (aboutSections[1]) setTimelineItems(aboutSections[1].querySelectorAll('.timeline-item'), t.about.work);
+      if (aboutSections[2]) setTimelineItems(aboutSections[2].querySelectorAll('.timeline-item'), t.about.education);
+
+      document.querySelectorAll('.skill-category').forEach((category, index) => {
+        const skill = t.about.skills[index];
+        if (!skill) return;
+        const title = category.querySelector('.skill-cat-title');
+        if (title) title.textContent = skill[0];
+        category.querySelectorAll('.skill-pill').forEach((pill, pillIndex) => {
+          if (skill[1][pillIndex] !== undefined) pill.textContent = skill[1][pillIndex];
+        });
+      });
+
+      document.querySelectorAll('.hobby-card').forEach((card, index) => {
+        const hobby = t.about.hobbies[index];
+        if (!hobby) return;
+        const name = card.querySelector('.hobby-name');
+        const desc = card.querySelector('.hobby-desc');
+        if (name) name.textContent = hobby[0];
+        if (desc) desc.textContent = hobby[1];
+      });
+
+      setText('.footer-tagline', t.footerTagline);
+      updateCvLinks(t);
+
+      document.querySelectorAll('.lang-toggle').forEach(button => {
+        const isActive = button.dataset.lang === safeLang;
+        button.classList.toggle('active', isActive);
+        button.setAttribute('aria-pressed', String(isActive));
+      });
+      localStorage.setItem('portfolio-language', safeLang);
+    }
+
+    document.querySelectorAll('.lang-toggle').forEach(button => {
+      button.addEventListener('click', () => applyLanguage(button.dataset.lang));
+    });
+
+    applyLanguage(localStorage.getItem('portfolio-language') || 'en');
+
     // ── PAGE SWITCHING ──
     function showPage(name) {
       document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -2414,8 +2960,8 @@
     document
       .querySelectorAll('.featured-project, .project-card, .cert-card, .about-section, .kpi-box, .skill-category, .hobby-card')
       .forEach((el, index) => {
-        el.classList.add('scroll-reveal');
-        el.style.setProperty('--reveal-delay', `${Math.min(index * 55, 330)}ms`);
+        el.classList.add('flow-reveal');
+        el.style.setProperty('--flow-delay', `${Math.min(index * 55, 330)}ms`);
         revealObserver.observe(el);
       });
 
@@ -2425,8 +2971,8 @@
     
     if (certsGrid && toggleCertsBtn) {
       toggleCertsBtn.addEventListener('click', () => {
-        const isCollapsed = certsGrid.classList.toggle('collapsed');
-        toggleCertsBtn.textContent = isCollapsed ? 'View All Certificates' : 'Show Fewer Certificates';
+        certsGrid.classList.toggle('collapsed');
+        setCertToggleText();
       });
     }
 
