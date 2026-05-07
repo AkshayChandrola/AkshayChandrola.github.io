@@ -327,9 +327,8 @@
     .nav-actions {
       display: flex;
       align-items: center;
-      gap: 12px;
-      margin-right: 6.8rem;
-    }
+      gap: 8px;
+      }
     .language-switcher {
       position: fixed;
       top: 6px;
@@ -1372,9 +1371,55 @@
       .skills-grid { grid-template-columns: 1fr; }
       .hobbies-grid { grid-template-columns: repeat(2, 1fr); }
     }
-    @media (max-width: 600px) {
-      .nav-socials { display: none; }
+    @media (max-width: 768px) {
+      .nav-inner { padding: 0 0.75rem; height: 52px; gap: 6px; }
       .nav-logo span { display: none; }
+      .nav-tab { padding: 6px 10px; font-size: 0.7rem; letter-spacing: 0.04em; }
+      .nav-socials { display: none; }
+      .nav-cv-btn { font-size: 0.68rem; padding: 0 10px; height: 30px; }
+      .language-switcher { top: 8px; right: 10px; }
+      .lang-toggle { width: 28px; height: 28px; }
+      #intro { padding: 3rem 1.2rem 4.5rem; }
+      #intro h1 { font-size: clamp(2.1rem, 9vw, 3.5rem); }
+      #intro p { font-size: 0.9rem; }
+      .intro-badge { font-size: 0.62rem; letter-spacing: 0.07em; }
+      .tagline-chip { font-size: 0.7rem; padding: 3px 9px; }
+      .hero-cta { gap: 0.65rem; }
+      .btn-primary, .btn-outline { padding: 10px 18px; font-size: 0.8rem; }
+      .page-inner { padding: 1.5rem 1rem 4rem; }
+      .services-grid { grid-template-columns: repeat(2, 1fr); gap: 0.65rem; }
+      .service-card { padding: 0.9rem; }
+      .service-card h3 { font-size: 0.82rem; }
+      .featured-project { grid-template-columns: 1fr; }
+      .featured-project-img { min-height: 180px; }
+      .featured-project-body { padding: 1.3rem; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .project-card-body p { max-height: none; }
+      .project-card:hover, .project-card:focus-within { transform: none; }
+      .certs-grid { grid-template-columns: repeat(2, 1fr); gap: 0.8rem; }
+      .about-grid { grid-template-columns: 1fr; }
+      .about-sidebar { position: static; }
+      .kpi-row { grid-template-columns: repeat(2, 1fr); gap: 0.7rem; }
+      .kpi-num { font-size: 1.5rem; }
+      .kpi-box { padding: 1rem; }
+      .skills-grid { grid-template-columns: 1fr; }
+      .hobbies-grid { grid-template-columns: repeat(2, 1fr); }
+      .about-section { padding: 1.3rem; }
+      .cv-preview-frame { height: 300px; }
+      .timeline-date { min-width: 80px; font-size: 0.65rem; }
+      .footer-inner { flex-direction: column; align-items: flex-start; gap: 1rem; }
+      #footer { padding: 1.8rem 1.2rem; }
+    }
+
+    @media (max-width: 480px) {
+      .nav-tab { padding: 5px 7px; font-size: 0.63rem; }
+      .hero-cta { flex-direction: column; align-items: center; }
+      .btn-primary, .btn-outline { width: 100%; max-width: 260px; justify-content: center; }
+      .services-grid { grid-template-columns: 1fr; }
+      .certs-grid { grid-template-columns: 1fr; }
+      .hobbies-grid { grid-template-columns: 1fr; }
+      .ticker-item { font-size: 0.6rem; padding: 0 1.5rem; }
+    }
       .kpi-row { grid-template-columns: repeat(2, 1fr); }
       .timeline-date { min-width: 80px; font-size: 0.65rem; }
       .hobbies-grid { grid-template-columns: 1fr; }
@@ -1567,7 +1612,7 @@
       align-items: center;
       height: 100%;
       white-space: nowrap;
-      animation: ticker 30s linear infinite;
+      animation: ticker 80s linear infinite;
     }
     .ticker-item {
       font-family: var(--mono);
@@ -2436,6 +2481,7 @@
       en: {
         lang: 'en',
         cvPath: 'images/Akshay_Chandrola_CV.pdf',
+        navCv: 'CV',
         pageTitle: 'Akshay Chandrola — Simulation Engineer',
         metaDescription: 'Portfolio of Akshay Chandrola, Simulation Engineer specializing in material flow simulation, intralogistics, Siemens Tecnomatix Plant Simulation, Python DES, and digital twin systems.',
         ogDescription: 'Material flow simulation, intralogistics, DES, Python, and digital twin portfolio.',
@@ -2565,6 +2611,7 @@
       de: {
         lang: 'de',
         cvPath: 'images/Akshay_Chandrola_Lebenslauf.pdf',
+        navCv: 'Lebnslauf',
         pageTitle: 'Akshay Chandrola — Simulationsingenieur',
         metaDescription: 'Portfolio von Akshay Chandrola, Simulationsingenieur mit Schwerpunkt auf Materialflusssimulation, Intralogistik, Siemens Tecnomatix Plant Simulation, Python-DES und digitalen Zwillingen.',
         ogDescription: 'Materialflusssimulation, Intralogistik, DES, Python und Digital-Twin-Portfolio.',
@@ -2724,7 +2771,7 @@
 
     function updateCvLinks(t) {
       document
-        .querySelectorAll('a[href*="Akshay_Chandrola_CV.pdf"], a[href*="Akshay_Chandrola_lebenslauf.pdf"]')
+        .querySelectorAll('a[href*="Akshay_Chandrola_CV.pdf"], a[href*="Akshay_Chandrola_Lebenslauf.pdf"]')
         .forEach(link => link.setAttribute('href', t.cvPath));
 
       const cvFrame = document.querySelector('.cv-preview-frame');
@@ -2783,6 +2830,7 @@
       setText('.hero-cta .btn-outline:nth-of-type(2)', t.hero.contact);
       setHTML('.ticker', buildTicker(t.ticker));
 
+      setText('.nav-cv-btn', t.navCv);
       setText('#tab-projects', t.nav.projects);
       setText('#tab-certs', t.nav.certs);
       setText('#tab-about', t.nav.about);
@@ -3311,7 +3359,7 @@
           ctx.fillText(`AGV-0${i+1}`,ax,ay-GH/2-7);
         }
 
-        frame++;
+        frame += 0.35;
         requestAnimationFrame(draw);
       }
 
