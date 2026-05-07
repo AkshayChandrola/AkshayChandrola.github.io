@@ -1335,6 +1335,10 @@
     .certs-grid.collapsed .cert-card:not(.cert-featured) {
       display: none;
     }
+
+    .projects-grid.collapsed .project-card:not(.project-featured) {
+      display: none;
+    }
     
     .certs-actions {
       display: flex;
@@ -1454,10 +1458,7 @@
       .hobbies-grid { grid-template-columns: 1fr; }
       .ticker-item { font-size: 0.6rem; padding: 0 1.5rem; }
     }
-      .kpi-row { grid-template-columns: repeat(2, 1fr); }
-      .timeline-date { min-width: 80px; font-size: 0.65rem; }
-      .hobbies-grid { grid-template-columns: 1fr; }
-    }
+    
 
       /* ─────────────────────────────────────────────
       MATERIAL FLOW REVEAL — PROFESSIONAL VERSION
@@ -1663,7 +1664,98 @@
       from { transform: translateX(0); }
       to   { transform: translateX(-50%); }
     }
+
+    #back-to-top {
+      position: fixed;
+      bottom: 28px;
+      right: 20px;
+      z-index: 300;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: var(--amber);
+      color: #000;
+      font-size: 1.1rem;
+      font-weight: 800;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 20px rgba(245,158,11,0.4);
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(10px);
+      transition: opacity 0.3s, transform 0.3s;
+    }
+    #back-to-top.visible {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+    #back-to-top:hover {
+      background: var(--amber2);
+      box-shadow: var(--glow-amber);
+    }
+    @media (max-width: 768px) {
+      #back-to-top { bottom: 20px; right: 14px; width: 38px; height: 38px; font-size: 1rem; }
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 2rem;
+      align-items: start;
+    }
+    .form-group { margin-bottom: 1.1rem; }
+    .form-label {
+      display: block;
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--amber);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .form-input {
+      width: 100%;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 10px 14px;
+      color: var(--text);
+      font-family: var(--body-font);
+      font-size: 0.88rem;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .form-input:focus {
+      border-color: var(--amber-dim);
+      box-shadow: 0 0 0 2px rgba(245,158,11,0.1);
+    }
+    .form-input::placeholder { color: var(--text3); }
+    .form-textarea { min-height: 130px; resize: vertical; }
+    @media (max-width: 768px) {
+      .contact-grid { grid-template-columns: 1fr; }
+    }
+
+    .outcome-badge {
+      display: inline-flex;
+      align-items: center;
+      font-family: var(--mono);
+      font-size: 0.67rem;
+      letter-spacing: 0.06em;
+      color: var(--green);
+      background: rgba(16,185,129,0.08);
+      border: 1px solid rgba(16,185,129,0.25);
+      padding: 3px 10px;
+      border-radius: 3px;
+      margin-bottom: 0.6rem;
+    }
     
+    @media (max-width: 768px) {
+      .cv-iframe-wrap { display: none; }
+    }
   </style>
 </head>
 <body>
@@ -1743,16 +1835,9 @@
         <li class="nav-tab active" id="tab-projects" onclick="showPage('projects')">Projects</li>
         <li class="nav-tab" id="tab-certs" onclick="showPage('certs')">Certificates</li>
         <li class="nav-tab" id="tab-about" onclick="showPage('about')">About Me</li>
+        <li class="nav-tab" id="tab-contact" onclick="showPage('contact')">Contact</li>
       </ul>
      <div class="nav-actions">
-        <div class="nav-lang">
-          <button class="lang-toggle" type="button" data-lang="en" aria-label="Switch to English">
-            <img src="images/flag-england.png" alt="English">
-          </button>
-          <button class="lang-toggle" type="button" data-lang="de" aria-label="Auf Deutsch wechseln">
-            <img src="images/flag-germany.webp" alt="Deutsch">
-          </button>
-        </div>
         <div class="nav-socials">
           <a href="images/Akshay_Chandrola_CV.pdf" target="_blank" class="nav-cv-btn">CV</a>
           <a href="https://www.linkedin.com/in/akshay-chandrola/" target="_blank" class="nav-social-btn" title="LinkedIn">
@@ -1761,6 +1846,14 @@
           <a href="https://github.com/AkshayChandrola" target="_blank" class="nav-social-btn" title="GitHub">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
           </a>
+        </div>
+        <div class="nav-lang">
+          <button class="lang-toggle" type="button" data-lang="en" aria-label="Switch to English">
+            <img src="images/flag-england.png" alt="English">
+          </button>
+          <button class="lang-toggle" type="button" data-lang="de" aria-label="Auf Deutsch wechseln">
+            <img src="images/flag-germany.webp" alt="Deutsch">
+          </button>
         </div>
       </div>
     </div>
@@ -1813,11 +1906,11 @@
       </div>
 
       <!-- Grid -->
-      <div class="projects-grid">
+      <div class="projects-grid collapsed" id="projectsGrid">
 
-        <div class="project-card fade-in-up">
+        <div class="project-card project-featured fade-in-up">
           <div class="project-card-img">
-            <img src="images/pic01.png" alt="" onerror="this.style.display='none'">
+            <img src="images/pic01.png" alt="" loading="lazy" onerror="this.style.display='none'">
           </div>
           <div class="project-card-body">
             <span class="project-tag" style="font-size:0.65rem;padding:2px 8px;">INTERNSHIP · TRAINING</span>
@@ -1827,49 +1920,53 @@
           </div>
         </div>
 
-        <div class="project-card fade-in-up">
+        <div class="project-card project-featured fade-in-up">
           <div class="project-card-img">
-            <img src="images/pic02.png" alt="" onerror="this.style.display='none'">
+            <img src="images/pic02.png" alt="" loading="lazy" onerror="this.style.display='none'">
           </div>
           <div class="project-card-body">
             <span class="project-tag" style="font-size:0.65rem;padding:2px 8px;">CLIENT PROJECT · BOSCH</span>
             <h3><a href="https://github.com/AkshayChandrola/AkshayChandrola.github.io/tree/main/Projects/Bosch%20Manufacturing%20Solution%20internship" target="_blank">Customer Project A: Production Line Optimization</a></h3>
+            <div class="outcome-badge">↑ Throughput Optimized</div>
             <p>Addressed a critical bottleneck using Siemens Plant Simulation. Developed an interactive UI with scenario-control buttons to evaluate strategic supermarket placement, analyzing throughput, cycle time, and resource utilization to deliver data-driven recommendations.</p>
             <a href="https://github.com/AkshayChandrola/AkshayChandrola.github.io/tree/main/Projects/Bosch%20Manufacturing%20Solution%20internship" target="_blank" class="project-link-btn">View Project ↗</a>
           </div>
         </div>
 
-        <div class="project-card fade-in-up">
+        <div class="project-card project-featured fade-in-up">
           <div class="project-card-img">
-            <img src="images/pic03.png" alt="" onerror="this.style.display='none'">
+            <img src="images/pic03.png" alt="" loading="lazy" onerror="this.style.display='none'">
           </div>
           <div class="project-card-body">
             <span class="project-tag" style="font-size:0.65rem;padding:2px 8px;">CLIENT PROJECT · BOSCH</span>
             <h3><a href="https://github.com/AkshayChandrola/AkshayChandrola.github.io/tree/main/Projects/Bosch%20Manufacturing%20Solution%20internship" target="_blank">Customer Project B: Dual-Product Production Line</a></h3>
+            <div class="outcome-badge">✓ Dual-Product Validated</div>
             <p>Designed and simulated a concept production line capable of manufacturing two distinct products with unique assembly and testing requirements — including flexible layout design, resource allocation, and changeover planning to deliver a simulation-validated concept.</p>
             <a href="https://github.com/AkshayChandrola/AkshayChandrola.github.io/tree/main/Projects/Bosch%20Manufacturing%20Solution%20internship" target="_blank" class="project-link-btn">View Project ↗</a>
           </div>
         </div>
 
-        <div class="project-card fade-in-up">
+        <div class="project-card project-featured fade-in-up">
           <div class="project-card-img">
             <img src="images/pic04.png" alt="" onerror="this.style.display='none'">
           </div>
           <div class="project-card-body">
             <span class="project-tag" style="font-size:0.65rem;padding:2px 8px;">OPTIMIZATION · DES</span>
             <h3><a href="https://github.com/AkshayChandrola/AkshayChandrola.github.io/tree/main/Projects/Production%20Planning%20with%20Discrete-Event%20Simulation%20(DES)%20and%20Optimization%20in%20Tecnomatix" target="_blank">Production Planning with DES and Optimization in Tecnomatix</a></h3>
+            <div class="outcome-badge">↓ 15% Makespan · ↓ 20% Tardiness</div>
             <p>End-to-end production planning workflow using Genetic Algorithm optimization in Tecnomatix to minimize makespan and total tardiness simultaneously. Reduced makespan by 15% and total tardiness by 20% through parameter tuning and objective function weighting.</p>
             <a href="https://github.com/AkshayChandrola/AkshayChandrola.github.io/tree/main/Projects/Production%20Planning%20with%20Discrete-Event%20Simulation%20(DES)%20and%20Optimization%20in%20Tecnomatix" target="_blank" class="project-link-btn">View Project ↗</a>
           </div>
         </div>
 
-        <div class="project-card fade-in-up">
+        <div class="project-card project-featured fade-in-up">
           <div class="project-card-img">
-            <img src="images/pic05.png" alt="" onerror="this.style.display='none'">
+            <img src="images/pic05.png" alt="" loading="lazy" onerror="this.style.display='none'">
           </div>
           <div class="project-card-body">
             <span class="project-tag" style="font-size:0.65rem;padding:2px 8px;">MHS DESIGN · RELIABILITY</span>
             <h3><a href="https://github.com/AkshayChandrola/AkshayChandrola.github.io/tree/main/Projects/Material_Handling_System" target="_blank">Automatic Material Handling System (MHS) Design</a></h3>
+            <div class="outcome-badge">↓ 30% Manual Handling Time</div>
             <p>Fully automated MHS designed from scratch integrating conveyor belts, diverters, accumulators, and angular converters. Incorporated a reliability analysis evaluating failure modes and component downtime impact. Reduced manual handling time by 30%.</p>
             <a href="https://github.com/AkshayChandrola/AkshayChandrola.github.io/tree/main/Projects/Material_Handling_System" target="_blank" class="project-link-btn">View Project ↗</a>
           </div>
@@ -1877,7 +1974,7 @@
 
         <div class="project-card fade-in-up">
           <div class="project-card-img">
-            <img src="images/pic06.png" alt="" onerror="this.style.display='none'">
+            <img src="images/pic06.png" alt="" loading="lazy" onerror="this.style.display='none'">
           </div>
           <div class="project-card-body">
             <span class="project-tag" style="font-size:0.65rem;padding:2px 8px;">SUPPLY CHAIN · SIMULATION</span>
@@ -1888,7 +1985,7 @@
 
         <div class="project-card fade-in-up">
           <div class="project-card-img">
-            <img src="images/pic07.png" alt="" onerror="this.style.display='none'">
+            <img src="images/pic07.png" alt="" loading="lazy" onerror="this.style.display='none'">
           </div>
           <div class="project-card-body">
             <span class="project-tag" style="font-size:0.65rem;padding:2px 8px;">ML · PYTHON · PYTORCH</span>
@@ -1899,7 +1996,7 @@
 
         <div class="project-card fade-in-up">
           <div class="project-card-img">
-            <img src="images/pic08.avif" alt="" onerror="this.style.display='none'">
+            <img src="images/pic08.avif" alt="" loading="lazy" onerror="this.style.display='none'">
           </div>
           <div class="project-card-body">
             <span class="project-tag" style="font-size:0.65rem;padding:2px 8px;">LITERATURE REVIEW</span>
@@ -1908,9 +2005,9 @@
             <a href="https://github.com/AkshayChandrola/AkshayChandrola.github.io/tree/main/Projects/Supply%20chain%20mapping" target="_blank" class="project-link-btn">View Project ↗</a>
           </div>
         </div>
-        <div class="project-card fade-in-up">
+        <div class="project-card project-featured fade-in-up">
           <div class="project-card-img">
-            <img src="images/pic09.png" alt="" onerror="this.style.display='none'">
+            <img src="images/pic09.png" alt="" loading="lazy" onerror="this.style.display='none'">
           </div>
           <div class="project-card-body">
             <span class="project-tag" style="font-size:0.65rem;padding:2px 8px;">POWER BI · DATA VISUALIZATION</span>
@@ -1922,7 +2019,7 @@
 
         <div class="project-card fade-in-up">
           <div class="project-card-img">
-            <img src="images/pic10.jpg" alt="" onerror="this.style.display='none'">
+            <img src="images/pic10.jpg" alt="" loading="lazy" onerror="this.style.display='none'">
           </div>
           <div class="project-card-body">
             <span class="project-tag" style="font-size:0.65rem;padding:2px 8px;">SQL · DATA CLEANING</span>
@@ -1934,7 +2031,7 @@
 
         <div class="project-card fade-in-up">
           <div class="project-card-img">
-            <img src="images/pic11.png" alt="" onerror="this.style.display='none'">
+            <img src="images/pic11.png" alt="" loading="lazy" onerror="this.style.display='none'">
           </div>
           <div class="project-card-body">
             <span class="project-tag" style="font-size:0.65rem;padding:2px 8px;">SQL · EDA</span>
@@ -1946,7 +2043,7 @@
 
         <div class="project-card fade-in-up">
           <div class="project-card-img">
-            <img src="images/pic12.png" alt="" onerror="this.style.display='none'">
+            <img src="images/pic12.png" alt="" loading="lazy" onerror="this.style.display='none'">
           </div>
           <div class="project-card-body">
             <span class="project-tag" style="font-size:0.65rem;padding:2px 8px;">TABLEAU · DASHBOARD</span>
@@ -1955,8 +2052,12 @@
             <a href="https://public.tableau.com/app/profile/akshay.chandrola/viz/Airbnb_Dashboard_17769497932630/Dashboard1" target="_blank" class="project-link-btn">View Project ↗</a>
           </div>
         </div>
-
       </div>
+      
+      <div class="certs-actions" style="margin-top:1.8rem;">
+        <button class="btn-outline" id="toggleProjectsBtn" type="button">View More Projects</button>
+      </div>
+           
     </div>
   </div>
 
@@ -2280,11 +2381,13 @@
           </a>
           <div class="cv-preview">
             <div class="cv-preview-title">Curriculum Vitae</div>
-            <iframe
-              class="cv-preview-frame"
-              src="images/Akshay_Chandrola_CV.pdf#toolbar=0&navpanes=0"
-              title="Akshay Chandrola CV">
-            </iframe>
+            <div class="cv-iframe-wrap"
+              <iframe
+                class="cv-preview-frame"
+                src="images/Akshay_Chandrola_CV.pdf#toolbar=0&navpanes=0"
+                title="Akshay Chandrola CV">
+              </iframe>
+            </div>
             <a href="images/Akshay_Chandrola_CV.pdf" target="_blank" class="cert-verify-btn">
               Open CV ↗
             </a>
@@ -2502,6 +2605,56 @@
     </div>
   </div>
 
+  <!-- CONTACT PAGE -->
+  <div id="page-contact" class="page">
+    <div class="page-inner">
+      <div class="section-header">
+        <div class="section-label">Get In Touch</div>
+        <h2 class="section-title">Contact</h2>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-info">
+          <div class="about-section">
+            <div class="about-section-title"><span class="icon">◉</span> Let's Connect</div>
+            <p class="about-bio">Open to simulation engineering roles, freelance projects, and collaborations in intralogistics and digital twin development. Response time is typically within 24 hours.</p>
+            <div style="margin-top:1.4rem;display:flex;flex-direction:column;gap:0.9rem;">
+              <div class="info-row"><span class="info-icon">✉</span><div><span class="info-label">Email</span><a href="mailto:akshay.chandrola@gmail.com">akshay.chandrola@gmail.com</a></div></div>
+              <div class="info-row"><span class="info-icon">📍</span><div><span class="info-label">Location</span><span class="info-val">Magdeburg, Germany</span></div></div>
+              <div class="info-row"><span class="info-icon">🔗</span><div><span class="info-label">LinkedIn</span><a href="https://www.linkedin.com/in/akshay-chandrola/" target="_blank">linkedin.com/in/akshay-chandrola</a></div></div>
+            </div>
+          </div>
+          <div class="status-badge" style="margin-top:1rem;">
+            <div class="status-dot"></div>
+            Open to new opportunities
+          </div>
+        </div>
+        <form class="contact-form about-section" id="contactForm" onsubmit="handleContactSubmit(event)">
+          <div class="about-section-title"><span class="icon">▶</span> Send a Message</div>
+          <div class="form-group">
+            <label class="form-label" for="cf-name">Name</label>
+            <input class="form-input" type="text" id="cf-name" placeholder="Your full name" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="cf-email">Email</label>
+            <input class="form-input" type="email" id="cf-email" placeholder="your@email.com" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="cf-subject">Subject</label>
+            <input class="form-input" type="text" id="cf-subject" placeholder="Role enquiry / Collaboration / Other">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="cf-message">Message</label>
+            <textarea class="form-input form-textarea" id="cf-message" placeholder="Tell me about the opportunity or project..." required></textarea>
+          </div>
+          <button type="submit" class="btn-primary" style="width:100%;justify-content:center;" id="cf-submit">
+            Send Message ↗
+          </button>
+          <div id="cf-feedback" style="display:none;margin-top:1rem;padding:10px 14px;border-radius:var(--radius);font-family:var(--mono);font-size:0.78rem;"></div>
+        </form>
+      </div>
+    </div>
+  </div>
+  
   <!-- FOOTER -->
   <footer id="footer">
     <div class="footer-inner">
@@ -2545,7 +2698,7 @@
           'WAREHOUSE LAYOUT DESIGN',
           'LEAN SIX SIGMA'
         ],
-        nav: { projects: 'Projects', certs: 'Certificates', about: 'About Me' },
+        nav: { projects: 'Projects', certs: 'Certificates', about: 'About Me', contact: 'Contact' },
         sections: {
           projectsLabel: 'Portfolio',
           projectsTitle: 'Projects',
@@ -2653,7 +2806,7 @@
       de: {
         lang: 'de',
         cvPath: 'images/Akshay_Chandrola_Lebenslauf.pdf',
-        navCv: 'Lebnslauf',
+        navCv: 'Lebenslauf',
         pageTitle: 'Akshay Chandrola — Simulationsingenieur',
         metaDescription: 'Portfolio von Akshay Chandrola, Simulationsingenieur mit Schwerpunkt auf Materialflusssimulation, Intralogistik, Siemens Tecnomatix Plant Simulation, Python-DES und digitalen Zwillingen.',
         ogDescription: 'Materialflusssimulation, Intralogistik, DES, Python und Digital-Twin-Portfolio.',
@@ -2675,7 +2828,7 @@
           'LAGERLAYOUT-DESIGN',
           'LEAN SIX SIGMA'
         ],
-        nav: { projects: 'Projekte', certs: 'Zertifikate', about: 'Über mich' },
+        nav: { projects: 'Projekte', certs: 'Zertifikate', about: 'Über mich', contact: 'Kontakt'},
         sections: {
           projectsLabel: 'Portfolio',
           projectsTitle: 'Projekte',
@@ -2876,7 +3029,8 @@
       setText('#tab-projects', t.nav.projects);
       setText('#tab-certs', t.nav.certs);
       setText('#tab-about', t.nav.about);
-
+      setText('#tab-contact', t.nav.contact);
+      
       setText('#page-projects .section-label', t.sections.projectsLabel);
       setText('#page-projects .section-title', t.sections.projectsTitle);
       setText('#page-certs .section-label', t.sections.certsLabel);
@@ -2927,6 +3081,13 @@
       });
       setCertToggleText();
 
+      if (toggleProjectsBtn) {
+        const isCollapsed = projectsGrid && projectsGrid.classList.contains('collapsed');
+        toggleProjectsBtn.textContent = isCollapsed
+          ? (safeLang === 'de' ? 'Weitere Projekte anzeigen' : 'View More Projects')
+          : (safeLang === 'de' ? 'Weniger Projekte anzeigen' : 'Show Fewer Projects');
+      }
+      
       setAllText('.kpi-label', t.about.kpis);
       setText('.profile-title', t.about.profileTitle);
       setAllText('.profile-card-info .info-label', t.about.infoLabels);
@@ -2991,7 +3152,7 @@
       button.addEventListener('click', () => applyLanguage(button.dataset.lang));
     });
 
-    applyLanguage(localStorage.getItem('portfolio-language') || 'en');
+    applyLanguage('en');
 
     // ── PAGE SWITCHING ──
     function showPage(name) {
@@ -2999,7 +3160,7 @@
       document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
       document.getElementById('page-' + name).classList.add('active');
       document.getElementById('tab-' + name).classList.add('active');
-      window.scrollTo({ top: document.getElementById('navbar').offsetTop - 2, behavior: 'smooth' });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
 
       // Animate lang bars when About is opened
       if (name === 'about') {
@@ -3013,6 +3174,32 @@
       }
     }
 
+    function handleContactSubmit(e) {
+      e.preventDefault();
+      const btn = document.getElementById('cf-submit');
+      const feedback = document.getElementById('cf-feedback');
+      const name = document.getElementById('cf-name').value;
+      const email = document.getElementById('cf-email').value;
+      const subject = document.getElementById('cf-subject').value || 'Portfolio Contact';
+      const message = document.getElementById('cf-message').value;
+    
+      btn.textContent = 'Opening mail client...';
+      btn.disabled = true;
+    
+      const mailtoLink = `mailto:akshay.chandrola@gmail.com?subject=${encodeURIComponent(subject + ' — from ' + name)}&body=${encodeURIComponent('Name: ' + name + '\nEmail: ' + email + '\n\n' + message)}`;
+      window.location.href = mailtoLink;
+    
+      setTimeout(() => {
+        feedback.style.display = 'block';
+        feedback.style.background = 'rgba(16,185,129,0.08)';
+        feedback.style.border = '1px solid rgba(16,185,129,0.3)';
+        feedback.style.color = 'var(--green)';
+        feedback.textContent = '✓ Mail client opened. If it did not open, email directly: akshay.chandrola@gmail.com';
+        btn.textContent = 'Send Message ↗';
+        btn.disabled = false;
+      }, 1500);
+    }
+    
     function scrollToTop() {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
@@ -3060,6 +3247,14 @@
     window.addEventListener('resize', updateNavState);
     updateNavState();
 
+    // Back to top button
+    const backToTopBtn = document.getElementById('back-to-top');
+    function updateBackToTop() {
+      backToTopBtn.classList.toggle('visible', window.scrollY > 400);
+    }
+    backToTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    window.addEventListener('scroll', updateBackToTop, { passive: true });
+    updateBackToTop();
 
     document
       .querySelectorAll('.featured-project, .project-card, .cert-card, .about-section, .kpi-box, .skill-category, .hobby-card')
@@ -3080,8 +3275,21 @@
       });
     }
 
+    const projectsGrid = document.getElementById('projectsGrid');
+    const toggleProjectsBtn = document.getElementById('toggleProjectsBtn');
+    if (projectsGrid && toggleProjectsBtn) {
+      toggleProjectsBtn.addEventListener('click', () => {
+        projectsGrid.classList.toggle('collapsed');
+        const isCollapsed = projectsGrid.classList.contains('collapsed');
+        toggleProjectsBtn.textContent = isCollapsed
+          ? (currentLang === 'de' ? 'Weitere Projekte anzeigen' : 'View More Projects')
+          : (currentLang === 'de' ? 'Weniger Projekte anzeigen' : 'Show Fewer Projects');
+      });
+    }
+
     // ── PROFESSIONAL WAREHOUSE BACKGROUND ──
     (function () {
+      if (window.innerWidth < 768) return;
       const cvs = document.createElement('canvas');
       Object.assign(cvs.style, {
         position:'fixed', top:'0', left:'0',
@@ -3139,6 +3347,11 @@
       const pkgs = Array.from({length:13}, (_,i) => ({ t: i/13 }));
 
       let frame = 0;
+      let animPaused = false;
+      document.addEventListener('visibilitychange', () => {
+        animPaused = document.hidden;
+        if (!animPaused) requestAnimationFrame(draw);
+      });
 
       function draw() {
         ctx.clearRect(0, 0, W, H);
@@ -3416,13 +3629,13 @@
         }
 
         frame += 0.35;
-        requestAnimationFrame(draw);
+        if (!animPaused) requestAnimationFrame(draw);;
       }
 
       draw();
     })();
   </script>
 
-
+  <button id="back-to-top" aria-label="Back to top" title="Back to top">↑</button>
 </body>
 </html>
