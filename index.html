@@ -328,8 +328,41 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      margin-right: 6.3rem;
-      }
+    }
+
+    /* Inline language flags in navbar — hidden until scrolled */
+    .nav-lang {
+      display: none;
+      align-items: center;
+      gap: 4px;
+      padding: 3px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: rgba(245,158,11,0.04);
+      margin-right: 4px;
+    }
+    .nav-lang .lang-toggle {
+      width: 28px;
+      height: 28px;
+    }
+    
+    /* Scrolled state */
+    #navbar.nav-scrolled .nav-lang {
+      display: inline-flex;
+    }
+    #navbar.nav-scrolled .nav-actions {
+      margin-left: auto;
+    }
+    
+    /* Fade out fixed switcher when navbar is sticky */
+    #lang-fixed {
+      transition: opacity 0.3s, pointer-events 0.3s;
+    }
+    #lang-fixed.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+    
     .language-switcher {
       position: fixed;
       top: 6px;
@@ -1635,7 +1668,7 @@
 </head>
 <body>
 
-  <div class="language-switcher" aria-label="Language selection">
+  <div class="language-switcher" id="lang-fixed" aria-label="Language selection">
     <button class="lang-toggle active" type="button" data-lang="en" aria-label="Switch to English" aria-pressed="true">
       <img src="images/flag-england.png" alt="English">
       <span class="sr-only">English</span>
@@ -1711,7 +1744,15 @@
         <li class="nav-tab" id="tab-certs" onclick="showPage('certs')">Certificates</li>
         <li class="nav-tab" id="tab-about" onclick="showPage('about')">About Me</li>
       </ul>
-      <div class="nav-actions">
+     <div class="nav-actions">
+        <div class="nav-lang">
+          <button class="lang-toggle" type="button" data-lang="en" aria-label="Switch to English">
+            <img src="images/flag-england.png" alt="English">
+          </button>
+          <button class="lang-toggle" type="button" data-lang="de" aria-label="Auf Deutsch wechseln">
+            <img src="images/flag-germany.webp" alt="Deutsch">
+          </button>
+        </div>
         <div class="nav-socials">
           <a href="images/Akshay_Chandrola_CV.pdf" target="_blank" class="nav-cv-btn">CV</a>
           <a href="https://www.linkedin.com/in/akshay-chandrola/" target="_blank" class="nav-social-btn" title="LinkedIn">
@@ -3004,6 +3045,20 @@
     window.addEventListener('scroll', updateFlowProgress, { passive: true });
     window.addEventListener('resize', updateFlowProgress);
     updateFlowProgress();
+
+    // Navbar scroll: move flags into nav, hide fixed switcher
+    const navbar = document.getElementById('navbar');
+    const langFixed = document.getElementById('lang-fixed');
+    const introSection = document.getElementById('intro');
+    
+    function updateNavState() {
+      const past = window.scrollY > (introSection.offsetHeight - 80);
+      navbar.classList.toggle('nav-scrolled', past);
+      langFixed.classList.toggle('hidden', past);
+    }
+    window.addEventListener('scroll', updateNavState, { passive: true });
+    window.addEventListener('resize', updateNavState);
+    updateNavState();
 
 
     document
