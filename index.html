@@ -3305,11 +3305,12 @@
       toggleCertsBtn.addEventListener('click', () => {
         certsGrid.classList.toggle('collapsed');
         setCertToggleText();
-        // Force-reveal any cards that were hidden when observer ran
         if (!certsGrid.classList.contains('collapsed')) {
-          certsGrid.querySelectorAll('.cert-card.flow-reveal:not(.is-visible)').forEach(el => {
-            el.classList.add('is-visible');
-          });
+          setTimeout(() => {
+            certsGrid.querySelectorAll('.cert-card').forEach(el => {
+              el.classList.add('is-visible');
+            });
+          }, 10);
         }
       });
     }
@@ -3323,11 +3324,12 @@
         toggleProjectsBtn.textContent = isCollapsed
           ? (currentLang === 'de' ? 'Weitere Projekte anzeigen' : 'View More Projects')
           : (currentLang === 'de' ? 'Weniger Projekte anzeigen' : 'Show Fewer Projects');
-        // Force-reveal any cards that were hidden when observer ran
         if (!isCollapsed) {
-          projectsGrid.querySelectorAll('.project-card.flow-reveal:not(.is-visible)').forEach(el => {
-            el.classList.add('is-visible');
-          });
+          setTimeout(() => {
+            projectsGrid.querySelectorAll('.project-card').forEach(el => {
+              el.classList.add('is-visible');
+            });
+          }, 10);
         }
       });
     }
