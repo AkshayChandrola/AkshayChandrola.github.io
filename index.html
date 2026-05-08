@@ -350,9 +350,6 @@
     #navbar.nav-scrolled .nav-lang {
       display: inline-flex;
     }
-    #navbar.nav-scrolled .nav-actions {
-      margin-left: auto;
-    }
     
     /* Fade out fixed switcher when navbar is sticky */
     #lang-fixed {
@@ -365,9 +362,9 @@
     
     .language-switcher {
       position: fixed;
-      top: 6px;
+      top: 10px;
       right: 18px;
-      z-index: 500;
+      z-index: 90;
       display: inline-flex;
       align-items: center;
       gap: 6px;
@@ -1336,7 +1333,10 @@
       display: none;
     }
 
-    .projects-grid.collapsed .project-card:not(.project-featured) {
+   .certs-grid.collapsed > .cert-card:not(.cert-featured) {
+      display: none;
+    }
+    .projects-grid.collapsed > .project-card:not(.project-featured) {
       display: none;
     }
     
@@ -1789,15 +1789,15 @@
     </div>
     <p>Simulation Engineer with hands-on expertise in Tecnomatix Plant Simulation and Python-based DES — modeling AGV systems, production lines, and warehouse flows to reduce bottlenecks, cut costs, and validate layouts before a single machine moves.</p>
     <div class="hero-cta">
-      <button class="btn-primary" onclick="showPage('projects'); document.getElementById('navbar').scrollIntoView({behavior:'smooth'});">
+      <button class="btn-primary" onclick="showPage('projects');">
         ▶ View Projects
       </button>
       <a class="btn-outline" href="images/Akshay_Chandrola_CV.pdf" target="_blank">
         Download CV
       </a>
-      <a class="btn-outline" href="mailto:akshay.chandrola@gmail.com">
+     <button class="btn-outline" onclick="showPage('contact')">
         Contact Me
-      </a>
+      </button>
     </div>
 
     <!-- Ticker -->
@@ -3022,7 +3022,9 @@
       setText('#intro p', t.hero.intro);
       setText('.hero-cta .btn-primary', `▶ ${t.hero.viewProjects}`);
       setText('.hero-cta .btn-outline:nth-of-type(1)', t.hero.downloadCv);
-      setText('.hero-cta .btn-outline:nth-of-type(2)', t.hero.contact);
+      // target by order-of-type won't work on button vs a mix, use this instead:
+      document.querySelectorAll('.hero-cta .btn-outline')[1]?.textContent && 
+        (document.querySelectorAll('.hero-cta .btn-outline')[1].textContent = t.hero.contact);
       setHTML('.ticker', buildTicker(t.ticker));
 
       setText('.nav-cv-btn', t.navCv);
@@ -3257,11 +3259,18 @@
     const langFixed = document.getElementById('lang-fixed');
     const introSection = document.getElementById('intro');
     
-    function updateNavState() {
+   function updateNavState() {
       const past = window.scrollY > (introSection.offsetHeight - 80);
       navbar.classList.toggle('nav-scrolled', past);
-      langFixed.classList.toggle('hidden', past);
+      if (langFixed) langFixed.classList.toggle('hidden', past);
+      // Sync active state on inline flags whenever they appear
+      if (past) {
+        document.querySelectorAll('.nav-lang .lang-toggle').forEach(btn => {
+          btn.classList.toggle('active', btn.dataset.lang === currentLang);
+        });
+      }
     }
+    
     window.addEventListener('scroll', updateNavState, { passive: true });
     window.addEventListener('resize', updateNavState);
     updateNavState();
