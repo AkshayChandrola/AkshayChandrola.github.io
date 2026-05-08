@@ -328,6 +328,7 @@
       display: flex;
       align-items: center;
       gap: 8px;
+      flex-shrink: 0;
     }
 
     /* Inline language flags in navbar — hidden until scrolled */
@@ -349,6 +350,14 @@
     /* Scrolled state */
     #navbar.nav-scrolled .nav-lang {
       display: inline-flex;
+      align-items: center;
+    }
+
+    /* Keep fixed switcher fully hidden when nav takes over */
+    #lang-fixed.hidden {
+      opacity: 0;
+      pointer-events: none;
+      visibility: hidden;
     }
     
     /* Fade out fixed switcher when navbar is sticky */
@@ -2659,7 +2668,7 @@
         <div class="footer-tagline">Simulation Engineer · Magdeburg, Germany</div>
       </div>
       <div class="footer-contact">
-        <a href="mailto:akshay.chandrola@gmail.com" onclick="event.preventDefault(); showPage('contact', 'contactForm');">
+        <a href="#" onclick="event.preventDefault(); showPage('contact', 'contactForm');">✉ Contact Me</a>
         <a href="https://www.linkedin.com/in/akshay-chandrola/" target="_blank">🔗 LinkedIn</a>
         <a href="https://github.com/AkshayChandrola" target="_blank">⌥ GitHub</a>
       </div>
@@ -3264,16 +3273,13 @@
     const langFixed = document.getElementById('lang-fixed');
     const introSection = document.getElementById('intro');
     
-   function updateNavState() {
+    function updateNavState() {
       const past = window.scrollY > (introSection.offsetHeight - 80);
       navbar.classList.toggle('nav-scrolled', past);
       if (langFixed) langFixed.classList.toggle('hidden', past);
-      // Sync active state on inline flags whenever they appear
-      if (past) {
-        document.querySelectorAll('.nav-lang .lang-toggle').forEach(btn => {
-          btn.classList.toggle('active', btn.dataset.lang === currentLang);
-        });
-      }
+      document.querySelectorAll('.nav-lang .lang-toggle').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.lang === currentLang);
+      });
     }
     
     window.addEventListener('scroll', updateNavState, { passive: true });
