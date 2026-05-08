@@ -1791,7 +1791,7 @@
       <a class="btn-outline" href="images/Akshay_Chandrola_CV.pdf" target="_blank">
         Download CV
       </a>
-     <button class="btn-outline" onclick="showPage('contact')">
+     <button class="btn-outline" onclick="showPage('contact', 'contactForm')">
         Contact Me
       </button>
     </div>
@@ -3155,12 +3155,19 @@
     applyLanguage('en');
 
     // ── PAGE SWITCHING ──
-    function showPage(name) {
+    function showPage(name, scrollToId) {
       document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
       document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
       document.getElementById('page-' + name).classList.add('active');
       document.getElementById('tab-' + name).classList.add('active');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      if (scrollToId) {
+        setTimeout(() => {
+          const el = document.getElementById(scrollToId);
+          if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 50);
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
 
       // Animate lang bars when About is opened
       if (name === 'about') {
@@ -3298,6 +3305,12 @@
       toggleCertsBtn.addEventListener('click', () => {
         certsGrid.classList.toggle('collapsed');
         setCertToggleText();
+        // Force-reveal any cards that were hidden when observer ran
+        if (!certsGrid.classList.contains('collapsed')) {
+          certsGrid.querySelectorAll('.cert-card.flow-reveal:not(.is-visible)').forEach(el => {
+            el.classList.add('is-visible');
+          });
+        }
       });
     }
 
@@ -3310,6 +3323,12 @@
         toggleProjectsBtn.textContent = isCollapsed
           ? (currentLang === 'de' ? 'Weitere Projekte anzeigen' : 'View More Projects')
           : (currentLang === 'de' ? 'Weniger Projekte anzeigen' : 'Show Fewer Projects');
+        // Force-reveal any cards that were hidden when observer ran
+        if (!isCollapsed) {
+          projectsGrid.querySelectorAll('.project-card.flow-reveal:not(.is-visible)').forEach(el => {
+            el.classList.add('is-visible');
+          });
+        }
       });
     }
 
