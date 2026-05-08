@@ -1328,10 +1328,6 @@
       color: var(--cyan);
       font-weight: 500;
     }
-    
-    .certs-grid.collapsed .cert-card:not(.cert-featured) {
-      display: none;
-    }
 
    .certs-grid.collapsed > .cert-card:not(.cert-featured) {
       display: none;
@@ -1948,7 +1944,7 @@
 
         <div class="project-card project-featured fade-in-up">
           <div class="project-card-img">
-            <img src="images/pic04.png" alt="" onerror="this.style.display='none'">
+            <img src="images/pic04.png" alt="" loading="lazy" onerror="this.style.display='none'">
           </div>
           <div class="project-card-body">
             <span class="project-tag" style="font-size:0.65rem;padding:2px 8px;">OPTIMIZATION · DES</span>
@@ -2381,7 +2377,7 @@
           </a>
           <div class="cv-preview">
             <div class="cv-preview-title">Curriculum Vitae</div>
-            <div class="cv-iframe-wrap"
+            <div class="cv-iframe-wrap">
               <iframe
                 class="cv-preview-frame"
                 src="images/Akshay_Chandrola_CV.pdf#toolbar=0&navpanes=0"
@@ -3023,8 +3019,8 @@
       setText('.hero-cta .btn-primary', `▶ ${t.hero.viewProjects}`);
       setText('.hero-cta .btn-outline:nth-of-type(1)', t.hero.downloadCv);
       // target by order-of-type won't work on button vs a mix, use this instead:
-      document.querySelectorAll('.hero-cta .btn-outline')[1]?.textContent && 
-        (document.querySelectorAll('.hero-cta .btn-outline')[1].textContent = t.hero.contact);
+      const contactBtn = document.querySelectorAll('.hero-cta .btn-outline')[1];
+      if (contactBtn) contactBtn.textContent = t.hero.contact;
       setHTML('.ticker', buildTicker(t.ticker));
 
       setText('.nav-cv-btn', t.navCv);
@@ -3083,9 +3079,11 @@
       });
       setCertToggleText();
 
-      if (toggleProjectsBtn) {
-        const isCollapsed = projectsGrid && projectsGrid.classList.contains('collapsed');
-        toggleProjectsBtn.textContent = isCollapsed
+      const _pg = document.getElementById('projectsGrid');
+      const _tb = document.getElementById('toggleProjectsBtn');
+      if (_tb) {
+        const isCollapsed = _pg && _pg.classList.contains('collapsed');
+        _tb.textContent = isCollapsed
           ? (safeLang === 'de' ? 'Weitere Projekte anzeigen' : 'View More Projects')
           : (safeLang === 'de' ? 'Weniger Projekte anzeigen' : 'Show Fewer Projects');
       }
@@ -3354,7 +3352,7 @@
         return [a[0]+s*(b[0]-a[0]), a[1]+s*(b[1]-a[1]), Math.atan2(b[1]-a[1], b[0]-a[0])];
       }
 
-      function rr(x, y, w, h, r) {
+      function rr(ctx, x, y, w, h, r) {
         ctx.beginPath();
         ctx.moveTo(x+r,y); ctx.lineTo(x+w-r,y); ctx.arcTo(x+w,y,x+w,y+r,r);
         ctx.lineTo(x+w,y+h-r); ctx.arcTo(x+w,y+h,x+w-r,y+h,r);
@@ -3657,7 +3655,7 @@
         }
 
         frame += 0.35;
-        if (!animPaused) requestAnimationFrame(draw);;
+        if (!animPaused) requestAnimationFrame(draw);
       }
 
       draw();
